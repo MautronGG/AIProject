@@ -39,11 +39,13 @@ public class MinionsMovement : MonoBehaviour
   {
     if (m_canMove)
     {
+      m_moveSpeed = 2.7f;
       //rig.velocity = new Vector3(m_speed,m_speed,m_speed);
       m_moveVector = new Vector2(1f, 0f);
     }
     else
     {
+      m_moveSpeed = 0;
       m_moveVector = Vector2.zero;
     }
     if (m_reachedGoal)
@@ -142,9 +144,9 @@ public class MinionsMovement : MonoBehaviour
     }
   }
 
-  private void OnTriggerEnter2D(Collider2D collision)
+  private void OnTriggerEnter(Collider other)
   {
-    if (collision.transform.tag == "Destiny")
+    if (other.transform.tag == "Destiny")
     {
       m_reachedGoal = true;
     }
