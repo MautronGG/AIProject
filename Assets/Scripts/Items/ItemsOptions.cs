@@ -15,12 +15,14 @@ public class ItemsOptions : MonoBehaviour
   }
   public void Delete()
   {
+    m_levelEditor.m_itemsList.Remove(m_levelEditor.m_itemID.GetComponent<ItemManager>());
     Destroy(m_levelEditor.m_itemID);
     m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity++;
     m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantityText.text = m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity.ToString();
   }
   public void DeleteEdit()
   {
+    m_levelEditor.m_itemsList.Remove(m_levelEditor.m_itemID.GetComponent<ItemManager>());
     Destroy(m_levelEditor.m_itemID);
   }
   public void OnEdit()
@@ -29,7 +31,7 @@ public class ItemsOptions : MonoBehaviour
     Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
     var obj = Instantiate(m_levelEditor.m_itemSprite[m_levelEditor.m_currentButtonID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-    obj.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale);
+    obj.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale, m_levelEditor.m_itemID.GetComponent<ItemManager>().m_colorID);
   }
   //public void ColorWheel()
   //{

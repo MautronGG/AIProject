@@ -5,17 +5,32 @@ using UnityEngine;
 public class SpriteFollowMouse : MonoBehaviour
 {
   public float m_rotationDegree = 0f;
-  public float m_rotationSpeed;
+  public float m_defaultRotateSpeed;
+  public float m_runRotateSpeed;
+  float m_rotationSpeed;
+
   public float m_scaleDegree = 0f;
-  public float m_scaleSpeed = 1;
+  public float m_defaultScaleSpeed;
+  public float m_runScaleSpeed;
+  float m_scaleSpeed = 1;
 
   public Vector3 m_defaultRotation;
   public Vector3 m_defaultScale;
+  public Material m_defaultMaterial;
+
+  public int m_colorID = 7;
+  LevelEditorManager m_levelEditor;
   //public GameObject m_child;
 
+  private void Awake()
+  {
+    m_levelEditor = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
+    ChangeDefaults(m_defaultRotation, m_defaultScale, 6);
+  }
   private void Start()
   {
-    ChangeDefaults(m_defaultRotation, m_defaultScale);
+    m_rotationSpeed = m_defaultRotateSpeed;
+    m_scaleSpeed = m_defaultScaleSpeed;
   }
   void Update()
   {
@@ -43,12 +58,26 @@ public class SpriteFollowMouse : MonoBehaviour
       m_scaleDegree -= m_scaleSpeed * Time.deltaTime;
       transform.localScale += new Vector3(0f, m_scaleDegree, 0f);
     }
+    if (Input.GetKeyDown(KeyCode.LeftShift))
+    {
+      m_scaleSpeed = m_runScaleSpeed;
+      m_rotationSpeed = m_runRotateSpeed;
+    }
+    if (Input.GetKeyUp(KeyCode.LeftShift))
+    {
+      m_scaleSpeed = m_defaultScaleSpeed;
+      m_rotationSpeed = m_defaultRotateSpeed;
+    }
   }
-  public void ChangeDefaults(Vector3 newRot, Vector3 newScale)
+  public void ChangeDefaults(Vector3 newRot, Vector3 newScale, int color)
   {
     m_defaultRotation = newRot;
     m_defaultScale = newScale;
     transform.rotation = Quaternion.Euler(m_defaultRotation.x, m_defaultRotation.y, m_defaultRotation.z);
     transform.localScale = m_defaultScale;
+    m_colorID = color;
+    m_levelEditor.ChangeSpriteColor(m_colorID, this.gameObject);
+    //m_colorID = material;
+    //this.GetComponent<Renderer>().material = m_colorID;
   }
 }

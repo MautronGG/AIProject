@@ -97,8 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rotationDegree: 0
-  m_rotationSpeed: 15
+  m_defaultRotateSpeed: 10
+  m_runRotateSpeed: 25
   m_scaleDegree: 0
-  m_scaleSpeed: 1
+  m_defaultScaleSpeed: 1
+  m_runScaleSpeed: 8
   m_defaultRotation: {x: 270, y: 270, z: 0}
   m_defaultScale: {x: 2.750849, y: 7.537791, z: 0.79671}
+  m_defaultMaterial: {fileID: 2100000, guid: 15d59d166400e0b44ab6ac1caf769f80, type: 2}
+  m_colorID: 7

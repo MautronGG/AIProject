@@ -132,4 +132,6 @@ MonoBehaviour:
   m_rotationSpeed: 15
   m_scaleDegree: 0
   m_scaleSpeed: 1
-  m_child: {fileID: 252235523625764014}
+  m_defaultRotation: {x: 0, y: 0, z: 0}
+  m_defaultScale: {x: 0, y: 0, z: 0}
+  m_defaultMaterial: {fileID: 2100000, guid: 15d59d166400e0b44ab6ac1caf769f80, type: 2}

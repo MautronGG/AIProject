@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MinionsMovement : MonoBehaviour
 {
+  public Vector3 m_defaultPosition;
   public float m_moveSpeed = 4.0f;
   public float m_speed;
   public bool m_reachedGoal = false;
@@ -25,6 +26,7 @@ public class MinionsMovement : MonoBehaviour
   public float m_fallTimeoutDelta;
 
   private float m_terminalVelocity = 53.0f;
+  public LevelEditorManager m_levelEditorManager;
   // Start is called before the first frame update
   void Start()
   {
@@ -32,11 +34,16 @@ public class MinionsMovement : MonoBehaviour
     rig = GetComponent<Rigidbody>();
     m_controller = GetComponent<CharacterController>();
     m_fallTimeoutDelta = m_fallTimeout;
+    m_levelEditorManager = FindObjectOfType<LevelEditorManager>();
   }
 
   // Update is called once per frame
   void Update()
   {
+    if (transform.position.y <= -4f)
+    {
+      this.gameObject.SetActive(false);
+    }
     if (m_canMove)
     {
       m_moveSpeed = 2.7f;
@@ -57,7 +64,7 @@ public class MinionsMovement : MonoBehaviour
     }
     Move();
     GroundedCheck();
-    JumpAndGravity();
+    Gravity();
   }
   public void SetMovement()
   {
@@ -112,7 +119,7 @@ public class MinionsMovement : MonoBehaviour
     Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - m_groundedOffset, transform.position.z);
     m_isGrounded = Physics.CheckSphere(spherePosition, m_groundedRadius, m_groundLayers, QueryTriggerInteraction.Ignore);
   }
-  private void JumpAndGravity()
+  private void Gravity()
   {
     if (m_isGrounded)
     {
@@ -122,7 +129,7 @@ public class MinionsMovement : MonoBehaviour
       // stop our velocity dropping infinitely when grounded
       if (m_verticalVelocity < 0.0f)
       {
-       m_verticalVelocity = -2f;
+        m_verticalVelocity = -2f;
       }
 
 
@@ -140,16 +147,38 @@ public class MinionsMovement : MonoBehaviour
     // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
     if (m_verticalVelocity < m_terminalVelocity)
     {
-     m_verticalVelocity += m_gravity * Time.deltaTime;
+      m_verticalVelocity += m_gravity * Time.deltaTime;
     }
   }
-
+  private void OnDisable()
+  {
+    m_levelEditorManager.m_finishedBoids++;
+  }
   private void OnTriggerEnter(Collider other)
   {
     if (other.transform.tag == "Destiny")
     {
       m_reachedGoal = true;
+      m_levelEditorManager.m_reachedGoals++;
+      this.gameObject.SetActive(false);
     }
+  }
+
+  public void ResetDefaults()
+  {
+    if (!gameObject.activeInHierarchy)
+    {
+      gameObject.SetActive(true);
+    }
+    m_verticalVelocity = 0f;
+    m_moveSpeed = 0;
+    m_moveVector = Vector2.zero;
+    m_canMove = false;
+    m_reachedGoal = false;
+    m_controller.enabled = false;
+    transform.position = m_defaultPosition;
+    m_controller.enabled = true;
+    
   }
 
   //private void OnCollisionEnter2D(Collision2D collision)

@@ -5,9 +5,12 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
   public int m_ID;
-  //public GameObject m_canvas;
+  public int m_colorID = 6;
+  //public GameObject m_optionsCanvas;
+  //public GameObject m_colorCanvas;
   private LevelEditorManager m_levelEditor;
   //public GameObject m_child;
+  public bool m_changedColor = false;
 
 
   private void Awake()
@@ -16,12 +19,17 @@ public class ItemManager : MonoBehaviour
   }
   private void OnMouseOver()
   {
-    if (Input.GetMouseButtonDown(0))
+    if(!m_levelEditor.m_optionsCanvas.activeInHierarchy && !m_levelEditor.m_colorCanvas.activeInHierarchy && !m_levelEditor.m_winCanvas.activeInHierarchy && !m_levelEditor.m_gameOverCanvas.activeInHierarchy && !m_levelEditor.m_controlCanvas.activeInHierarchy)
     {
-      m_levelEditor.m_itemID = this.gameObject;
-      m_levelEditor.m_optionsCanvas.SetActive(true);
+      if (Input.GetMouseButtonDown(0))
+      {
+        m_levelEditor.m_itemID = this.gameObject;
+        m_levelEditor.m_optionsCanvas.SetActive(true);
+        m_levelEditor.m_HUDCanvas.SetActive(false);
+      }
     }
   }
+ 
   //public void ChangeColor(int ID)
   //{
   //  var render = m_child.GetComponent<Renderer>();
