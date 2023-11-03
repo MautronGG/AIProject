@@ -29,6 +29,8 @@ public class ItemController : MonoBehaviour
       m_quantity--;
       m_quantityText.text = m_quantity.ToString();
       m_levelEditor.m_currentButtonID = m_ID;
+      m_levelEditor.m_HUDCanvas.SetActive(false);
+      m_levelEditor.m_controlCanvas.SetActive(true);
     }
   }
 }
