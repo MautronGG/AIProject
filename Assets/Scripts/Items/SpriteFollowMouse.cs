@@ -25,13 +25,19 @@ public class SpriteFollowMouse : MonoBehaviour
   private void Awake()
   {
     m_levelEditor = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
-    ChangeDefaults(m_defaultRotation, m_defaultScale, 6);
+    ChangeDefaults(m_defaultRotation, m_defaultScale, 7);
   }
   private void Start()
   {
     m_rotationSpeed = m_defaultRotateSpeed;
     m_scaleSpeed = m_defaultScaleSpeed;
   }
+  private void OnEnable()
+  {
+    m_rotationDegree = 0f;
+    m_scaleDegree = 0f;
+  }
+
   void Update()
   {
     m_scaleDegree = 0f;

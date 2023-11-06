@@ -49,6 +49,8 @@ public class LevelEditorManager : MonoBehaviour
   public int m_reachedGoals = 0;
   public int m_finishedBoids = 0;
 
+  public int m_personalID = 0;
+
   private void Update()
   {
     Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -61,8 +63,13 @@ public class LevelEditorManager : MonoBehaviour
     }
     else if (Input.GetMouseButtonDown(0) && m_editClicked)
     {
-      InstantiatePrefab(worldPosition);
+      //InstantiatePrefab(worldPosition);
+      var item = m_itemsList[m_itemID.GetComponent<ItemManager>().m_personalID];
+      item.gameObject.SetActive(true);
       m_editClicked = false;
+      var sprite = item.GetComponent<ItemManager>().m_mySprite;
+      ChangePrefab(item.gameObject, sprite.GetComponent<SpriteFollowMouse>(), worldPosition);
+      sprite.SetActive(false);
     }
 
     if (m_finishedBoids == 3)
@@ -85,13 +92,24 @@ public class LevelEditorManager : MonoBehaviour
   {
     var sprite = FindObjectOfType<SpriteFollowMouse>();
     var obj = Instantiate(m_itemPrefabs[m_currentButtonID], new Vector3(worldPosition.x, worldPosition.y, 0), sprite.transform.rotation);
-    m_itemsList.Add(obj.GetComponent<ItemManager>());
+    var script = obj.GetComponent<ItemManager>();
+    m_itemsList.Add(script);
+    script.m_mySprite = sprite.gameObject;
+    script.m_mySprite.SetActive(false);
+    script.m_personalID = m_personalID;
+    m_personalID++;
+    ChangePrefab(obj, sprite, worldPosition);
+    //Destroy(GameObject.FindGameObjectWithTag("ItemSprite"));
+    //obj.GetComponent<Renderer>().material = material;
+  }
+  public void ChangePrefab(GameObject obj, SpriteFollowMouse sprite, Vector3 worldPosition)
+  {
     obj.transform.localScale = sprite.transform.localScale;
     ChangeSpriteColor(sprite.m_colorID, obj);
-    Destroy(GameObject.FindGameObjectWithTag("ItemSprite"));
-    m_HUDCanvas.SetActive(true);
+    m_HUDCanvas.SetActive(true);    
     m_controlCanvas.SetActive(false);
-    //obj.GetComponent<Renderer>().material = material;
+    obj.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
+    obj.transform.rotation = sprite.transform.rotation;
   }
   public void ChangeColor(int ID)
   {
@@ -265,37 +283,60 @@ public class LevelEditorManager : MonoBehaviour
     item.m_changedColor = true;
   }
 
-  void RemoveColor(int ID)
+  public void RemoveColor(int ID)
   {
-    if (ID == 0)
+    if (m_currentButtonID == 0)
     {
-      m_materialsBridgeArray.Remove(m_red);
+      if (ID == 0)
+      {
+        if (m_materialsBridgeArray.Contains(m_red))
+        {
+          m_materialsBridgeArray.Remove(m_red);
+        }
+      }
+      if (ID == 1)
+      {
+        if (m_materialsBridgeArray.Contains(m_yellow))
+        {
+          m_materialsBridgeArray.Remove(m_yellow);
+        }
+      }
+      if (ID == 2)
+      {
+        if (m_materialsBridgeArray.Contains(m_green))
+        {
+          m_materialsBridgeArray.Remove(m_green);
+        }
+      }
+      if (ID == 3)
+      {
+        if (m_materialsBridgeArray.Contains(m_cyan))
+        {
+          m_materialsBridgeArray.Remove(m_cyan);
+        }
+      }
+      if (ID == 4)
+      {
+        if (m_materialsBridgeArray.Contains(m_blue))
+        {
+          m_materialsBridgeArray.Remove(m_blue);
+        }
+      }
+      if (ID == 5)
+      {
+        if (m_materialsBridgeArray.Contains(m_magenta))
+        {
+          m_materialsBridgeArray.Remove(m_magenta);
+        }
+      }
+      if (ID == 6)
+      {
+        if (m_materialsBridgeArray.Contains(m_white))
+        {
+          m_materialsBridgeArray.Remove(m_white);
+        }
+      }
     }
-    if (ID == 1)
-    {
-      m_materialsBridgeArray.Remove(m_yellow);
-    }
-    if (ID == 2)
-    {
-      m_materialsBridgeArray.Remove(m_green);
-    }
-    if (ID == 3)
-    {
-      m_materialsBridgeArray.Remove(m_cyan);
-    }
-    if (ID == 4)
-    {
-      m_materialsBridgeArray.Remove(m_blue);
-    }
-    if (ID == 5)
-    {
-      m_materialsBridgeArray.Remove(m_magenta);
-    }
-    if (ID == 6)
-    {
-      m_materialsBridgeArray.Remove(m_white);
-    }
-
   }
   public void ChangeSpriteColor(int ID, GameObject obj)
   {
@@ -342,7 +383,7 @@ public class LevelEditorManager : MonoBehaviour
       render.gameObject.layer = LayerMask.NameToLayer("White");
       render.material = m_white;
     }
-    if (ID == 6)
+    if (ID == 7)
     {
       gameObject.layer = LayerMask.NameToLayer("Black");
       render.gameObject.layer = LayerMask.NameToLayer("Black");

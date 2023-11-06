@@ -5,12 +5,14 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
   public int m_ID;
-  public int m_colorID = 6;
+  public int m_colorID = 7;
   //public GameObject m_optionsCanvas;
   //public GameObject m_colorCanvas;
   private LevelEditorManager m_levelEditor;
   //public GameObject m_child;
   public bool m_changedColor = false;
+  public GameObject m_mySprite;
+  public int m_personalID;
 
 
   private void Awake()
