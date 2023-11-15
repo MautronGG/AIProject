@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Reload : MonoBehaviour
 {
+  [SerializeField] int scene = 0;
     public void Scene()
   {
-    SceneManager.LoadScene(0);
+    SceneManager.LoadScene(scene);
   }
 }

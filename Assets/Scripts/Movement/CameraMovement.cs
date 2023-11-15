@@ -8,6 +8,8 @@ public class CameraMovement : MonoBehaviour
   public float m_runSpeed;
   public float m_defaultSpeed;
   public bool m_canMove = true;
+  public bool m_autoMove = false;
+  public GameObject m_minion;
 
   private void Start()
   {
@@ -43,5 +45,14 @@ public class CameraMovement : MonoBehaviour
         m_speed = m_defaultSpeed;
       }
     }
+    if (m_autoMove)
+    {
+      transform.position = new Vector3(m_minion.transform.position.x + 3, transform.position.y, transform.position.z);
+    }
+  }
+  public void AutomaticMovement()
+  {
+    //m_canMove = false;
+    m_autoMove = true;
   }
 }

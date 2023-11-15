@@ -180,6 +180,12 @@ public class MinionsMovement : MonoBehaviour
     m_controller.enabled = true;
     
   }
+  public void PortalTrigger(Vector3 newPos)
+  {
+    m_controller.enabled = false;
+    transform.position = newPos;
+    m_controller.enabled = true;
+  }
 
   //private void OnCollisionEnter2D(Collision2D collision)
   //{

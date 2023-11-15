@@ -14,6 +14,9 @@ public class ItemManager : MonoBehaviour
   public GameObject m_mySprite;
   public int m_personalID;
 
+  public bool m_canEdit = true;
+  public bool m_canDelete = true;
+
 
   private void Awake()
   {

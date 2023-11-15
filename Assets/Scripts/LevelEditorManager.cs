@@ -6,10 +6,14 @@ using UnityEngine.Events;
 
 public class LevelEditorManager : MonoBehaviour
 {
+  [Header("Arrays")]
   public ItemController[] m_itemButtons;
   public GameObject[] m_itemPrefabs;
   public GameObject[] m_itemSprite;
+
   public int m_currentButtonID;
+
+  [Header("Canvas")]
   public GameObject m_optionsCanvas;
   public GameObject m_colorCanvas;
   public GameObject m_HUDCanvas;
@@ -21,8 +25,11 @@ public class LevelEditorManager : MonoBehaviour
 
   public TextMeshProUGUI m_points;
 
+  [Header("Lists")]
   public List<ItemManager> m_itemsList;
   public List<Material> m_materialsBridgeArray;
+  public List<Material> m_materialsPortalArray;
+  public List<Material> m_materialsBombArray;
 
   [Header("Colors")]
   public Material m_red;
@@ -50,6 +57,9 @@ public class LevelEditorManager : MonoBehaviour
   public int m_finishedBoids = 0;
 
   public int m_personalID = 0;
+  public bool m_canPlay;
+
+  int m_scene;
 
   private void Update()
   {
@@ -106,7 +116,7 @@ public class LevelEditorManager : MonoBehaviour
   {
     obj.transform.localScale = sprite.transform.localScale;
     ChangeSpriteColor(sprite.m_colorID, obj);
-    m_HUDCanvas.SetActive(true);    
+    m_HUDCanvas.SetActive(true);
     m_controlCanvas.SetActive(false);
     obj.transform.position = new Vector3(worldPosition.x, worldPosition.y, 0);
     obj.transform.rotation = sprite.transform.rotation;
@@ -114,227 +124,255 @@ public class LevelEditorManager : MonoBehaviour
   public void ChangeColor(int ID)
   {
     //var tempID = ID;
+    List<Material> array = m_materialsBridgeArray;
     var item = m_itemID.GetComponent<ItemManager>();
-    if (item.m_changedColor && item.m_colorID != ID)
+    var canChangeColor = true;
+    var diffColors = false;
+    var prevColor = ID;
+    if (item.m_colorID != ID)
     {
-      RemoveColor(item.m_colorID);
+      prevColor = item.m_colorID;
+      diffColors = true;
     }
-
-    item.m_colorID = ID;
     var render = m_itemID.GetComponent<Renderer>();
-    
+    var exitPortal = render;
+
     //if (item.m_changedColor)
     //{
     //  ID = item.m_colorID;
     //}
 
+    if (item.m_ID == 0)
+    {
+      array = m_materialsBridgeArray;
+    }
+    else if (item.m_ID == 1)
+    {
+      array = m_materialsPortalArray;
+      exitPortal = item.gameObject.GetComponent<PortalScript>().m_exitPortal.gameObject.GetComponent<Renderer>();
+    }
+    else if (item.m_ID == 2)
+    {
+      array = m_materialsBombArray;
+    }
     if (ID == 0)
     {
-
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_red))
       {
-        if (!m_materialsBridgeArray.Contains(m_red))
-        {
-          m_materialsBridgeArray.Add(m_red);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_red);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
       gameObject.layer = LayerMask.NameToLayer("Red");
+      exitPortal.material = m_red;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Red");
       render.gameObject.layer = LayerMask.NameToLayer("Red");
       render.material = m_red;
-      
+
       //m_isRed = true;
     }
     if (ID == 1)
     {
-
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_yellow))
       {
-        if (!m_materialsBridgeArray.Contains(m_yellow))
-        {
-          m_materialsBridgeArray.Add(m_yellow);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_yellow);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
+
       }
       gameObject.layer = LayerMask.NameToLayer("Yellow");
       render.gameObject.layer = LayerMask.NameToLayer("Yellow");
       render.material = m_yellow;
-      
+      exitPortal.material = m_yellow;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Yellow");
+
       //m_isYellow = true;
     }
     if (ID == 2)
     {
-
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_green))
       {
-        if (!m_materialsBridgeArray.Contains(m_green))
-        {
-          m_materialsBridgeArray.Add(m_green);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_green);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
       gameObject.layer = LayerMask.NameToLayer("Green");
       render.gameObject.layer = LayerMask.NameToLayer("Green");
       render.material = m_green;
-      
+      exitPortal.material = m_green;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Green");
+
       //m_isGreen = true;
     }
     if (ID == 3)
     {
-
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_cyan))
       {
-        if (!m_materialsBridgeArray.Contains(m_cyan))
-        {
-          m_materialsBridgeArray.Add(m_cyan);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_cyan);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
       gameObject.layer = LayerMask.NameToLayer("Cyan");
       render.gameObject.layer = LayerMask.NameToLayer("Cyan");
       render.material = m_cyan;
-      
+      exitPortal.material = m_cyan;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Cyan");
+
       //m_isCyan = true;
     }
     if (ID == 4)
     {
-
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_blue))
       {
-        if (!m_materialsBridgeArray.Contains(m_blue))
-        {
-          m_materialsBridgeArray.Add(m_blue);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_blue);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
       gameObject.layer = LayerMask.NameToLayer("Blue");
       render.gameObject.layer = LayerMask.NameToLayer("Blue");
       render.material = m_blue;
-      
+      exitPortal.material = m_blue;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Blue");
+
       //m_isBlue = true;
     }
     if (ID == 5)
     {
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_magenta))
       {
-        if (!m_materialsBridgeArray.Contains(m_magenta))
-        {
-          m_materialsBridgeArray.Add(m_magenta);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_magenta);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
       gameObject.layer = LayerMask.NameToLayer("Magenta");
       render.gameObject.layer = LayerMask.NameToLayer("Magenta");
-      render.material = m_magenta;  
+      render.material = m_magenta;
+      exitPortal.material = m_magenta;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("Magenta");
+
       //m_isMagenta = true;
     }
     if (ID == 6)
     {
-      if (m_currentButtonID == 0)
+      if (!array.Contains(m_white))
       {
-        if (!m_materialsBridgeArray.Contains(m_white))
-        {
-          m_materialsBridgeArray.Add(m_white);
-        }
-        else
-        {
-          CantChangeColor();
-          Debug.Log("Cant change color");
-          return;
-        }
+        array.Add(m_white);
+      }
+      else
+      {
+        CantChangeColor();
+        canChangeColor = false;
+        Debug.Log("Cant change color");
+        return;
       }
 
       gameObject.layer = LayerMask.NameToLayer("White");
       render.gameObject.layer = LayerMask.NameToLayer("White");
       render.material = m_white;
-      
+      exitPortal.material = m_white;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer("White");
+
       //m_isWhite = true;
+    }
+    if (canChangeColor)
+    {
+      item.m_colorID = ID;
+    }
+    if (item.m_changedColor && canChangeColor && diffColors)
+    {
+      RemoveColor(prevColor, item.m_ID);
     }
     item.m_changedColor = true;
   }
 
-  public void RemoveColor(int ID)
+  public void RemoveColor(int colorID, int itemID)
   {
-    if (m_currentButtonID == 0)
+    var array = m_materialsBridgeArray;
+    if (itemID == 1)
     {
-      if (ID == 0)
+      array = m_materialsPortalArray;
+    }
+    else if (itemID == 2)
+    {
+      array = m_materialsBombArray;
+    }
+    if (colorID == 0)
+    {
+      if (array.Contains(m_red))
       {
-        if (m_materialsBridgeArray.Contains(m_red))
-        {
-          m_materialsBridgeArray.Remove(m_red);
-        }
+        array.Remove(m_red);
       }
-      if (ID == 1)
+    }
+    if (colorID == 1)
+    {
+      if (array.Contains(m_yellow))
       {
-        if (m_materialsBridgeArray.Contains(m_yellow))
-        {
-          m_materialsBridgeArray.Remove(m_yellow);
-        }
+        array.Remove(m_yellow);
       }
-      if (ID == 2)
+    }
+    if (colorID == 2)
+    {
+      if (array.Contains(m_green))
       {
-        if (m_materialsBridgeArray.Contains(m_green))
-        {
-          m_materialsBridgeArray.Remove(m_green);
-        }
+        array.Remove(m_green);
       }
-      if (ID == 3)
+    }
+    if (colorID == 3)
+    {
+      if (array.Contains(m_cyan))
       {
-        if (m_materialsBridgeArray.Contains(m_cyan))
-        {
-          m_materialsBridgeArray.Remove(m_cyan);
-        }
+        array.Remove(m_cyan);
       }
-      if (ID == 4)
+    }
+    if (colorID == 4)
+    {
+      if (array.Contains(m_blue))
       {
-        if (m_materialsBridgeArray.Contains(m_blue))
-        {
-          m_materialsBridgeArray.Remove(m_blue);
-        }
+        array.Remove(m_blue);
       }
-      if (ID == 5)
+    }
+    if (colorID == 5)
+    {
+      if (array.Contains(m_magenta))
       {
-        if (m_materialsBridgeArray.Contains(m_magenta))
-        {
-          m_materialsBridgeArray.Remove(m_magenta);
-        }
+        array.Remove(m_magenta);
       }
-      if (ID == 6)
+    }
+    if (colorID == 6)
+    {
+      if (array.Contains(m_white))
       {
-        if (m_materialsBridgeArray.Contains(m_white))
-        {
-          m_materialsBridgeArray.Remove(m_white);
-        }
+        array.Remove(m_white);
       }
     }
   }
@@ -393,34 +431,34 @@ public class LevelEditorManager : MonoBehaviour
   }
   public void PlayEvents()
   {
-    var canPlay = true;
+    m_canPlay = true;
     foreach (ItemManager obj in m_itemsList)
     {
-      if (obj.m_changedColor)
+      if (obj != null)
       {
-        continue;
+        if (obj.m_changedColor)
+        {
+          continue;
+        }
+        else
+        {
+          m_canPlay = false;
+          m_pleaseAssignColorCanvas.SetActive(true);
+          break;
+        }
       }
-      else
-      {
-        canPlay = false;
-        break;
-      }
-    }
-    if (canPlay)
-    {
-      m_playEvents.Invoke();
-    }
-    else
-    {
-      m_pleaseAssignColorCanvas.SetActive(true);
     }
   }
   public void ResetDefaults()
   {
+    var camera = Camera.main.GetComponent<CameraMovement>();
+    camera.m_canMove = true;
+    camera.m_autoMove = false;
     m_reachedGoals = 0;
     m_finishedBoids = 0;
     m_editClicked = false;
-}
+    m_canPlay = false;
+  }
   public void CantChangeColor()
   {
     m_cantRepeatColorCanvas.SetActive(true);

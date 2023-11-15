@@ -15,15 +15,16 @@ public class ItemsOptions : MonoBehaviour
   }
   public void Delete()
   {
-    var color = m_levelEditor.m_itemID.GetComponent<ItemManager>().m_colorID;
-    m_levelEditor.RemoveColor(color);
-    //m_levelEditor.m_itemsList.Remove(m_levelEditor.m_itemID.GetComponent<ItemManager>());
-    Destroy(m_levelEditor.m_itemID.GetComponent<ItemManager>().m_mySprite);
-    Destroy(m_levelEditor.m_itemID);
-    m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity++;
-    m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantityText.text = m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity.ToString();
-
-   
+    var item = m_levelEditor.m_itemID.GetComponent<ItemManager>();
+    if (item.m_canDelete)
+    {
+      m_levelEditor.RemoveColor(item.m_colorID, item.m_ID);
+      //m_levelEditor.m_itemsList.Remove(m_levelEditor.m_itemID.GetComponent<ItemManager>());
+      Destroy(m_levelEditor.m_itemID.GetComponent<ItemManager>().m_mySprite);
+      Destroy(m_levelEditor.m_itemID);
+      m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity++;
+      m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantityText.text = m_levelEditor.m_itemButtons[m_levelEditor.m_currentButtonID].m_quantity.ToString();
+    }
   }
   public void DeleteEdit()
   {
@@ -35,14 +36,20 @@ public class ItemsOptions : MonoBehaviour
   }
   public void OnEdit()
   {
-    m_levelEditor.m_editClicked = true;
-    Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-    Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-    var sprite = m_levelEditor.m_itemsList[m_levelEditor.m_itemID.GetComponent<ItemManager>().m_personalID].m_mySprite;
-    sprite.SetActive(true);
-    sprite.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale, m_levelEditor.m_itemID.GetComponent<ItemManager>().m_colorID);
-    //var obj = Instantiate(m_levelEditor.m_itemSprite[m_levelEditor.m_currentButtonID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-    //obj.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale, m_levelEditor.m_itemID.GetComponent<ItemManager>().m_colorID);
+    var item = m_levelEditor.m_itemID.GetComponent<ItemManager>();
+    if (item.m_canEdit)
+    {
+      m_levelEditor.m_editClicked = true;
+      Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+      Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+      var sprite = m_levelEditor.m_itemsList[item.m_personalID].m_mySprite;
+      sprite.SetActive(true);
+      sprite.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale, item.m_colorID);
+      //var obj = Instantiate(m_levelEditor.m_itemSprite[m_levelEditor.m_currentButtonID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+      //obj.GetComponent<SpriteFollowMouse>().ChangeDefaults(m_levelEditor.m_itemID.transform.rotation.eulerAngles, m_levelEditor.m_itemID.transform.localScale, m_levelEditor.m_itemID.GetComponent<ItemManager>().m_colorID);
+      DeleteEdit();
+    }
+    
   }
   //public void ColorWheel()
   //{
