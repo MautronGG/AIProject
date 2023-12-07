@@ -111,4 +111,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ID: 0
-  m_colorID: 6
+  m_colorID: 7
+  m_levelEditor: {fileID: 0}
+  m_changedColor: 0
+  m_mySprite: {fileID: 0}
+  m_personalID: 0
+  m_canOpenOptions: 1
+  m_canEdit: 1
+  m_canDelete: 1
+  m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_defaultScale: {x: 0, y: 0, z: 0}

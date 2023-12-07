@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MinionsMovement : MonoBehaviour
 {
+  public bool m_portaled = false;
+  public float m_portalTime = 0f;
+  Vector3 m_newMove = new Vector2(1f, 0f);
+  public bool m_bomb = false;
+  public float m_bombTimer = 0f;
   public Vector3 m_defaultPosition;
   public float m_moveSpeed = 4.0f;
   public float m_speed;
@@ -13,7 +18,7 @@ public class MinionsMovement : MonoBehaviour
   public bool m_canMove = false;
   public Vector3 m_initialVelocity;
   public Vector2 m_moveVector;
-  private CharacterController m_controller;
+  public CharacterController m_controller;
   public float m_verticalVelocity;
   public float m_groundedOffset = -0.14f;
   public float m_groundedRadius = 0.5f;
@@ -27,6 +32,29 @@ public class MinionsMovement : MonoBehaviour
 
   private float m_terminalVelocity = 53.0f;
   public LevelEditorManager m_levelEditorManager;
+
+  [Header("FollowPath")]
+  public List<Transform> m_pathList;
+  public int m_pathIndex = 0;
+  public int m_pathIndexNext = 0;
+  public int m_pathIndexPrev = 0;
+  public bool m_isFirstPoint = true;
+  public float m_followPathImpetu;
+  public float m_pathRatio;
+  public float m_pathArriveRatio;
+  public bool m_isFollowPath;
+
+  [Header("Seek")]
+  public Vector3 m_target;
+  public float m_seekImpetu;
+  public Transform m_seekTarget;
+  public float m_seekRatio;
+  public bool m_seekByRatio = false;
+
+  public Vector3 m_Force;
+  public Vector3 m_moveForce = Vector3.zero;
+  public Vector3 m_currentForce = Vector3.zero;
+  public float m_mass;
   // Start is called before the first frame update
   void Start()
   {
@@ -35,25 +63,44 @@ public class MinionsMovement : MonoBehaviour
     m_controller = GetComponent<CharacterController>();
     m_fallTimeoutDelta = m_fallTimeout;
     m_levelEditorManager = FindObjectOfType<LevelEditorManager>();
+    m_defaultPosition = transform.position;
   }
 
   // Update is called once per frame
   void Update()
   {
+    if (m_bomb)
+    {
+      m_bombTimer += Time.deltaTime;
+      if (m_bombTimer >= 0.5f)
+      {
+        m_bombTimer = 0f;
+        m_bomb = false;
+      }
+    }
+    if (m_portaled)
+    {
+      m_portalTime += Time.deltaTime;
+      if (m_portalTime >= 1.5f)
+      {
+        m_portalTime = 0f;
+        m_portaled = false;
+      }
+    }
     if (transform.position.y <= -4f)
     {
       this.gameObject.SetActive(false);
-    }
-    if (m_canMove)
-    {
-      m_moveSpeed = 2.7f;
-      //rig.velocity = new Vector3(m_speed,m_speed,m_speed);
-      m_moveVector = new Vector2(1f, 0f);
     }
     else
     {
       m_moveSpeed = 0;
       m_moveVector = Vector2.zero;
+    }
+    if (m_canMove)
+    {
+      m_moveSpeed = 2.7f;
+      //rig.velocity = new Vector3(m_speed,m_speed,m_speed);
+      m_moveVector = m_newMove;
     }
     if (m_reachedGoal)
     {
@@ -62,13 +109,28 @@ public class MinionsMovement : MonoBehaviour
       //AddPoints
       //FinishLevel
     }
-    Move();
-    GroundedCheck();
-    Gravity();
+    if (m_isFollowPath)
+    {
+      m_Force = Vector3.zero;
+      m_Force += FollowPath(m_pathList, m_pathRatio, m_pathArriveRatio, m_followPathImpetu);
+      m_Force += Inertia(m_currentForce, m_Force, m_mass);
+      m_moveForce = Truncar(m_Force, m_speed);
+      //transform.forward = m_moveForce.normalized;
+      transform.position += m_moveForce * Time.deltaTime;
+    }
+    else
+    {
+      //m_controller.enabled = true;
+      Move();
+      GroundedCheck();
+      Gravity();
+    }
+    
   }
   public void SetMovement()
   {
     m_canMove = true;
+    
   }
 
   public void Move()
@@ -141,6 +203,10 @@ public class MinionsMovement : MonoBehaviour
       {
         m_fallTimeoutDelta -= Time.deltaTime;
       }
+      if (m_verticalVelocity < -10f)
+      {
+        m_verticalVelocity = -10f;
+      }
 
     }
 
@@ -162,6 +228,18 @@ public class MinionsMovement : MonoBehaviour
       m_levelEditorManager.m_reachedGoals++;
       this.gameObject.SetActive(false);
     }
+    if (other.transform.tag == "BombWall" && !m_bomb)
+    {
+      ChangeDirection();
+    }
+    if (other.transform.tag == "Wall")
+    {
+      ChangeDirection();
+    }
+  }
+  public void ChangeDirection()
+  {
+    m_newMove *= -1;
   }
 
   public void ResetDefaults()
@@ -170,9 +248,11 @@ public class MinionsMovement : MonoBehaviour
     {
       gameObject.SetActive(true);
     }
+    m_isFollowPath = false;
     m_verticalVelocity = 0f;
     m_moveSpeed = 0;
     m_moveVector = Vector2.zero;
+    m_newMove = new Vector2(1, 0);
     m_canMove = false;
     m_reachedGoal = false;
     m_controller.enabled = false;
@@ -187,6 +267,85 @@ public class MinionsMovement : MonoBehaviour
     m_controller.enabled = true;
   }
 
+  Vector3 FollowPath(List<Transform> path, float pathRatio, float arriveRatio, float impetu)
+  {
+    Vector3 nextPoint = path[m_pathIndexNext].position;
+    Vector3 prevPoint = path[m_pathIndexPrev].position;
+
+    var v1 = nextPoint - transform.position;
+
+    if (v1.magnitude <= arriveRatio)
+    {
+      m_pathIndexNext++;
+      if (m_pathIndexNext > path.Count - 1)
+      {
+        //m_pathIndexNext = 0;
+        m_isFollowPath = false;
+        m_controller.enabled = true;
+        return Vector3.zero;
+      }
+      m_pathIndexPrev = m_pathIndexNext - 1;
+      if (m_pathIndexPrev < 0)
+      {
+        m_pathIndexPrev = path.Count - 1;
+      }
+      nextPoint = path[m_pathIndexNext].position;
+      prevPoint = path[m_pathIndexPrev].position;
+    }
+
+    var v2 = prevPoint - transform.position;
+    var v3 = prevPoint - nextPoint;
+    var dir = nextPoint - prevPoint;
+
+    var R = Vector3.Dot(v2.normalized, v3.normalized) / v3.magnitude;
+    Vector3 PP = dir * R + prevPoint;
+
+    var v4 = PP - transform.position;
+    Vector3 F = Vector3.zero;
+    if (v4.magnitude > pathRatio)
+    {
+      F += Seek(PP, m_followPathImpetu);
+    }
+
+    F += Seek(nextPoint, m_followPathImpetu);
+
+    return F;
+  }
+  Vector3 Seek(Vector3 Target, float Impetu)
+  {
+    Vector3 Force = Target - transform.position;
+    if (m_seekByRatio)
+    {
+      if (Force.magnitude <= m_seekRatio)
+      {
+        Force = Force.normalized;
+        Force *= Impetu;
+        return Force;
+      }
+      else
+      {
+        return Vector3.zero;
+      }
+    }
+    else
+    {
+      Force = Force.normalized;
+      Force *= Impetu;
+      return Force;
+    }
+    //float magnitude = Force.magnitude;
+  }
+  Vector3 Inertia(Vector3 currentForce, Vector3 newForce, float mass)
+  {
+    Vector3 direction = (currentForce * mass) + (newForce * (1 - mass));
+    return direction;
+  }
+  Vector3 Truncar(Vector3 force, float speed)
+  {
+    Vector3 F = force.normalized;
+    F *= speed;
+    return F;
+  }
   //private void OnCollisionEnter2D(Collision2D collision)
   //{
   //  if (collision.transform.tag == "Floor")

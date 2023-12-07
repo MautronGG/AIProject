@@ -8,23 +8,31 @@ public class ItemManager : MonoBehaviour
   public int m_colorID = 7;
   //public GameObject m_optionsCanvas;
   //public GameObject m_colorCanvas;
-  private LevelEditorManager m_levelEditor;
+  public LevelEditorManager m_levelEditor;
   //public GameObject m_child;
   public bool m_changedColor = false;
   public GameObject m_mySprite;
   public int m_personalID;
 
+  public bool m_canOpenOptions = true;
   public bool m_canEdit = true;
   public bool m_canDelete = true;
 
+  public Vector3 m_defaultPosition;
+  public Quaternion m_defaultRotation;
+  public Vector3 m_defaultScale;
+  
 
   private void Awake()
   {
     m_levelEditor = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
+    m_defaultPosition = transform.position;
+    m_defaultScale = transform.localScale;
+    m_defaultRotation = transform.rotation;
   }
   private void OnMouseOver()
   {
-    if(!m_levelEditor.m_optionsCanvas.activeInHierarchy && !m_levelEditor.m_colorCanvas.activeInHierarchy && !m_levelEditor.m_winCanvas.activeInHierarchy && !m_levelEditor.m_gameOverCanvas.activeInHierarchy && !m_levelEditor.m_controlCanvas.activeInHierarchy)
+    if(!m_levelEditor.m_optionsCanvas.activeInHierarchy && !m_levelEditor.m_colorCanvas.activeInHierarchy && !m_levelEditor.m_winCanvas.activeInHierarchy && !m_levelEditor.m_gameOverCanvas.activeInHierarchy && !m_levelEditor.m_controlCanvas.activeInHierarchy && m_canOpenOptions && !m_levelEditor.m_isEditing && !m_levelEditor.m_playButton.GetComponent<ButtonSelectionTracker>().IsSelected && !m_levelEditor.m_bridgeButton.GetComponent<ButtonSelectionTracker>().IsSelected && !m_levelEditor.m_pauseCanvas.activeInHierarchy)
     {
       if (Input.GetMouseButtonDown(0))
       {
@@ -34,7 +42,16 @@ public class ItemManager : MonoBehaviour
       }
     }
   }
- 
+  public virtual void ResetDeafualts()
+  {
+    transform.position = m_defaultPosition;
+    transform.rotation = m_defaultRotation;
+    transform.localScale = m_defaultScale;
+  }
+  private void OnEnable()
+  {
+    ResetDeafualts();
+  }
   //public void ChangeColor(int ID)
   //{
   //  var render = m_child.GetComponent<Renderer>();

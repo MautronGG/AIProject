@@ -31,6 +31,7 @@ public class ItemController : MonoBehaviour
       m_levelEditor.m_currentButtonID = m_ID;
       m_levelEditor.m_HUDCanvas.SetActive(false);
       m_levelEditor.m_controlCanvas.SetActive(true);
+      m_levelEditor.m_isEditing = true;
     }
   }
 }

@@ -66,6 +66,7 @@ namespace Mau
     public float m_pathRatio;
     public float m_pathArriveRatio;
 
+    [Header("rest")]
     public Vector3 m_moveForce = Vector3.zero;
     public Vector3 m_currentForce = Vector3.zero;
     public float m_speed = 10;

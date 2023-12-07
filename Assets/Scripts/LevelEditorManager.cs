@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LevelEditorManager : MonoBehaviour
 {
@@ -22,14 +23,20 @@ public class LevelEditorManager : MonoBehaviour
   public GameObject m_controlCanvas;
   public GameObject m_pleaseAssignColorCanvas;
   public GameObject m_cantRepeatColorCanvas;
+  public GameObject m_pauseCanvas;
+  public Button m_playButton;
+  public Button m_bridgeButton;
 
   public TextMeshProUGUI m_points;
 
   [Header("Lists")]
   public List<ItemManager> m_itemsList;
+  public List<ItemManager> m_bombsList;
+  public List<ItemManager> m_enemyList;
   public List<Material> m_materialsBridgeArray;
   public List<Material> m_materialsPortalArray;
   public List<Material> m_materialsBombArray;
+  public List<Material> m_materialsEnemyArray;
 
   [Header("Colors")]
   public Material m_red;
@@ -59,10 +66,35 @@ public class LevelEditorManager : MonoBehaviour
   public int m_personalID = 0;
   public bool m_canPlay;
 
+  public bool m_resettingDeafults = false;
+  float m_resetTime = 0f;
   int m_scene;
+  public bool m_pause = false;
 
+  public bool m_isEditing = false;
+  private void Start()
+  {
+    Time.timeScale = 1.0f;
+  }
   private void Update()
   {
+    if (m_resettingDeafults)
+    {
+      m_resetTime += Time.deltaTime;
+      if (m_resetTime >= 0.5f)
+      {
+        m_resettingDeafults = false;
+        m_resetTime = 0f;
+      }
+    }
+    if (Input.GetKeyDown(KeyCode.Escape) && !m_pause && !m_isEditing)
+    {
+      Time.timeScale = 0.0f;
+      m_pauseCanvas.SetActive(true);
+      m_pause = true;
+      m_HUDCanvas.SetActive(false);
+    }
+
     Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
@@ -70,6 +102,7 @@ public class LevelEditorManager : MonoBehaviour
     {
       InstantiatePrefab(worldPosition);
       m_itemButtons[m_currentButtonID].m_isClicked = false;
+      m_isEditing = false;
     }
     else if (Input.GetMouseButtonDown(0) && m_editClicked)
     {
@@ -129,6 +162,8 @@ public class LevelEditorManager : MonoBehaviour
     var canChangeColor = true;
     var diffColors = false;
     var prevColor = ID;
+    var layer = "Black";
+    var material = m_black;
     if (item.m_colorID != ID)
     {
       prevColor = item.m_colorID;
@@ -136,6 +171,7 @@ public class LevelEditorManager : MonoBehaviour
     }
     var render = m_itemID.GetComponent<Renderer>();
     var exitPortal = render;
+    var bombWall = render;
 
     //if (item.m_changedColor)
     //{
@@ -154,6 +190,11 @@ public class LevelEditorManager : MonoBehaviour
     else if (item.m_ID == 2)
     {
       array = m_materialsBombArray;
+      bombWall = item.gameObject.GetComponent<BombScript>().m_wall.gameObject.GetComponent<Renderer>();
+    }
+    else if (item.m_ID == 3)
+    {
+      array = m_materialsEnemyArray;
     }
     if (ID == 0)
     {
@@ -168,11 +209,8 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-      gameObject.layer = LayerMask.NameToLayer("Red");
-      exitPortal.material = m_red;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Red");
-      render.gameObject.layer = LayerMask.NameToLayer("Red");
-      render.material = m_red;
+      material = m_red;
+      layer = "Red";
 
       //m_isRed = true;
     }
@@ -190,11 +228,8 @@ public class LevelEditorManager : MonoBehaviour
         return;
 
       }
-      gameObject.layer = LayerMask.NameToLayer("Yellow");
-      render.gameObject.layer = LayerMask.NameToLayer("Yellow");
-      render.material = m_yellow;
-      exitPortal.material = m_yellow;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Yellow");
+      material = m_yellow;
+      layer = "Yellow";
 
       //m_isYellow = true;
     }
@@ -211,11 +246,8 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-      gameObject.layer = LayerMask.NameToLayer("Green");
-      render.gameObject.layer = LayerMask.NameToLayer("Green");
-      render.material = m_green;
-      exitPortal.material = m_green;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Green");
+      material = m_green;
+      layer = "Green";
 
       //m_isGreen = true;
     }
@@ -232,11 +264,8 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-      gameObject.layer = LayerMask.NameToLayer("Cyan");
-      render.gameObject.layer = LayerMask.NameToLayer("Cyan");
-      render.material = m_cyan;
-      exitPortal.material = m_cyan;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Cyan");
+      material = m_cyan;
+      layer = "Cyan";
 
       //m_isCyan = true;
     }
@@ -253,11 +282,8 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-      gameObject.layer = LayerMask.NameToLayer("Blue");
-      render.gameObject.layer = LayerMask.NameToLayer("Blue");
-      render.material = m_blue;
-      exitPortal.material = m_blue;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Blue");
+      material = m_blue;
+      layer = "Blue";
 
       //m_isBlue = true;
     }
@@ -274,11 +300,8 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-      gameObject.layer = LayerMask.NameToLayer("Magenta");
-      render.gameObject.layer = LayerMask.NameToLayer("Magenta");
-      render.material = m_magenta;
-      exitPortal.material = m_magenta;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("Magenta");
+      material = m_magenta;
+      layer = "Magenta";
 
       //m_isMagenta = true;
     }
@@ -295,18 +318,26 @@ public class LevelEditorManager : MonoBehaviour
         Debug.Log("Cant change color");
         return;
       }
-
-      gameObject.layer = LayerMask.NameToLayer("White");
-      render.gameObject.layer = LayerMask.NameToLayer("White");
-      render.material = m_white;
-      exitPortal.material = m_white;
-      exitPortal.gameObject.layer = LayerMask.NameToLayer("White");
-
+      material = m_white;
+      layer = "White";
       //m_isWhite = true;
+    }
+    if (ID == 7)
+    {
+     
+      material = m_black;
+      layer = "Black";
+
+      //m_isGreen = true;
     }
     if (canChangeColor)
     {
       item.m_colorID = ID;
+      render.material = material;
+      render.gameObject.layer = LayerMask.NameToLayer(layer);
+      exitPortal.material = material;
+      exitPortal.gameObject.layer = LayerMask.NameToLayer(layer);
+      bombWall.material = material;
     }
     if (item.m_changedColor && canChangeColor && diffColors)
     {
@@ -325,6 +356,10 @@ public class LevelEditorManager : MonoBehaviour
     else if (itemID == 2)
     {
       array = m_materialsBombArray;
+    }
+    else if (itemID == 3)
+    {
+      array = m_materialsEnemyArray;
     }
     if (colorID == 0)
     {
@@ -451,6 +486,7 @@ public class LevelEditorManager : MonoBehaviour
   }
   public void ResetDefaults()
   {
+    m_resettingDeafults = true;
     var camera = Camera.main.GetComponent<CameraMovement>();
     camera.m_canMove = true;
     camera.m_autoMove = false;
@@ -458,9 +494,38 @@ public class LevelEditorManager : MonoBehaviour
     m_finishedBoids = 0;
     m_editClicked = false;
     m_canPlay = false;
+    foreach (ItemManager bomb in m_bombsList)
+    {
+      if (!bomb.gameObject.activeInHierarchy)
+      {
+        bomb.gameObject.SetActive(true);
+      }
+      else
+      {
+        bomb.ResetDeafualts();
+      }
+    }
+    foreach (ItemManager enemy in m_enemyList)
+    {
+      if(!enemy.gameObject.activeInHierarchy)
+      {
+        enemy.gameObject.SetActive(true);
+      }
+      else
+      {
+        enemy.ResetDeafualts();
+      }
+    }
   }
   public void CantChangeColor()
   {
     m_cantRepeatColorCanvas.SetActive(true);
+  }
+  public void UnPause()
+  {
+    Time.timeScale = 1f;
+    m_pause = false;
+    m_HUDCanvas.SetActive(true);
+    m_pauseCanvas.SetActive(false);
   }
 }

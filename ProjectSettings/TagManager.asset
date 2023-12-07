@@ -8,6 +8,10 @@ TagManager:
   - Floor
   - LevelEditorManager
   - ItemSprite
+  - BombWall
+  - Wall
+  - Water
+  - HUD
   layers:
   - Default
   - TransparentFX

@@ -50,9 +50,13 @@ public class CameraMovement : MonoBehaviour
       transform.position = new Vector3(m_minion.transform.position.x + 3, transform.position.y, transform.position.z);
     }
   }
-  public void AutomaticMovement()
+  public void AutomaticMovement(bool Bool)
   {
     //m_canMove = false;
-    m_autoMove = true;
+    m_autoMove = Bool;
+  }
+  public void ChangeMovement(bool newMove)
+  {
+    m_canMove = newMove;
   }
 }
