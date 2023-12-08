@@ -324,7 +324,7 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 7)
     {
-     
+
       material = m_black;
       layer = "Black";
 
@@ -333,6 +333,8 @@ public class LevelEditorManager : MonoBehaviour
     if (canChangeColor)
     {
       item.m_colorID = ID;
+      bombWall.GetComponent<ItemManager>().m_colorID = ID;
+      exitPortal.GetComponent<ItemManager>().m_colorID = ID;
       render.material = material;
       render.gameObject.layer = LayerMask.NameToLayer(layer);
       exitPortal.material = material;
@@ -344,6 +346,8 @@ public class LevelEditorManager : MonoBehaviour
       RemoveColor(prevColor, item.m_ID);
     }
     item.m_changedColor = true;
+    bombWall.GetComponent<ItemManager>().m_changedColor = true;
+    exitPortal.GetComponent<ItemManager>().m_changedColor = true;
   }
 
   public void RemoveColor(int colorID, int itemID)
@@ -507,7 +511,7 @@ public class LevelEditorManager : MonoBehaviour
     }
     foreach (ItemManager enemy in m_enemyList)
     {
-      if(!enemy.gameObject.activeInHierarchy)
+      if (!enemy.gameObject.activeInHierarchy)
       {
         enemy.gameObject.SetActive(true);
       }
