@@ -23,20 +23,22 @@ public class UIText : MonoBehaviour
   public void ChangeMassSlider()
   {
     m_massSlider.value = int.Parse(m_massInput.text);
+    ChangeMass();
   }
   public void ChangeVolumeSlider()
   {
     m_volumeSlider.value = int.Parse(m_volumeInput.text);
+    ChangeVolume();
   }
   public void ChangeMassInput()
   {
     m_massInput.text = System.Convert.ToString(m_massSlider.value);
-    
+    ChangeMass();
   }
   public void ChangeVolumeInput()
   {
     m_volumeInput.text = System.Convert.ToString(m_volumeSlider.value);
-    
+    ChangeVolume();
   }
   public void ChangeMass()
   {
