@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - Water
   - HUD
+  - Void
   layers:
   - Default
   - TransparentFX

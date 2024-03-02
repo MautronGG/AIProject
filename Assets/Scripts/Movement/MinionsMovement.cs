@@ -87,10 +87,10 @@ public class MinionsMovement : MonoBehaviour
         m_portaled = false;
       }
     }
-    if (transform.position.y <= -4f)
-    {
-      this.gameObject.SetActive(false);
-    }
+    //if (transform.position.y <= -4f)
+    //{
+    //  this.gameObject.SetActive(false);
+    //}
     else
     {
       m_moveSpeed = 0;
@@ -235,6 +235,10 @@ public class MinionsMovement : MonoBehaviour
     if (other.transform.tag == "Wall")
     {
       ChangeDirection();
+    }
+    if (other.tag == "Void")
+    {
+      this.gameObject.SetActive(false);
     }
   }
   public void ChangeDirection()

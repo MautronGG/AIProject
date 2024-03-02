@@ -48,14 +48,6 @@ public class LevelEditorManager : MonoBehaviour
   public Material m_white;
   public Material m_black;
 
-  //public bool m_isRed;
-  //public bool m_isYellow;
-  //public bool m_isGreen;
-  //public bool m_isCyan;
-  //public bool m_isBlue;
-  //public bool m_isMagenta;
-  //public bool m_isWhite;
-
   public UnityEvent m_playEvents;
   public GameObject m_itemID;
   public bool m_editClicked = false;
