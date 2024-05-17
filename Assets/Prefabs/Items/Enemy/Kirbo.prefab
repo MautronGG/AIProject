@@ -397,7 +397,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 15d59d166400e0b44ab6ac1caf769f80, type: 2}
+  - {fileID: 2100000, guid: ff3c626658c3c1c4aae859c9cc6c5091, type: 2}
   - {fileID: -8499701361930146817, guid: ea0cfd72f73b85a44b89df48b34217b9, type: 3}
   - {fileID: 5629084884208175553, guid: ea0cfd72f73b85a44b89df48b34217b9, type: 3}
   m_StaticBatchInfo:
@@ -448,8 +448,11 @@ MonoBehaviour:
   m_point1: {fileID: 1812962663899881505}
   m_point2: {fileID: 1812962662321528584}
   m_point3: {fileID: 1812962663299901598}
+  m_list: []
   m_uses: 3
   m_countText: {fileID: 6261346417249312394}
+  m_canChangeDirection: 0
+  m_hidden: 0
 --- !u!135 &7368262415771895385
 SphereCollider:
   m_ObjectHideFlags: 0

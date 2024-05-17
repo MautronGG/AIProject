@@ -10,6 +10,7 @@ public class MinionsMovement : MonoBehaviour
   public bool m_bomb = false;
   public float m_bombTimer = 0f;
   public Vector3 m_defaultPosition;
+  public Vector3 m_newDefaultPosition;
   public float m_moveSpeed = 4.0f;
   public float m_speed;
   public bool m_reachedGoal = false;
@@ -24,6 +25,8 @@ public class MinionsMovement : MonoBehaviour
   public float m_groundedRadius = 0.5f;
   public LayerMask m_groundLayers;
   public float m_gravity = -15.0f;
+
+  public bool m_canWin = true;
 
   public float m_speedChangeRate = 10.0f;
   [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
@@ -64,6 +67,7 @@ public class MinionsMovement : MonoBehaviour
     m_fallTimeoutDelta = m_fallTimeout;
     m_levelEditorManager = FindObjectOfType<LevelEditorManager>();
     m_defaultPosition = transform.position;
+    m_newDefaultPosition = m_defaultPosition;
   }
 
   // Update is called once per frame
@@ -216,17 +220,29 @@ public class MinionsMovement : MonoBehaviour
       m_verticalVelocity += m_gravity * Time.deltaTime;
     }
   }
-  private void OnDisable()
-  {
-    m_levelEditorManager.m_finishedBoids++;
-  }
+  //private void OnDisable()
+  //{
+  //  m_levelEditorManager.m_finishedBoids++;
+  //}
   private void OnTriggerEnter(Collider other)
   {
     if (other.transform.tag == "Destiny")
     {
-      m_reachedGoal = true;
-      m_levelEditorManager.m_reachedGoals++;
-      this.gameObject.SetActive(false);
+      if(m_canWin)
+      {
+        m_reachedGoal = true;
+        m_levelEditorManager.m_reachedGoals++;
+        m_levelEditorManager.m_finishedBoids++;
+        this.gameObject.SetActive(false);
+      }
+      else
+      {
+        m_levelEditorManager.m_finishedBoids++;
+        m_levelEditorManager.m_reachedGoals++;
+        m_canMove = false;
+        m_newDefaultPosition = transform.position;
+        Destroy(other.gameObject);
+      }
     }
     if (other.transform.tag == "BombWall" && !m_bomb)
     {
@@ -238,6 +254,7 @@ public class MinionsMovement : MonoBehaviour
     }
     if (other.tag == "Void")
     {
+      m_levelEditorManager.m_finishedBoids++;
       this.gameObject.SetActive(false);
     }
   }
@@ -260,7 +277,7 @@ public class MinionsMovement : MonoBehaviour
     m_canMove = false;
     m_reachedGoal = false;
     m_controller.enabled = false;
-    transform.position = m_defaultPosition;
+    transform.position = m_newDefaultPosition;
     m_controller.enabled = true;
     
   }

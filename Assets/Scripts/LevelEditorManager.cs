@@ -7,12 +7,18 @@ using UnityEngine.UI;
 
 public class LevelEditorManager : MonoBehaviour
 {
+  public int m_currentButtonID;
+  public bool m_canRepeatColor = false;
+
   [Header("Arrays")]
   public ItemController[] m_itemButtons;
   public GameObject[] m_itemPrefabs;
   public GameObject[] m_itemSprite;
 
-  public int m_currentButtonID;
+  [Header("Graffiti")]
+  public GameObject[] m_graffitiArray;
+  public int m_graffiti;
+  public GameObject[] m_wallArray;
 
   [Header("Canvas")]
   public GameObject m_optionsCanvas;
@@ -49,6 +55,7 @@ public class LevelEditorManager : MonoBehaviour
   public Material m_black;
 
   public UnityEvent m_playEvents;
+  public UnityEvent m_restartEvents;
   public GameObject m_itemID;
   public bool m_editClicked = false;
 
@@ -64,9 +71,12 @@ public class LevelEditorManager : MonoBehaviour
   public bool m_pause = false;
 
   public bool m_isEditing = false;
+
+  public bool m_canWin = true;
   private void Start()
   {
     Time.timeScale = 1.0f;
+    SpecialEvent(0);
   }
   private void Update()
   {
@@ -110,17 +120,70 @@ public class LevelEditorManager : MonoBehaviour
     if (m_finishedBoids == 3)
     {
       Camera.main.GetComponent<CameraMovement>().m_canMove = false;
-      if (m_reachedGoals > 0)
+      if (m_canWin)
       {
-        m_HUDCanvas.SetActive(false);
-        m_winCanvas.SetActive(true);
-        m_points.text = "Points " + m_reachedGoals + "/3";
+        if (m_reachedGoals > 0)
+        {
+          m_HUDCanvas.SetActive(false);
+          m_winCanvas.SetActive(true);
+          m_points.text = "Points " + m_reachedGoals + "/3";
+        }
+        else
+        {
+          m_HUDCanvas.SetActive(false);
+          m_gameOverCanvas.SetActive(true);
+        }
       }
       else
       {
-        m_HUDCanvas.SetActive(false);
-        m_gameOverCanvas.SetActive(true);
+        if (m_reachedGoals < 3)
+        {
+          m_HUDCanvas.SetActive(false);
+          m_gameOverCanvas.SetActive(true);
+        }
+        else
+        {
+          ResetDefaults();
+          m_restartEvents.Invoke();
+          m_wallArray[m_graffiti].SetActive(false);
+          m_graffiti++;
+          SpecialEvent(m_graffiti);
+          
+        }
       }
+    }
+  }
+  public void SpecialEvent(int graffiti)
+  {
+    switch (graffiti)
+    {
+      case 0:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 1:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 2:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 3:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 4:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 5:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 6:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 7:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
+      case 8:
+        m_graffitiArray[graffiti].SetActive(true);
+        break;
     }
   }
   public void InstantiatePrefab(Vector3 worldPosition)
@@ -190,16 +253,20 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 0)
     {
-      if (!array.Contains(m_red))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_red);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_red))
+        {
+          array.Add(m_red);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
+
       }
       material = m_red;
       layer = "Red";
@@ -208,16 +275,20 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 1)
     {
-      if (!array.Contains(m_yellow))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_yellow);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_yellow))
+        {
+          array.Add(m_yellow);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+
+        }
 
       }
       material = m_yellow;
@@ -227,16 +298,19 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 2)
     {
-      if (!array.Contains(m_green))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_green);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_green))
+        {
+          array.Add(m_green);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
       }
       material = m_green;
       layer = "Green";
@@ -245,16 +319,19 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 3)
     {
-      if (!array.Contains(m_cyan))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_cyan);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_cyan))
+        {
+          array.Add(m_cyan);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
       }
       material = m_cyan;
       layer = "Cyan";
@@ -263,16 +340,19 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 4)
     {
-      if (!array.Contains(m_blue))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_blue);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_blue))
+        {
+          array.Add(m_blue);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
       }
       material = m_blue;
       layer = "Blue";
@@ -281,16 +361,19 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 5)
     {
-      if (!array.Contains(m_magenta))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_magenta);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_magenta))
+        {
+          array.Add(m_magenta);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
       }
       material = m_magenta;
       layer = "Magenta";
@@ -299,16 +382,19 @@ public class LevelEditorManager : MonoBehaviour
     }
     if (ID == 6)
     {
-      if (!array.Contains(m_white))
+      if (!m_canRepeatColor)
       {
-        array.Add(m_white);
-      }
-      else
-      {
-        CantChangeColor();
-        canChangeColor = false;
-        Debug.Log("Cant change color");
-        return;
+        if (!array.Contains(m_white))
+        {
+          array.Add(m_white);
+        }
+        else
+        {
+          CantChangeColor();
+          canChangeColor = false;
+          Debug.Log("Cant change color");
+          return;
+        }
       }
       material = m_white;
       layer = "White";
@@ -333,7 +419,7 @@ public class LevelEditorManager : MonoBehaviour
       exitPortal.gameObject.layer = LayerMask.NameToLayer(layer);
       bombWall.material = material;
     }
-    if (item.m_changedColor && canChangeColor && diffColors)
+    if (item.m_changedColor && canChangeColor && diffColors && !m_canRepeatColor)
     {
       RemoveColor(prevColor, item.m_ID);
     }
