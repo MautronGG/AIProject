@@ -5,22 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+  - enabled: 0
+    path: Assets/Mau/Scenes/MainMenu.unity
     guid: 930ecec2dbd64d941bb9752a98998e2f
-  - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+  - enabled: 0
+    path: Assets/Mau/Scenes/Tutorial.unity
     guid: b18281d5257ba2842a0ff10cb8882f55
-  - enabled: 1
-    path: Assets/Scenes/Level 1.unity
+  - enabled: 0
+    path: Assets/Mau/Scenes/Level 1.unity
     guid: e1e498e664f2e1a4eb53b089f3e813e8
-  - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+  - enabled: 0
+    path: Assets/Mau/Scenes/Level 2.unity
     guid: 4a98069831b8668408ec2064e8d7fa68
-  - enabled: 1
-    path: Assets/Scenes/Level 3.unity
+  - enabled: 0
+    path: Assets/Mau/Scenes/Level 3.unity
     guid: d16bd483ad34f1348b1e33fb9d302982
   - enabled: 0
-    path: Assets/Scenes/Presentation.unity
+    path: Assets/Mau/Scenes/Presentation.unity
     guid: c65921eaf85d7e344b70cba34444e560
+  - enabled: 1
+    path: Assets/Mau/DreamTeamMobile/GoogleAnalytics/TestScene/TestScene.unity
+    guid: 3624a43970f4f0b4db41d49eefab8c99
   m_configObjects: {}

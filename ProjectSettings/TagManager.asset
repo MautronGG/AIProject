@@ -13,6 +13,10 @@ TagManager:
   - Water
   - HUD
   - Void
+  - Event3
+  - Event2
+  - Event1
+  - EditorManager
   layers:
   - Default
   - TransparentFX
@@ -29,7 +33,7 @@ TagManager:
   - White
   - Ground
   - Black
-  - 
+  - nocol
   - 
   - 
   - 
