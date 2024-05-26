@@ -129,10 +129,10 @@ public class LevelEditorManager : MonoBehaviour
           m_HUDCanvas.SetActive(false);
           m_winCanvas.SetActive(true);
           m_points.text = "Points " + m_reachedGoals + "/3";
-          if (SceneManager.GetActiveScene().name == "MainMenu")
-          {
-            Analytics.CustomEvent("TutorialFinished");
-          }
+          //if (SceneManager.GetActiveScene().name == "MainMenu")
+          //{
+          //  Analytics.CustomEvent("TutorialFinished");
+          //}
           
         }
         else
