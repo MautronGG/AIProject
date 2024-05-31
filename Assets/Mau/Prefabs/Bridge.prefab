@@ -1868,7 +1868,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5423848750306090626}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7.510442, y: 0.7418829, z: 2.7957873}
@@ -1886,8 +1886,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ID: 0
-  m_canvas: {fileID: 5965135986114908741}
-  m_child: {fileID: 252235523625764014}
+  m_colorID: 7
+  m_levelEditor: {fileID: 0}
+  m_changedColor: 0
+  m_mySprite: {fileID: 0}
+  m_personalID: 0
+  m_canOpenOptions: 1
+  m_canEdit: 1
+  m_canDelete: 1
+  m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_defaultScale: {x: 0, y: 0, z: 0}
 --- !u!1 &5601679505299534870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,9 +2304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc93ed84b1748e74d8ee6c9be416f25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ID: 0
-  m_item: {fileID: 6920902118554861525}
-  m_colorCanvas: {fileID: 0}
 --- !u!1 &6172512509372676872
 GameObject:
   m_ObjectHideFlags: 0
