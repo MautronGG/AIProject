@@ -8,7 +8,7 @@ using Unity.Services.Analytics;
 public class InitWithDefault : MonoBehaviour
 {
   // Start is called before the first frame update
-  void Start()
+  private void Start()
   {
     UnityServices.InitializeAsync();
     AnalyticsService.Instance.StartDataCollection();
