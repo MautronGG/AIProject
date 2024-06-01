@@ -5,6 +5,7 @@ using TMPro;
 
 public class ItemController : MonoBehaviour
 {
+  [SerializeField] private GameObject Prefab;
   public int m_ID;
   public int m_quantity;
   public TextMeshProUGUI m_quantityText;
@@ -25,7 +26,7 @@ public class ItemController : MonoBehaviour
       Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
       Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
       m_isClicked = true;
-      Instantiate(m_levelEditor.m_itemSprite[m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+      Instantiate(Prefab, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
       m_quantity--;
       m_quantityText.text = m_quantity.ToString();
       m_levelEditor.m_currentButtonID = m_ID;
