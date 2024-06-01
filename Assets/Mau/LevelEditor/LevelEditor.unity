@@ -1386,8 +1386,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1348199083}
   - {fileID: 1810102146}
+  - {fileID: 1348199083}
   m_Father: {fileID: 1550406612}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2067,6 +2067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 0}
   m_ID: 4
 --- !u!114 &738576122
 MonoBehaviour:
@@ -2613,6 +2614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 0}
   m_ID: 3
 --- !u!114 &990250716
 MonoBehaviour:
@@ -3194,6 +3196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 5238878686007904573}
   m_ID: 0
 --- !u!114 &1145584523
 MonoBehaviour:
@@ -4017,7 +4020,7 @@ RectTransform:
   - {fileID: 673378663}
   - {fileID: 284852570}
   m_Father: {fileID: 619727072}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4050,7 +4053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
-  m_ID: 5
+  m_editor: {fileID: 0}
+  m_ID: 6
 --- !u!114 &1348199086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4226,6 +4230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 0}
   m_ID: 0
 --- !u!114 &1351837200
 MonoBehaviour:
@@ -5223,7 +5228,7 @@ RectTransform:
   - {fileID: 662437712}
   - {fileID: 343249571}
   m_Father: {fileID: 619727072}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5256,7 +5261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
-  m_ID: 6
+  m_editor: {fileID: 0}
+  m_ID: 5
 --- !u!114 &1810102149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6011,6 +6017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 5238878686007904573}
   m_ID: 1
 --- !u!114 &2059197739
 MonoBehaviour:
@@ -6256,17 +6263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fceeb84dfcb844eac4645f4a550220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_objectsList:
-  - NormalBlock
-  - SpikyBlock
-  - Portal
-  - Key
-  - Spring
-  - Enemy
-  - Laser
-  - 
-  - 
-  - 
   m_currentButtonID: 0
   m_personalID: 0
   m_itemButtons:
@@ -7563,4 +7559,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isClicked: 0
+  m_editor: {fileID: 5238878686007904573}
   m_ID: 2
