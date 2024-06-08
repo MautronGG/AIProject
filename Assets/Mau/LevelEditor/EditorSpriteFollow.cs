@@ -6,6 +6,7 @@ public class EditorSpriteFollow : MonoBehaviour
 {
   EditorManager m_editor;
   public bool m_follow = true;
+  [SerializeField] bool m_isParent = false;
   //public GameObject m_child;
 
   private void Awake()
@@ -22,6 +23,13 @@ public class EditorSpriteFollow : MonoBehaviour
       Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
       transform.position = worldPosition;
       //transform.rotation = Quaternion.Euler(m_defaultRotation.x + m_rotationDegree, m_defaultRotation.y, m_defaultRotation.z);
+      if (Input.GetMouseButtonDown(0) && m_isParent)
+      {
+        m_follow = false;
+        m_editor.m_HUDCanvas.SetActive(true);
+        m_editor.m_isEditing = false;
+      }
     }
+
   }
 }

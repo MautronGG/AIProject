@@ -58,7 +58,6 @@ public class MinionsMovement : MonoBehaviour
   public Vector3 m_moveForce = Vector3.zero;
   public Vector3 m_currentForce = Vector3.zero;
   public float m_mass;
-  private CharacterController m_characterController;
   // Start is called before the first frame update
   void Start()
   {
@@ -69,14 +68,11 @@ public class MinionsMovement : MonoBehaviour
     m_levelEditorManager = FindObjectOfType<LevelEditorManager>();
     m_defaultPosition = transform.position;
     m_newDefaultPosition = m_defaultPosition;
-    m_characterController = GetComponent<CharacterController>();
   }
 
   // Update is called once per frame
   void Update()
   {
-    if (BridgeScript.BridgeActivate) { m_characterController.enabled = false; }
-    else { m_characterController.enabled = true; }
     if (m_bomb)
     {
       m_bombTimer += Time.deltaTime;

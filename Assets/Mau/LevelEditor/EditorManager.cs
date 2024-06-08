@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour
 {
+  //public List<string> m_objectsList;
+
   public int m_currentButtonID;
   public int m_personalID = 0;
 

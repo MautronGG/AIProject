@@ -104,7 +104,6 @@ public class LevelEditorManager : MonoBehaviour
 
     if (Input.GetMouseButtonDown(0) && m_itemButtons[m_currentButtonID].m_isClicked)
     {
-            BridgeScript.BridgeActivate = false;
       InstantiatePrefab(worldPosition);
       m_itemButtons[m_currentButtonID].m_isClicked = false;
       m_isEditing = false;
@@ -130,10 +129,10 @@ public class LevelEditorManager : MonoBehaviour
           m_HUDCanvas.SetActive(false);
           m_winCanvas.SetActive(true);
           m_points.text = "Points " + m_reachedGoals + "/3";
-          if (SceneManager.GetActiveScene().name == "MainMenu")
-          {
-            Analytics.CustomEvent("TutorialFinished");
-          }
+          //if (SceneManager.GetActiveScene().name == "MainMenu")
+          //{
+          //  Analytics.CustomEvent("TutorialFinished");
+          //}
           
         }
         else
@@ -156,6 +155,7 @@ public class LevelEditorManager : MonoBehaviour
           m_wallArray[m_graffiti].SetActive(false);
           m_graffiti++;
           SpecialEvent(m_graffiti);
+          
         }
       }
     }
