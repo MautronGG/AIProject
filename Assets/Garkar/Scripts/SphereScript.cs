@@ -6,9 +6,12 @@ using UnityEngine;
 
 public class SphereScript : MonoBehaviour
 {
-    [SerializeField] private float m_speed;
+    [SerializeField] private float m_speed = 5;
+    [SerializeField] private float m_timeToDeath = 5;
     private bool m_flipped;
     private bool m_grounded;
+    private bool m_canKillEnemy;
+    private bool m_isActive;
     private Vector3 m_desiredMovement;
     Rigidbody m_Rigidbody;
     // Start is called before the first frame update
@@ -17,6 +20,8 @@ public class SphereScript : MonoBehaviour
         //Establecer los parámetros iniciales
         m_Rigidbody = GetComponent<Rigidbody>();
         m_flipped = false;
+        m_canKillEnemy = false;
+        m_isActive = false;
         m_desiredMovement = Vector3.zero;
     }
 
@@ -28,21 +33,23 @@ public class SphereScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ///add canMove condition called w/ UI button
-        //Si no está en el piso, que mantenga su momentum en Y pero que mantenga la velocidad constante en X.
-        if (!m_grounded)
+        if(m_isActive)
         {
-            float desiredSpeed = m_speed;
-            if(m_flipped)
+            //Si no está en el piso, que mantenga su momentum en Y pero que mantenga la velocidad constante en X.
+            if (!m_grounded)
             {
-                desiredSpeed = -m_speed;
+                float desiredSpeed = m_speed;
+                if (m_flipped)
+                {
+                    desiredSpeed = -m_speed;
+                }
+                m_desiredMovement = new Vector3(desiredSpeed, m_Rigidbody.velocity.y, m_Rigidbody.velocity.z);
             }
-            m_desiredMovement = new Vector3(desiredSpeed, m_Rigidbody.velocity.y, m_Rigidbody.velocity.z);
+
+            //Establecer la velocidad esperada.
+            m_Rigidbody.velocity = m_desiredMovement;
+
         }
-
-        //Establecer la velocidad esperada.
-        m_Rigidbody.velocity = m_desiredMovement;
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,11 +70,22 @@ public class SphereScript : MonoBehaviour
           ///add condition if sphere can kill enemy
             ///coliision.gameObject.SetActive(false)
 
+            if(m_canKillEnemy)
+            {
+                collision.gameObject.SetActive(false);
+            }
+            else
+            {
+                m_isActive = false;
+                //Animación
+                gameObject.SetActive(false);
+            }
+
           ///if not
             ///stop movement
             ///play animation
             ///wait 5 seconds then -->
-            gameObject.SetActive(false);
+            
         }
 
         //Si es un piso, determinar si se puede escalar o no.
@@ -150,5 +168,23 @@ public class SphereScript : MonoBehaviour
         m_flipped = !m_flipped;
         m_desiredMovement.x = -m_desiredMovement.x;
         ///FlipSprite
+    }
+
+    //Llamar a esta función para activar el movimiento.
+    public void EnableMovement()
+    {
+        m_isActive = !m_isActive;
+    }
+
+    //Timer para que la esfera sea desactivada. Se puede configurar con el tiempo deseado.
+    IEnumerator DeathCountdown(GameObject obj)
+    {
+        float counter = m_timeToDeath;
+        while (counter > 0)
+        {
+            counter -= Time.deltaTime;
+            yield return null;
+        }
+        obj.SetActive(false);
     }
 }
