@@ -28,6 +28,7 @@ public class SphereScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ///add canMove condition called w/ UI button
         //Si no está en el piso, que mantenga su momentum en Y pero que mantenga la velocidad constante en X.
         if (!m_grounded)
         {
@@ -59,6 +60,13 @@ public class SphereScript : MonoBehaviour
         //Si es un enemigo, desactivar al jugador.
         if(collision.gameObject.tag.Equals("Enemy"))
         {
+          ///add condition if sphere can kill enemy
+            ///coliision.gameObject.SetActive(false)
+
+          ///if not
+            ///stop movement
+            ///play animation
+            ///wait 5 seconds then -->
             gameObject.SetActive(false);
         }
 
@@ -133,6 +141,7 @@ public class SphereScript : MonoBehaviour
             float springForce = other.transform.GetComponent<SpringScript>().SpringForce;
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, springForce, m_Rigidbody.velocity.z);
         }
+        //add Enemy
     }
 
     //Función para invertir la velocidad de la esfera en X.
@@ -140,5 +149,6 @@ public class SphereScript : MonoBehaviour
     {
         m_flipped = !m_flipped;
         m_desiredMovement.x = -m_desiredMovement.x;
+        ///FlipSprite
     }
 }
