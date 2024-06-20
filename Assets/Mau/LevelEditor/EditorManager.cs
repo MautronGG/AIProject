@@ -47,6 +47,9 @@ public class EditorManager : MonoBehaviour
   public bool m_pause = false;
 
   public bool m_isEditing = false;
+
+  public EditorItemManager m_item;
+  public EditorSpriteFollow m_spriteFollow;
   private void Start()
   {
     Time.timeScale = 1.0f;

@@ -23,7 +23,7 @@ public class EditorItemManager : MonoBehaviour
   public Vector3 m_defaultScale;
 
   bool m_checks = true;
-  bool m_canClick = true;
+  public bool m_canClick = true;
   EditorSpriteFollow m_spriteFollow;
   private void Awake()
   {
@@ -89,7 +89,9 @@ public class EditorItemManager : MonoBehaviour
       }
       if (Input.GetMouseButtonDown(0) && m_checks)
       {
-        PickUp();
+        m_editor.m_spriteFollow = m_spriteFollow;
+        m_editor.m_item = this;
+        m_editor.m_optionsCanvas.SetActive(true);
       }
     }
   }
