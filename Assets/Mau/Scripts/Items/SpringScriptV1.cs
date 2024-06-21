@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EnemyScript : ItemManager
+public class SpringScriptV1 : ItemManager
 {
   public Transform m_point1;
   public Transform m_point2;
