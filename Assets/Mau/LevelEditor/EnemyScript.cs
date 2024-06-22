@@ -46,7 +46,10 @@ public class EnemyScript : MonoBehaviour
     {
       FlipVelocity();
     }
-
+    if (collision.gameObject.tag.Equals("Enemy"))
+    {
+      FlipVelocity();
+    }
     //Si es un piso, determinar si se puede escalar o no.
     if (collision.gameObject.tag.Equals("Floor"))
     {
