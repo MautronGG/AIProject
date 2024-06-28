@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestFixObject : MonoBehaviour
+public class Test2Fix : MonoBehaviour
 {
     [Tooltip("Manager object Fix")]
     [SerializeField]
@@ -23,23 +23,23 @@ public class TestFixObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             temporalSprite = m_fixColorManager.getSprite("Red", actualColor);
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             temporalSprite = m_fixColorManager.getSprite("White", actualColor);
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetKeyDown(KeyCode.N))
         {
             temporalSprite = m_fixColorManager.getSprite("Blue", actualColor);
         }
-        else if (Input.GetKeyDown(KeyCode.G))
+        else if (Input.GetKeyDown(KeyCode.H))
         {
             temporalSprite = m_fixColorManager.getSprite("Green", actualColor);
         }
-        if (temporalSprite == null) 
+        if (temporalSprite == null)
         {
             return;
         }
