@@ -12,7 +12,7 @@ public class SphereScript : MonoBehaviour
    private bool m_flipped;
    private bool m_grounded;
    private bool m_canKillEnemy;
-   private bool m_isActive;
+   public bool m_isActive;
    private Vector3 m_desiredMovement;
    Rigidbody m_Rigidbody;
    // Start is called before the first frame update
