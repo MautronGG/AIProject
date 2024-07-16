@@ -118,7 +118,7 @@ public class EditorItemManager : MonoBehaviour
   {
     m_spriteFollow.m_follow = false;
     gameObject.layer = LayerMask.NameToLayer("Black");
-    m_editor.m_itemButtons[m_editor.m_currentButtonID].m_isClicked = false;
+    //m_editor.m_itemButtons[m_editor.m_currentButtonID].m_isClicked = false;
     m_editor.m_isEditing = false;
     m_editor.m_HUDCanvas.SetActive(true);
   }

@@ -6,11 +6,11 @@ public class EditorState : State
 {
   private void Awake()
   {
-    m_levelEditor = FindObjectOfType<LevelEditorManager>();
+    m_levelManager = FindObjectOfType<LevelManager>();
   }
   public override void onEnter()
   {
-    m_levelEditor.m_canPlay = false;
+    m_levelManager.m_canPlay = false;
   }
 
   public override void onExit()
@@ -20,7 +20,7 @@ public class EditorState : State
 
   public override void onUpdate()
   {
-   if (m_levelEditor.m_canPlay)
+   if (m_levelManager.m_canPlay)
     {
       m_stateMachine.SetState(m_stateMachine.m_onPlayState);
     }

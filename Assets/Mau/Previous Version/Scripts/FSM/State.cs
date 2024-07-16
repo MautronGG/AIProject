@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-  public FSM m_stateMachine;
-  public bool m_canPlay;
-  public LevelEditorManager m_levelEditor;
-  
-  virtual public void onEnter()
-  {
+    public FSM m_stateMachine;
+    public LevelManager m_levelManager;
 
-  }
-  virtual public void onUpdate()
-  {
+    virtual public void onEnter()
+    {
 
-  }
-  virtual public void onExit()
-  {
+    }
+    virtual public void onUpdate()
+    {
 
-  }
- 
-  public void SetFSM(FSM fsm)
-  {
-    m_stateMachine = fsm;
-  }
+    }
+    virtual public void onExit()
+    {
+
+    }
+
+    public void SetFSM(FSM fsm)
+    {
+        m_stateMachine = fsm;
+    }
 
 }

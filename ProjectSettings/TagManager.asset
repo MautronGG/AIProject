@@ -18,6 +18,7 @@ TagManager:
   - Event1
   - EditorManager
   - Spring
+  - LevelManager
   layers:
   - Default
   - TransparentFX
