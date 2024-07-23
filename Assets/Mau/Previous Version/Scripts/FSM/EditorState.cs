@@ -10,7 +10,7 @@ public class EditorState : State
   }
   public override void onEnter()
   {
-    m_levelManager.m_canPlay = false;
+    m_levelManager.m_restartEvents.Invoke();
   }
 
   public override void onExit()
@@ -20,9 +20,5 @@ public class EditorState : State
 
   public override void onUpdate()
   {
-   if (m_levelManager.m_canPlay)
-    {
-      m_stateMachine.SetState(m_stateMachine.m_onPlayState);
-    }
   }
 }

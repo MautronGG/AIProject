@@ -20,9 +20,5 @@ public class PlayState : State
 
     public override void onUpdate()
     {
-        if (!m_levelManager.m_canPlay)
-        {
-            m_stateMachine.SetState(m_stateMachine.m_onEditorState);
-        }
     }
 }

@@ -17,6 +17,8 @@ public class SphereScript : MonoBehaviour
     private Vector3 m_desiredMovement;
     Rigidbody m_Rigidbody;
     LevelManager m_levelManager;
+    Vector3 m_defaultPosition;
+    Quaternion m_defaultRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,8 @@ public class SphereScript : MonoBehaviour
         m_isActive = false;
         m_desiredMovement = Vector3.zero;
         m_levelManager = FindAnyObjectByType<LevelManager>();
+        m_defaultPosition = GetComponent<Transform>().position;
+        m_defaultRotation = GetComponent<Transform>().rotation;
     }
     private void FixedUpdate()
     {
@@ -46,6 +50,10 @@ public class SphereScript : MonoBehaviour
             //Establecer la velocidad esperada.
             m_Rigidbody.velocity = m_desiredMovement;
 
+        }
+        else
+        {
+            m_Rigidbody.velocity = Vector3.zero;
         }
     }
 
@@ -166,9 +174,9 @@ public class SphereScript : MonoBehaviour
     }
 
     //Llamar a esta función para activar el movimiento.
-    public void EnableMovement()
+    public void EnableMovement(bool state)
     {
-        m_isActive = !m_isActive;
+        m_isActive = state;
     }
 
     //Timer para que la esfera sea desactivada. Se puede configurar con el tiempo deseado.
@@ -181,5 +189,11 @@ public class SphereScript : MonoBehaviour
             yield return null;
         }
         obj.SetActive(false);
+    }
+    public void ResetTransform()
+    {
+        m_Rigidbody.angularVelocity = Vector3.zero;
+        transform.position = m_defaultPosition;
+        transform.rotation = m_defaultRotation;
     }
 }

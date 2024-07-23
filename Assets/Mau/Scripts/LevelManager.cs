@@ -64,14 +64,28 @@ public class LevelManager : MonoBehaviour
 
     FSM m_myFSM;
 
+    public SphereScript m_Red;
+    public SphereScript m_Green;
+    public SphereScript m_Blue;
+
     public bool m_canPlay = false;
     public UnityEvent m_playEvents;
     public UnityEvent m_restartEvents;
+
+    public CameraMovement m_camera;
+
+    private void Awake()
+    {
+
+    }
     private void Start()
     {
         Time.timeScale = 1.0f;
-        m_myFSM.GetComponent<FSM>();
+        m_myFSM = GetComponent<FSM>();
+
+        Initialized();
     }
+
     private void Update()
     {
         ///To Pause Game
@@ -94,15 +108,7 @@ public class LevelManager : MonoBehaviour
                 m_gameOverCanvas.SetActive(true);
             }
         }
-        m_playButton.onClick.AddListener((() =>
-        {
-            m_myFSM.SetState(m_myFSM.m_onPlayState);
-        }));
 
-        m_resetButton.onClick.AddListener((() =>
-        {
-            m_myFSM.SetState(m_myFSM.m_onEditorState);
-        }));
         ///To move Sprite when placing in Level
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
@@ -136,16 +142,43 @@ public class LevelManager : MonoBehaviour
         }
         m_pauseCanvas.SetActive(false);
     }
-    public void PlayEvents()
+    protected void Initialized()
     {
+        m_playEvents.AddListener(() =>
+        {
+            m_Red.EnableMovement(true);
+            m_Green.EnableMovement(true);
+            m_Blue.EnableMovement(true);
+            m_HUDBuildCanvas.SetActive(false);
+            m_HUDPlayCanvas.SetActive(true);
+            m_camera.ChangeMovement(false);
+            m_camera.AutomaticMovement(true);
+        });
+        m_playButton.onClick.AddListener(() =>
+        {
+            m_myFSM.SetState(m_myFSM.m_onPlayState);
+        });
 
-        m_playEvents.Invoke();
+        m_resetButton.onClick.AddListener(() =>
+        {
+            m_myFSM.SetState(m_myFSM.m_onEditorState);
+        });
+        m_restartEvents.AddListener(() =>
+        {
+            m_Red.EnableMovement(false);
+            m_Red.ResetTransform();
+            m_Green.EnableMovement(false);
+            m_Green.ResetTransform();
+            m_Blue.EnableMovement(false);
+            m_Blue.ResetTransform();
+            m_HUDBuildCanvas.SetActive(true);
+            m_HUDPlayCanvas.SetActive(false);
+            m_camera.ChangeMovement(true);
+            m_camera.AutomaticMovement(false);
+        });
     }
     public void ResetDefaults()
     {
-        var camera = Camera.main.GetComponent<CameraMovement>();
-        camera.m_canMove = true;
-        camera.m_autoMove = false;
         m_reachedGoals = 0;
         m_playerEnded = 0;
         m_canPlay = false;
