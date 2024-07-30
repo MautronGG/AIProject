@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 4362756630576539982}
   - component: {fileID: 6796717697187160437}
   - component: {fileID: 5375573791357188901}
-  - component: {fileID: -2246081521157846536}
   - component: {fileID: -3139855503183468153}
-  m_Layer: 0
+  - component: {fileID: -4989581308750947337}
+  - component: {fileID: 4178230339452600107}
+  m_Layer: 14
   m_Name: Bridge_K
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,20 +101,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.373327, y: 2.6133368, z: 0.19999994}
   m_Center: {x: 0.022594072, y: -0.045184854, z: 0}
---- !u!114 &-2246081521157846536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7695046299455163447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6368f48453385540acc09b66ae10a69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_follow: 1
-  m_isParent: 0
 --- !u!114 &-3139855503183468153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +114,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fixColorManager: {fileID: 0}
+--- !u!114 &-4989581308750947337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695046299455163447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ae2c712f1c0ff4a84a0bd0c699a19e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_follow: 1
+  m_isParent: 0
+--- !u!114 &4178230339452600107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695046299455163447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb2f7f1b04d94b4ebd818702ac01e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_levelManager: {fileID: 0}
+  m_personalID: 0
+  m_canOpenOptions: 1
+  m_canDelete: 1
+  m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_defaultScale: {x: 0, y: 0, z: 0}
+  m_canClick: 1

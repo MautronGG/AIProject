@@ -10,10 +10,12 @@ public class CameraMovement : MonoBehaviour
   public bool m_canMove = true;
   public bool m_autoMove = false;
   public GameObject m_minion;
+  public Vector3 m_defaultPosition;
 
   private void Start()
   {
     m_speed = m_defaultSpeed;
+    m_defaultPosition = transform.position;
   }
   // Update is called once per frame
   void Update()
@@ -59,4 +61,8 @@ public class CameraMovement : MonoBehaviour
   {
     m_canMove = newMove;
   }
+    public void ResetTransform()
+    {
+        transform.position = m_defaultPosition;
+    }
 }

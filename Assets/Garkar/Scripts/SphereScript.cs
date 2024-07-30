@@ -177,6 +177,7 @@ public class SphereScript : MonoBehaviour
     public void EnableMovement(bool state)
     {
         m_isActive = state;
+        m_flipped = false;
     }
 
     //Timer para que la esfera sea desactivada. Se puede configurar con el tiempo deseado.
@@ -195,5 +196,7 @@ public class SphereScript : MonoBehaviour
         m_Rigidbody.angularVelocity = Vector3.zero;
         transform.position = m_defaultPosition;
         transform.rotation = m_defaultRotation;
+        gameObject.SetActive(true);
+        EnableMovement(false);
     }
 }

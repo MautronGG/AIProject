@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
     public GameObject m_cantRepeatColorCanvas;
     public Button m_playButton;
     public Button m_resetButton;
+    public Button m_bridgeButton;
 
     //[Header("Lists")]
     //public List<ItemManager> m_itemsList;
@@ -56,8 +57,8 @@ public class LevelManager : MonoBehaviour
 
     public bool m_isEditing = false;
 
-    public EditorItemManager m_item;
-    public EditorSpriteFollow m_spriteFollow;
+    public ItemScript m_item;
+    public SpriteFollow m_spriteFollow;
 
     public int m_reachedGoals = 0;
     public int m_playerEnded = 0;
@@ -165,16 +166,15 @@ public class LevelManager : MonoBehaviour
         });
         m_restartEvents.AddListener(() =>
         {
-            m_Red.EnableMovement(false);
             m_Red.ResetTransform();
-            m_Green.EnableMovement(false);
             m_Green.ResetTransform();
-            m_Blue.EnableMovement(false);
             m_Blue.ResetTransform();
             m_HUDBuildCanvas.SetActive(true);
             m_HUDPlayCanvas.SetActive(false);
             m_camera.ChangeMovement(true);
             m_camera.AutomaticMovement(false);
+            m_camera.ResetTransform();
+            ResetDefaults();
         });
     }
     public void ResetDefaults()
