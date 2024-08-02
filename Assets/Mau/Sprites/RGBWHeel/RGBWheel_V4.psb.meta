@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 528908b0254162145b69e282651fda0c
+guid: 0efa28185188a964bbb8a6e6ba2e88c7
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    isReadable: 1
+    isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
@@ -100,11 +100,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 807
-      width: 857
-      height: 419
-    spriteID: c7812707fbd990d4284daa51bb54c9e4
+      x: 576
+      y: 4
+      width: 764
+      height: 373
+    spriteID: 44be3dcdcc3bae14f98bc3185a8ba608
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,20 +113,20 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 4, y: 807}
-    spritePosition: {x: 332, y: 969}
-  - name: Blue
+    uvTransform: {x: 576, y: 4}
+    spritePosition: {x: 202, y: 728}
+  - name: Yellow
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 646
-      y: 4
-      width: 634
-      height: 794
-    spriteID: 59063953cc4a3a541932cdb595a90434
+      x: 576
+      y: 782
+      width: 380
+      height: 388
+    spriteID: 7f140a3c59646cb4695a35013c834d71
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,9 +135,9 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 646, y: 4}
-    spritePosition: {x: 125, y: 173}
-  - name: Green
+    uvTransform: {x: 576, y: 782}
+    spritePosition: {x: 585, y: 396}
+  - name: reen
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -146,9 +146,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 634
-      height: 795
-    spriteID: 73615252dc5d80b4a942c8b2768c191e
+      width: 564
+      height: 709
+    spriteID: 9a1202e2e5a8ef541a0acc28cc8fb2b4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -158,51 +158,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 762, y: 173}
-  - name: Yellow
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 439
-      y: 1234
-      width: 427
-      height: 436
-    spriteID: a3736dd4810f14b4faefef1c7212b21a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 439, y: 1234}
-    spritePosition: {x: 762, y: 594}
-  - name: Magenta
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 1234
-      width: 427
-      height: 437
-    spriteID: d533d211ccf413a43973fa046afbb5b9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 4, y: 1234}
-    spritePosition: {x: 332, y: 593}
+    spritePosition: {x: 585, y: 21}
   - name: Cyan
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -210,11 +166,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 869
-      y: 807
-      width: 445
-      height: 367
-    spriteID: 081342476b5437547bb49072b41b97eb
+      x: 576
+      y: 1178
+      width: 395
+      height: 327
+    spriteID: 5fdd0c9e49db52942a7e9d7e8cfbc03b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -223,8 +179,52 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 869, y: 807}
-    spritePosition: {x: 538, y: 225}
+    uvTransform: {x: 576, y: 1178}
+    spritePosition: {x: 386, y: 67}
+  - name: Blue
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 721
+      width: 564
+      height: 708
+    spriteID: 4ae4299e0c119c14f808b569daf0d4cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 721}
+    spritePosition: {x: 20, y: 21}
+  - name: Magenta
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 576
+      y: 385
+      width: 380
+      height: 389
+    spriteID: 02f245ecd0dcb4f48abf1199ef2abcaf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 576, y: 385}
+    spritePosition: {x: 202, y: 395}
   - name: White
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -232,11 +232,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1288
-      y: 4
-      width: 445
-      height: 447
-    spriteID: 97a5a53cf5a974c4dbb7b29f43c9ce04
+      x: 4
+      y: 1437
+      width: 395
+      height: 398
+    spriteID: 06e35550b6f8c9d4aba4fd9e7e910004
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -245,8 +245,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 1288, y: 4}
-    spritePosition: {x: 538, y: 531}
+    uvTransform: {x: 4, y: 1437}
+    spritePosition: {x: 386, y: 339}
   characterData:
     bones: []
     parts: []
@@ -314,29 +314,9 @@ ScriptedImporter:
     spriteName: Red
     isGroup: 0
     parentIndex: -1
-    spriteID: c7812707fbd990d4284daa51bb54c9e4
-    layerID: 6
-    mosaicPosition: {x: 4, y: 807}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Blue
-    spriteName: Blue
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 59063953cc4a3a541932cdb595a90434
-    layerID: 7
-    mosaicPosition: {x: 646, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Green
-    spriteName: Green
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 73615252dc5d80b4a942c8b2768c191e
-    layerID: 8
-    mosaicPosition: {x: 4, y: 4}
+    spriteID: 44be3dcdcc3bae14f98bc3185a8ba608
+    layerID: 3
+    mosaicPosition: {x: 576, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -344,19 +324,19 @@ ScriptedImporter:
     spriteName: Yellow
     isGroup: 0
     parentIndex: -1
-    spriteID: a3736dd4810f14b4faefef1c7212b21a
-    layerID: 9
-    mosaicPosition: {x: 439, y: 1234}
+    spriteID: 7f140a3c59646cb4695a35013c834d71
+    layerID: 6
+    mosaicPosition: {x: 576, y: 782}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: Magenta
-    spriteName: Magenta
+  - name: reen
+    spriteName: reen
     isGroup: 0
     parentIndex: -1
-    spriteID: d533d211ccf413a43973fa046afbb5b9
-    layerID: 10
-    mosaicPosition: {x: 4, y: 1234}
+    spriteID: 9a1202e2e5a8ef541a0acc28cc8fb2b4
+    layerID: 5
+    mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -364,9 +344,29 @@ ScriptedImporter:
     spriteName: Cyan
     isGroup: 0
     parentIndex: -1
-    spriteID: 081342476b5437547bb49072b41b97eb
-    layerID: 11
-    mosaicPosition: {x: 869, y: 807}
+    spriteID: 5fdd0c9e49db52942a7e9d7e8cfbc03b
+    layerID: 9
+    mosaicPosition: {x: 576, y: 1178}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Blue
+    spriteName: Blue
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4ae4299e0c119c14f808b569daf0d4cd
+    layerID: 10
+    mosaicPosition: {x: 4, y: 721}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Magenta
+    spriteName: Magenta
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 02f245ecd0dcb4f48abf1199ef2abcaf
+    layerID: 8
+    mosaicPosition: {x: 576, y: 385}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -374,22 +374,12 @@ ScriptedImporter:
     spriteName: White
     isGroup: 0
     parentIndex: -1
-    spriteID: 97a5a53cf5a974c4dbb7b29f43c9ce04
-    layerID: 12
-    mosaicPosition: {x: 1288, y: 4}
+    spriteID: 06e35550b6f8c9d4aba4fd9e7e910004
+    layerID: 7
+    mosaicPosition: {x: 4, y: 1437}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: RGBWHeel_V3
-    spriteName: 
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 619b8d428ec03044cbe7ccfc1822bb47
-    layerID: 13
-    mosaicPosition: {x: 0, y: 0}
-    flatten: 0
-    isImported: 0
-    isVisible: 0
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
   generateGOHierarchy: 0

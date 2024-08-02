@@ -10,10 +10,16 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
     public bool IsSelected = false;
     //LevelEditorManager m_levelEditor;
     LevelManager m_levelManager;
+    Button button;
     private void Start()
     {
         //m_levelEditor = FindObjectOfType<LevelEditorManager>();
         m_levelManager = FindObjectOfType<LevelManager>();
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() =>
+        {
+            IsSelected = false;
+        });
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -23,10 +29,7 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
     {
         IsSelected = false;
     }
-    public void Clicked()
-    {
-        IsSelected = false;
-    }
+
     private void Update()
     {
         //if (m_levelEditor.m_pauseCanvas.activeInHierarchy)

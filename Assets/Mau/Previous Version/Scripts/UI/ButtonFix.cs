@@ -13,7 +13,7 @@ public class ButtonFix : MonoBehaviour
   void Start()
   {
     m_image = GetComponent<Image>();
-    m_image.alphaHitTestMinimumThreshold = 0.001f;
+    m_image.alphaHitTestMinimumThreshold = 0.0001f;
   }
 
   //// Update is called once per frame

@@ -11,13 +11,31 @@ public class rotateObject : MonoBehaviour
     [SerializeField]
     private float limitRotationDegrees = 45.0f;
     private float rotationActual = 0.0f;
+    [SerializeField] float speed = 5;
+
+    [SerializeField]
+    private float scaleDegrees = 5.0f;
+    [SerializeField]
+    private float limitScaleDegreesPos = 1.0f;
+    [SerializeField]
+    private float limitScaleDegreesNeg = 0.2f;
+    [SerializeField] 
+    private float scaleActual = 0.0f;
+
+    Vector3 defaultScale;
     void Start()
     {
-        
+        defaultScale = transform.localScale;
+        scaleActual = defaultScale.x;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        ChangeRotation();
+        ChangeScale();
+    }
+    public void ChangeRotation()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -39,6 +57,27 @@ public class rotateObject : MonoBehaviour
         {
             transform.Rotate(0, 0, -rotationActual);
             rotationActual = 0.0f;
+        }
+    }
+    public void ChangeScale()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            if (transform.localScale.x < limitScaleDegreesPos)
+            {
+                transform.localScale += new Vector3(scaleDegrees, 0,0) * Time.deltaTime * speed;
+            }
+        }
+        if (Input.GetKey(KeyCode.G))
+        {
+            if (transform.localScale.x > limitScaleDegreesNeg)
+            {
+                transform.localScale += new Vector3(-scaleDegrees, 0,0) * Time.deltaTime * speed;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.localScale = defaultScale;
         }
     }
 }
