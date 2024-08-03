@@ -33,30 +33,33 @@ public class FixColorManager : MonoBehaviour
     //[SerializeField]
     //List<Sprite> m_sprite = new List<Sprite>();
 
-    [Tooltip("Sprite Red")]
-    [SerializeField]
-    private List<Sprite> m_spriteRed;
-    [Tooltip("Sprite Blue")]
-    [SerializeField]
-    private List<Sprite> m_spriteBlue;
-    [Tooltip("Sprite Green")]
-    [SerializeField]
-    private List<Sprite> m_spriteGreen;
     [Tooltip("Sprite White")]
     [SerializeField]
     private List<Sprite> m_spriteWhite;
-    [Tooltip("Sprite Black")]
+    [Tooltip("Sprite Red")]
     [SerializeField]
-    private List<Sprite> m_spriteBlack;
-    [Tooltip("Sprite Magenta")]
-    [SerializeField]
-    private List<Sprite> m_spriteMagenta;
-    [Tooltip("Sprite Cyan")]
-    [SerializeField]
-    private List<Sprite> m_spriteCyan;
+    private List<Sprite> m_spriteRed;
     [Tooltip("Sprite Yellow")]
     [SerializeField]
     private List<Sprite> m_spriteYellow;
+    [Tooltip("Sprite Green")]
+    [SerializeField]
+    private List<Sprite> m_spriteGreen;
+    [Tooltip("Sprite Cyan")]
+    [SerializeField]
+    private List<Sprite> m_spriteCyan;
+    [Tooltip("Sprite Blue")]
+    [SerializeField]
+    private List<Sprite> m_spriteBlue;
+    [Tooltip("Sprite Magenta")]
+    [SerializeField]
+    private List<Sprite> m_spriteMagenta;
+    [Tooltip("Sprite Black")]
+    [SerializeField]
+    private List<Sprite> m_spriteBlack;
+    
+    
+    
 
     [Tooltip("Sprite Yellow")]
     [SerializeField]
@@ -91,62 +94,62 @@ public class FixColorManager : MonoBehaviour
         
     }
 
-    public Sprite getSprite(string colorFix, string idTypeObject, string actualColor)
+    public Sprite getSprite(int colorFix, string idTypeObject, string actualColor)
     {
         for (int i = 0; i < m_listSpriteObjests.Count; i++)
         {
             if (m_listSpriteObjests[i].m_typeObject == idTypeObject)
             {
-                if (colorFix == "Red" && m_listSpriteObjests[i].m_activeRed == true)
+                if (colorFix == 1 && m_listSpriteObjests[i].m_activeRed == true)
                 {
                     m_listSpriteObjests[i].m_activeRed = false;
                     m_listSpriteObjests[i].lastColor = "Red";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteRed;
                 }
-                else if (colorFix == "Blue" && m_listSpriteObjests[i].m_activeBlue == true)
+                else if (colorFix == 5 && m_listSpriteObjests[i].m_activeBlue == true)
                 {
                     m_listSpriteObjests[i].m_activeBlue = false;
                     m_listSpriteObjests[i].lastColor = "Blue";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteBlue;
                 }
-                else if (colorFix == "Green" && m_listSpriteObjests[i].m_activeGreen == true)
+                else if (colorFix == 3 && m_listSpriteObjests[i].m_activeGreen == true)
                 {
                     m_listSpriteObjests[i].m_activeGreen = false;
                     m_listSpriteObjests[i].lastColor = "Green";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteGreen;
                 }
-                else if (colorFix == "White" && m_listSpriteObjests[i].m_activeWhite == true)
+                else if (colorFix == 0 && m_listSpriteObjests[i].m_activeWhite == true)
                 {
                     m_listSpriteObjests[i].m_activeWhite = false;
                     m_listSpriteObjests[i].lastColor = "White";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteWhite;
                 }
-                else if (colorFix == "Cyan" && m_listSpriteObjests[i].m_activeCyan == true)
+                else if (colorFix == 4 && m_listSpriteObjests[i].m_activeCyan == true)
                 {
                     m_listSpriteObjests[i].m_activeCyan = false;
                     m_listSpriteObjests[i].lastColor = "Cyan";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteCyan;
                 }
-                else if (colorFix == "Yellow" && m_listSpriteObjests[i].m_activeYellow == true)
+                else if (colorFix == 2 && m_listSpriteObjests[i].m_activeYellow == true)
                 {
                     m_listSpriteObjests[i].m_activeYellow = false;
                     m_listSpriteObjests[i].lastColor = "Yellow";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteYellow;
                 }
-                else if (colorFix == "Magenta" && m_listSpriteObjests[i].m_activeMagenta == true)
+                else if (colorFix == 6 && m_listSpriteObjests[i].m_activeMagenta == true)
                 {
                     m_listSpriteObjests[i].m_activeMagenta = false;
                     m_listSpriteObjests[i].lastColor = "Magenta";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteMagenta;
                 }
-                else if (colorFix == "Black" && m_listSpriteObjests[i].m_activeBlack == true)
+                else if (colorFix == 7 && m_listSpriteObjests[i].m_activeBlack == true)
                 {
                     m_listSpriteObjests[i].m_activeBlack = false;
                     m_listSpriteObjests[i].lastColor = "Black";

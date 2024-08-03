@@ -21,46 +21,46 @@ public class TestFixObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Red", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            temporalSprite = m_fixColorManager.getSprite("White", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Blue", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Green", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Black", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Magenta", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Cyan", "Portal", actualColor);
-        }
-        else if (Input.GetKeyDown(KeyCode.Y))
-        {
-            temporalSprite = m_fixColorManager.getSprite("Yellow", "Portal", actualColor);
-        }
-        if (temporalSprite == null) 
-        {
-            return;
-        }
-        actualColor = m_fixColorManager.getLastColor("Portal");
-        spriteRenderer.sprite = temporalSprite;
-        temporalSprite = null;
-    }
+   //void Update()
+   //{
+   //    if (Input.GetKeyDown(KeyCode.R))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Red", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.W))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("White", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.B))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Blue", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.G))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Green", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.O))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Black", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.M))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Magenta", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.C))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Cyan", "Portal", actualColor);
+   //    }
+   //    else if (Input.GetKeyDown(KeyCode.Y))
+   //    {
+   //        temporalSprite = m_fixColorManager.getSprite("Yellow", "Portal", actualColor);
+   //    }
+   //    if (temporalSprite == null) 
+   //    {
+   //        return;
+   //    }
+   //    actualColor = m_fixColorManager.getLastColor("Portal");
+   //    spriteRenderer.sprite = temporalSprite;
+   //    temporalSprite = null;
+   //}
 }

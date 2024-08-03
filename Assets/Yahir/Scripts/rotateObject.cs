@@ -22,18 +22,24 @@ public class rotateObject : MonoBehaviour
     [SerializeField] 
     private float scaleActual = 0.0f;
 
+    SpriteFollow m_sprite;
+
     Vector3 defaultScale;
     void Start()
     {
         defaultScale = transform.localScale;
         scaleActual = defaultScale.x;
+        m_sprite = GetComponent<SpriteFollow>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeRotation();
-        ChangeScale();
+        if(m_sprite.m_follow)
+        {
+            ChangeRotation();
+            ChangeScale();
+        }
     }
     public void ChangeRotation()
     {

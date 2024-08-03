@@ -11,7 +11,7 @@ public class CursorSet : MonoBehaviour
     public Vector2 customHS = Vector2.zero;
     //Vector2 autoHS;
 
-    int color = 8;
+    public int color = 8;
     bool isOn = false;
     [SerializeField]float timer;
     float currentTimer = 0f;

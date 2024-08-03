@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemScript : MonoBehaviour
 {
+    [SerializeField]
+    bool m_isBridge = false;
     //public int m_ID;
     //public int m_colorID = 7;
     //public GameObject m_optionsCanvas;
@@ -26,11 +28,29 @@ public class ItemScript : MonoBehaviour
     public bool m_canClick = true;
     public SpriteFollow m_spriteFollow;
     string m_layer;
+
+    [Tooltip("Manager object Fix")]
+    [SerializeField]
+    FixColorManager m_fixColorManager;
+
+    CursorSet color;
+
+    [SerializeField]
+    string m_object;
+
+    private SpriteRenderer spriteRenderer;
+    private Sprite temporalSprite;
+
+    private string actualColor = "Black";
     private void Awake()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
         m_spriteFollow = GetComponent<SpriteFollow>();
         m_levelManager.m_isEditing = true;
+        color = FindObjectOfType<CursorSet>();
+        m_fixColorManager = FindObjectOfType<FixColorManager>();
+        GameObject spriteObject = new GameObject("TemporalSpriteObject");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -42,6 +62,7 @@ public class ItemScript : MonoBehaviour
     }
     private void OnMouseOver()
     {
+        int theColor = color.color;
         if (!m_spriteFollow.m_follow)
         {
             m_checks = true;
@@ -85,12 +106,31 @@ public class ItemScript : MonoBehaviour
             {
                 m_checks = false;
             }
-            if (Input.GetMouseButtonDown(0) && m_checks)
+           //if (Input.GetMouseButtonDown(0) && m_checks)
+           //{
+           //    m_levelManager.m_spriteFollow = m_spriteFollow;
+           //    m_levelManager.m_item = this;
+           //    m_levelManager.m_optionsCanvas.SetActive(true);
+           //}
+            if (Input.GetMouseButtonDown(0) && theColor < 8 && m_checks)
+            {
+                temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);
+                if (temporalSprite == null)
+                {
+                    return;
+                }
+                actualColor = m_fixColorManager.getLastColor(m_object);
+                gameObject.layer = LayerMask.NameToLayer(actualColor);
+                spriteRenderer.sprite = temporalSprite;
+                temporalSprite = null;
+            }
+            if (Input.GetMouseButtonDown(0) && theColor == 8 && m_checks && m_isBridge)
             {
                 m_levelManager.m_spriteFollow = m_spriteFollow;
                 m_levelManager.m_item = this;
                 m_levelManager.m_optionsCanvas.SetActive(true);
             }
+
         }
     }
     public virtual void ResetDeafualts()
