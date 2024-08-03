@@ -25,25 +25,25 @@ public class Test2Fix : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            temporalSprite = m_fixColorManager.getSprite("Red", actualColor);
+            temporalSprite = m_fixColorManager.getSprite("Red", "Portal", actualColor);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            temporalSprite = m_fixColorManager.getSprite("White", actualColor);
+            temporalSprite = m_fixColorManager.getSprite("White", "Portal", actualColor);
         }
         else if (Input.GetKeyDown(KeyCode.N))
         {
-            temporalSprite = m_fixColorManager.getSprite("Blue", actualColor);
+            temporalSprite = m_fixColorManager.getSprite("Blue", "Portal", actualColor);
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
-            temporalSprite = m_fixColorManager.getSprite("Green", actualColor);
+            temporalSprite = m_fixColorManager.getSprite("Green", "Portal", actualColor);
         }
         if (temporalSprite == null)
         {
             return;
         }
-        actualColor = m_fixColorManager.getLastColor();
+        actualColor = m_fixColorManager.getLastColor("Portal");
         spriteRenderer.sprite = temporalSprite;
         temporalSprite = null;
     }
