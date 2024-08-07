@@ -66,7 +66,7 @@ public class FixColorManager : MonoBehaviour
     private List<string> m_listTypeObjectId;
 
 
-
+    [SerializeField]
     private List<spriteObjects> m_listSpriteObjests = new List<spriteObjects>();
 
     // Start is called before the first frame update

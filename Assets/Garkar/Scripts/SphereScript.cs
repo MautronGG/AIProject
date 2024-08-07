@@ -10,20 +10,27 @@ public class SphereScript : MonoBehaviour
 
     [SerializeField] private float m_speed = 5;
     [SerializeField] private float m_timeToDeath = 5;
+    [SerializeField] private float m_maxStepHeight = .3f;
+    [SerializeField] private float m_smoothStep = 0.1f;
     private bool m_flipped;
     private bool m_grounded;
     private bool m_canKillEnemy;
     public bool m_isActive;
+    public bool m_portaled = false;
+    float m_portalTimer = 0f;
     private Vector3 m_desiredMovement;
     Rigidbody m_Rigidbody;
     LevelManager m_levelManager;
     Vector3 m_defaultPosition;
     Quaternion m_defaultRotation;
+    Collider m_Collider;
+
     // Start is called before the first frame update
     void Start()
     {
         //Establecer los parámetros iniciales
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_Collider = GetComponent<Collider>();
         m_flipped = false;
         m_canKillEnemy = false;
         m_isActive = false;
@@ -31,6 +38,19 @@ public class SphereScript : MonoBehaviour
         m_levelManager = FindAnyObjectByType<LevelManager>();
         m_defaultPosition = GetComponent<Transform>().position;
         m_defaultRotation = GetComponent<Transform>().rotation;
+    }
+
+    private void Update()
+    {
+        if (m_portaled)
+        {
+            m_portalTimer += Time.deltaTime;
+            if (m_portalTimer >= 1f)
+            {
+                m_portalTimer = 0f;
+                m_portaled = false;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -50,6 +70,28 @@ public class SphereScript : MonoBehaviour
             //Establecer la velocidad esperada.
             m_Rigidbody.velocity = m_desiredMovement;
 
+            float flip = 1;
+            if (m_flipped)
+            {
+                flip = -flip;
+            }
+
+            Vector3 entityPos = transform.position;
+            Vector3 entitySize = m_Collider.bounds.size;
+            Vector3 lowerPos = new Vector3(entityPos.x + (entitySize.x * .5f * flip),
+            entityPos.y - (entitySize.y * .5f),
+            entityPos.z);
+            Vector3 entitiyDir = Vector3.right * flip;
+            RaycastHit lower;
+            if (Physics.Raycast(lowerPos, entitiyDir, out lower, 0.1f))
+            {
+                RaycastHit upper;
+                Vector3 upperPos = new Vector3(lowerPos.x, lowerPos.y + m_maxStepHeight, lowerPos.z);
+                if (!Physics.Raycast(upperPos, entitiyDir, out upper, 0.3f))
+                {
+                    transform.position += new Vector3(0.0f, m_smoothStep, 0.0f);
+                }
+            }
         }
         else
         {
@@ -156,6 +198,11 @@ public class SphereScript : MonoBehaviour
             float springForce = other.transform.GetComponent<SpringScript>().SpringForce;
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, springForce, m_Rigidbody.velocity.z);
         }
+        if (other.transform.tag.Equals("Portal") && !m_portaled)
+        {
+            transform.position = other.GetComponent<NewPortalScript>().m_exitPortal.transform.position;
+            m_portaled = true;
+        }
         if (other.transform.tag.Equals("Destiny"))
         {
             m_isActive = false;
@@ -193,8 +240,8 @@ public class SphereScript : MonoBehaviour
     }
     public void ResetTransform()
     {
-        m_Rigidbody.angularVelocity = Vector3.zero;
-        transform.position = m_defaultPosition;
+        //m_Rigidbody.angularVelocity = Vector3.zero;
+        //transform.position = m_defaultPosition;
         transform.rotation = m_defaultRotation;
         gameObject.SetActive(true);
         EnableMovement(false);

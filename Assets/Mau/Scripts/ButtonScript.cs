@@ -9,7 +9,7 @@ public class ButtonScript : MonoBehaviour
     public LevelManager m_levelManager;
     GameObject m_obj;
     SpriteFollow m_spriteFollow;
-
+    public ButtonSelectionTracker clic;
     //[Dropdown("m_editor.m_objectsList")]
     //public string m_name;
     //public ObjectsEnum m_ID = new ObjectsEnum();
@@ -28,6 +28,7 @@ public class ButtonScript : MonoBehaviour
     void Start()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
+        clic = GetComponent<ButtonSelectionTracker>();
     }
     public void OnClick()
     {
@@ -38,6 +39,7 @@ public class ButtonScript : MonoBehaviour
         m_spriteFollow = m_obj.GetComponent<SpriteFollow>();
         //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
         m_spriteFollow.StartFollow();
+        clic.IsSelected = false;
         //m_editor.m_currentButtonID = (int)m_ID;
 
     }

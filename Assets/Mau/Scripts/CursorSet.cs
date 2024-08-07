@@ -19,7 +19,7 @@ public class CursorSet : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {        
-        //ChangeCursor();
+        ChangeCursor();
     }
     private void Update()
     {
@@ -39,6 +39,12 @@ public class CursorSet : MonoBehaviour
                 startTimer = false;
                 ChangeCursor();
             }
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            color = 1;
+
+            ChangeCursor();
         }
     }
     public void ChangeCursor()

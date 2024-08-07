@@ -49,7 +49,7 @@ public class CameraMovement : MonoBehaviour
     }
     if (m_autoMove)
     {
-      transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, transform.position.z);
+      transform.position = new Vector3(m_minion.transform.position.x + 3, m_defaultPosition.y + 3.240495f, transform.position.z);
     }
   }
   public void AutomaticMovement(bool Bool)

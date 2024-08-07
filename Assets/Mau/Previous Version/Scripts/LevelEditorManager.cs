@@ -78,7 +78,7 @@ public class LevelEditorManager : MonoBehaviour
   private void Start()
   {
     Time.timeScale = 1.0f;
-    SpecialEvent(0);
+    //SpecialEvent(0);
   }
   private void Update()
   {
@@ -154,45 +154,45 @@ public class LevelEditorManager : MonoBehaviour
           m_restartEvents.Invoke();
           m_wallArray[m_graffiti].SetActive(false);
           m_graffiti++;
-          SpecialEvent(m_graffiti);
+          //SpecialEvent(m_graffiti);
           
         }
       }
     }
   }
-  public void SpecialEvent(int graffiti)
-  {
-    switch (graffiti)
-    {
-      case 0:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 1:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 2:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 3:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 4:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 5:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 6:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 7:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-      case 8:
-        m_graffitiArray[graffiti].SetActive(true);
-        break;
-    }
-  }
+  //public void SpecialEvent(int graffiti)
+  //{
+  //  switch (graffiti)
+  //  {
+  //    case 0:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 1:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 2:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 3:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 4:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 5:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 6:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 7:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //    case 8:
+  //      m_graffitiArray[graffiti].SetActive(true);
+  //      break;
+  //  }
+  //}
   public void InstantiatePrefab(Vector3 worldPosition)
   {
     var sprite = FindObjectOfType<SpriteFollowMouse>();

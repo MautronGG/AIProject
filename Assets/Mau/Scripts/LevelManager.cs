@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     public bool m_isEditing = false;
 
-    public ItemScript m_item;
+    public NewBridgeScript m_item;
     public SpriteFollow m_spriteFollow;
 
     public int m_reachedGoals = 0;
@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
     public UnityEvent m_restartEvents;
 
     public CameraMovement m_camera;
-
+    [SerializeField] GameObject m_object;
     private void Awake()
     {
 
@@ -109,10 +109,27 @@ public class LevelManager : MonoBehaviour
                 m_gameOverCanvas.SetActive(true);
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            m_myFSM.SetState(m_myFSM.m_onPlayState);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            m_myFSM.SetState(m_myFSM.m_onEditorState);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+            //m_isClicked = true;
+            var obj = Instantiate(m_object, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+            m_spriteFollow = obj.GetComponent<SpriteFollow>();
+            //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+            m_spriteFollow.StartFollow();
+        }
         ///To move Sprite when placing in Level
-        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+       //Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+       //Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
     }
     public void Pause()
     {
@@ -150,9 +167,9 @@ public class LevelManager : MonoBehaviour
             m_Red.EnableMovement(true);
             m_Green.EnableMovement(true);
             m_Blue.EnableMovement(true);
-            m_HUDBuildCanvas.SetActive(false);
-            m_HUDPlayCanvas.SetActive(true);
-            m_camera.ChangeMovement(false);
+            //m_HUDBuildCanvas.SetActive(false);
+            //m_HUDPlayCanvas.SetActive(true);
+            //m_camera.ChangeMovement(false);
             m_camera.AutomaticMovement(true);
         });
         m_playButton.onClick.AddListener(() =>
@@ -169,12 +186,12 @@ public class LevelManager : MonoBehaviour
             m_Red.ResetTransform();
             m_Green.ResetTransform();
             m_Blue.ResetTransform();
-            m_HUDBuildCanvas.SetActive(true);
-            m_HUDPlayCanvas.SetActive(false);
+            //m_HUDBuildCanvas.SetActive(true);
+            //m_HUDPlayCanvas.SetActive(false);
             m_camera.ChangeMovement(true);
             m_camera.AutomaticMovement(false);
-            m_camera.ResetTransform();
-            ResetDefaults();
+            //m_camera.ResetTransform();
+            //ResetDefaults();
         });
     }
     public void ResetDefaults()
