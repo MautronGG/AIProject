@@ -102,7 +102,7 @@ public class LevelManager : MonoBehaviour
         {
             if (m_reachedGoals > 0)
             {
-                m_winCanvas.SetActive(true);
+                //m_winCanvas.SetActive(true);
             }
             else
             {

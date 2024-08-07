@@ -45,7 +45,7 @@ public class SphereScript : MonoBehaviour
         if (m_portaled)
         {
             m_portalTimer += Time.deltaTime;
-            if (m_portalTimer >= 1f)
+            if (m_portalTimer >= .7f)
             {
                 m_portalTimer = 0f;
                 m_portaled = false;
@@ -191,6 +191,10 @@ public class SphereScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.tag.Equals("Trig"))
+        {
+            Camera.main.GetComponent<CameraMovement>().trig = 1.3f;
+        }
         //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
         if (other.transform.tag.Equals("Spring"))
         {
