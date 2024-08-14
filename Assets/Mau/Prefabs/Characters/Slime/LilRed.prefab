@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 5
   m_timeToDeath: 5
+  m_maxStepHeight: 0.6
+  m_smoothStep: 0.2
   m_isActive: 0
 --- !u!135 &5893851945201583211
 SphereCollider:

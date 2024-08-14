@@ -7160,7 +7160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.089
+      value: 2.103
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7193,6 +7193,10 @@ PrefabInstance:
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898340331093374142, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+      propertyPath: m_Constraints
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 8121111071185761011, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_Name
@@ -7235,6 +7239,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4975053949443681230, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 5684255487658115983, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -7245,7 +7253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5684255487658115983, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.089
+      value: 2.103
       objectReference: {fileID: 0}
     - target: {fileID: 5684255487658115983, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8162,6 +8170,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 916685852545952272, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_Name
       value: LilGreen
@@ -8192,7 +8204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7757288188714898875, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.089
+      value: 2.103
       objectReference: {fileID: 0}
     - target: {fileID: 7757288188714898875, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_LocalPosition.z

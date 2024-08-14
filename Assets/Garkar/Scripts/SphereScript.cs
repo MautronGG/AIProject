@@ -10,12 +10,15 @@ public class SphereScript : MonoBehaviour
 
     [SerializeField] private float m_speed = 5;
     [SerializeField] private float m_timeToDeath = 5;
+    [SerializeField] private float m_maxStepHeight = .3f;
+    [SerializeField] private float m_smoothStep = 0.1f;
     private bool m_flipped;
     private bool m_grounded;
     private bool m_canKillEnemy;
     public bool m_isActive;
     private Vector3 m_desiredMovement;
     Rigidbody m_Rigidbody;
+    Collider m_Collider;
     LevelManager m_levelManager;
     Vector3 m_defaultPosition;
     Quaternion m_defaultRotation;
@@ -24,6 +27,7 @@ public class SphereScript : MonoBehaviour
     {
         //Establecer los parámetros iniciales
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_Collider = GetComponent<Collider>();
         m_flipped = false;
         m_canKillEnemy = false;
         m_isActive = false;
@@ -50,6 +54,28 @@ public class SphereScript : MonoBehaviour
             //Establecer la velocidad esperada.
             m_Rigidbody.velocity = m_desiredMovement;
 
+            float flip = 1;
+            if (m_flipped)
+            {
+                flip = -flip;
+            }
+
+            Vector3 entityPos = transform.position;
+            Vector3 entitySize = m_Collider.bounds.size;
+            Vector3 lowerPos = new Vector3(entityPos.x + (entitySize.x * .5f * flip),
+            entityPos.y - (entitySize.y * .5f),
+            entityPos.z);
+            Vector3 entitiyDir = Vector3.right * flip;
+            RaycastHit lower;
+            if (Physics.Raycast(lowerPos, entitiyDir, out lower, 0.1f))
+            {
+                RaycastHit upper;
+                Vector3 upperPos = new Vector3(lowerPos.x, lowerPos.y + m_maxStepHeight, lowerPos.z);
+                if (!Physics.Raycast(upperPos, entitiyDir, out upper, 0.3f))
+                {
+                    transform.position += new Vector3(0.0f, m_smoothStep, 0.0f);
+                }
+            }
         }
         else
         {
