@@ -1912,28 +1912,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteWhite:
   - {fileID: 21300000, guid: d91c221655979454ea1535a1fe92ac06, type: 3}
+  - {fileID: 21300000, guid: 214474414d9669f40bf7cc1df80b3b85, type: 3}
+  - {fileID: 21300000, guid: 10da83aa2ecef3e4e886afc1ab0fa7e0, type: 3}
   m_spriteRed:
   - {fileID: 21300000, guid: 5be4e7364eeefd0419712b32712931e1, type: 3}
+  - {fileID: 21300000, guid: 245ce04e43b99784aab4bcadbb988482, type: 3}
+  - {fileID: 21300000, guid: 4a06093c3f275244a93d115e5636144c, type: 3}
   m_spriteYellow:
   - {fileID: 21300000, guid: 3ff030364419abc4d971e74e786612cd, type: 3}
+  - {fileID: 21300000, guid: a7c0aa0ba5b339d4abe70e847c33df7b, type: 3}
+  - {fileID: 21300000, guid: 602272e8cdd1a534fad6083b5fc1182c, type: 3}
   m_spriteGreen:
   - {fileID: 21300000, guid: 2839d86da86ef5345bcf3f9b094ce8f4, type: 3}
+  - {fileID: 21300000, guid: f6c8224c323ffed44b39b673f809c3fc, type: 3}
+  - {fileID: 21300000, guid: ff7c5510cc1cdff4790660749c3185e3, type: 3}
   m_spriteCyan:
   - {fileID: 21300000, guid: a4f5a6ed86298604fadd0354bf8118f8, type: 3}
+  - {fileID: 21300000, guid: b98bd035bac2cd34881da889ff5372b0, type: 3}
+  - {fileID: 21300000, guid: a19659350a5685743a969b99c94eb111, type: 3}
   m_spriteBlue:
   - {fileID: 21300000, guid: a04801ba88b8f3149843f8a597dd9cdb, type: 3}
+  - {fileID: 21300000, guid: b7a5d37a35b897e41bd33a909f48cd54, type: 3}
+  - {fileID: 21300000, guid: 95448891581e2784ab54d420f954ffd3, type: 3}
   m_spriteMagenta:
   - {fileID: 21300000, guid: bc316d64702b05c4c8d2def1c7a3e68d, type: 3}
+  - {fileID: 21300000, guid: e5b9da85562efc643975aa0dd95f96bf, type: 3}
+  - {fileID: 21300000, guid: 4ba0cde6b3bdbe945aa6724159bcd870, type: 3}
   m_spriteBlack:
   - {fileID: 21300000, guid: ace5e630d40dc2a45a0cc4e0d9433e61, type: 3}
-  m_listTypeObjectId:
-  - Bridge
-  - Spring
-  - Portal
-  - Key
-  - Enemy
-  - NormalBlock
-  - SpikyBlock
+  - {fileID: 21300000, guid: d253180c5cecd0440921ae39aca6317b, type: 3}
+  - {fileID: 21300000, guid: 6bf62f748514a3f41ae9569d59074053, type: 3}
+  m_listTypeObjectId: 00000000010000000200000003000000040000000500000006000000
 --- !u!1 &651450056
 GameObject:
   m_ObjectHideFlags: 0

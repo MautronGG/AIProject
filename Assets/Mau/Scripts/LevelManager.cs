@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     public bool m_isEditing = false;
 
-    public ItemScript m_item;
+    public NewBridgeScript m_item;
     public SpriteFollow m_spriteFollow;
 
     public int m_reachedGoals = 0;

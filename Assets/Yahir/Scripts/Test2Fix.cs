@@ -54,19 +54,19 @@ public class Test2Fix : MonoBehaviour
     //    spriteRenderer.sprite = temporalSprite;   
     //    temporalSprite = null;
     //}
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0) && color < 8 )
-        {
-            temporalSprite = m_fixColorManager.getSprite(color, m_object, actualColor);
-        }
-        if (temporalSprite == null)
-        {
-            return;
-        }
-        actualColor = m_fixColorManager.getLastColor(m_object);
-        
-        spriteRenderer.sprite = temporalSprite;
-        temporalSprite = null;
-    }
+    //private void OnMouseOver()
+    //{
+    //    if (Input.GetMouseButtonDown(0) && color < 8 )
+    //    {
+    //        temporalSprite = m_fixColorManager.getSprite(color, m_object, actualColor);
+    //    }
+    //    if (temporalSprite == null)
+    //    {
+    //        return;
+    //    }
+    //    actualColor = m_fixColorManager.getLastColor(m_object);
+    //    
+    //    spriteRenderer.sprite = temporalSprite;
+    //    temporalSprite = null;
+    //}
 }

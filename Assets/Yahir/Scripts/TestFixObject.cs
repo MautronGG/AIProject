@@ -29,7 +29,7 @@ public class TestFixObject : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            temporalSprite = m_fixColorManager.getSpriteLinkObjects(1, typesObects.Portal, typesObects.KeyDoor, actualColor);
+            temporalSprite = m_fixColorManager.getSpriteLinkObjects(1, typesObects.Portal, typesObects.Key, actualColor);
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {

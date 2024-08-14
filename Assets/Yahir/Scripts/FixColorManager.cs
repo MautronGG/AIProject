@@ -44,8 +44,6 @@ public class FixColorManager : MonoBehaviour
     //[SerializeField]
     //List<Sprite> m_sprite = new List<Sprite>();
 
-
-    public typesObects tal;
     [Tooltip("Sprite White")]
     [SerializeField]
     private List<Sprite> m_spriteWhite;

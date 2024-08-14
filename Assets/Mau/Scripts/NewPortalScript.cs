@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NewPortalScript : ItemScript
 {
-    public GameObject m_exitPortal;
-
     public override void Awake()
     {
         base.Awake();

@@ -16,12 +16,15 @@ public class SphereScript : MonoBehaviour
     private bool m_grounded;
     private bool m_canKillEnemy;
     public bool m_isActive;
+    public bool m_portaled = false;
+    float m_portalTimer = 0f;
     private Vector3 m_desiredMovement;
     Rigidbody m_Rigidbody;
     Collider m_Collider;
     LevelManager m_levelManager;
     Vector3 m_defaultPosition;
     Quaternion m_defaultRotation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +38,18 @@ public class SphereScript : MonoBehaviour
         m_levelManager = FindAnyObjectByType<LevelManager>();
         m_defaultPosition = GetComponent<Transform>().position;
         m_defaultRotation = GetComponent<Transform>().rotation;
+    }
+    private void Update()
+    {
+        if (m_portaled)
+        {
+            m_portalTimer += Time.deltaTime;
+            if (m_portalTimer >= .7f)
+            {
+                m_portalTimer = 0f;
+                m_portaled = false;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -181,6 +196,11 @@ public class SphereScript : MonoBehaviour
             m_grounded = false;
             float springForce = other.transform.GetComponent<SpringScript>().SpringForce;
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, springForce, m_Rigidbody.velocity.z);
+        }
+        if (other.transform.tag.Equals("Portal") && !m_portaled)
+        {
+            transform.position = other.GetComponent<NewPortalScript>().otherObject.transform.position;
+            m_portaled = true;
         }
         if (other.transform.tag.Equals("Destiny"))
         {

@@ -16,10 +16,6 @@ public class ItemScript : MonoBehaviour
     //public GameObject m_mySprite;
     public int m_personalID;
 
-    public bool m_canOpenOptions = true;
-    //public bool m_canEdit = true;
-    public bool m_canDelete = true;
-
     public Vector3 m_defaultPosition;
     public Quaternion m_defaultRotation;
     public Vector3 m_defaultScale;
@@ -35,10 +31,12 @@ public class ItemScript : MonoBehaviour
     public CursorSet color;
 
     [SerializeField]
-    public string m_object;
+    public typesObects m_object;
+    public ItemScript otherObject;
 
     private SpriteRenderer spriteRenderer;
     private Sprite temporalSprite;
+    public List<Sprite> doubleSprites;
 
     private string actualColor = "Black";
     public virtual void Awake()
@@ -117,9 +115,18 @@ public class ItemScript : MonoBehaviour
             }
             else
             {
-                temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);
-            }
-            
+                doubleSprites = m_fixColorManager.getSpriteLinkObjects(theColor, m_object, otherObject.m_object, actualColor);
+                if (doubleSprites == null)
+                {
+                    return;
+                }
+                actualColor = m_fixColorManager.getLastColor(m_object);
+                spriteRenderer.sprite = doubleSprites[0];
+                otherObject.spriteRenderer.sprite = doubleSprites[1];
+                gameObject.layer = LayerMask.NameToLayer(actualColor);
+                otherObject.gameObject.layer = LayerMask.NameToLayer(actualColor);
+                doubleSprites = null;
+            } 
         }
     }
     public virtual void ResetDeafualts()
@@ -127,7 +134,7 @@ public class ItemScript : MonoBehaviour
         transform.position = m_defaultPosition;
         transform.rotation = m_defaultRotation;
         transform.localScale = m_defaultScale;
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
     //private void OnEnable()
     //{
