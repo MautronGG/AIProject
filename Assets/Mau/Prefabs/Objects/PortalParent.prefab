@@ -141,7 +141,7 @@ MonoBehaviour:
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
-  m_object: 0
+  m_object: 2
   otherObject: {fileID: 2071137185}
   doubleSprites: []
 --- !u!135 &7581821473644993147
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
-  m_object: 0
+  m_object: 2
   otherObject: {fileID: 1787887364}
   doubleSprites: []
 --- !u!135 &5434793044530596837

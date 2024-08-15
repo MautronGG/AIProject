@@ -147,9 +147,8 @@ public class FixColorManager : MonoBehaviour
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteMagenta;
                 }
-                else if (colorFix == 7 && m_listSpriteObjests[i].m_activeBlack == true)
+                else if (colorFix == 7)
                 {
-                    m_listSpriteObjests[i].m_activeBlack = false;
                     m_listSpriteObjests[i].lastColor = "Black";
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteBlack;

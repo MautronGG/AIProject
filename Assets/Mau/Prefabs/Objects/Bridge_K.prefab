@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5375573791357188901}
   - component: {fileID: 1398922455345234985}
   - component: {fileID: -4989581308750947337}
-  - component: {fileID: 4178230339452600107}
+  - component: {fileID: 6627137422567395329}
   m_Layer: 14
   m_Name: Bridge_K
   m_TagString: Floor
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_follow: 1
   m_layer: 
---- !u!114 &4178230339452600107
+--- !u!114 &6627137422567395329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,18 +143,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7695046299455163447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb2f7f1b04d94b4ebd818702ac01e58, type: 3}
+  m_Script: {fileID: 11500000, guid: ca929f8903b0b834aabb563fdc664f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isBridge: 1
+  m_isDouble: 0
   m_levelManager: {fileID: 0}
   m_personalID: 0
-  m_canOpenOptions: 1
-  m_canDelete: 1
   m_defaultPosition: {x: 0, y: 0, z: 0}
   m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
   m_defaultScale: {x: 0, y: 0, z: 0}
+  m_checks: 1
   m_canClick: 1
-  m_spriteFollow: {fileID: 0}
   m_fixColorManager: {fileID: 0}
-  m_object: Bridge
+  color: {fileID: 0}
+  m_object: 0
+  otherObject: {fileID: 0}
+  doubleSprites: []
+  m_spriteFollow: {fileID: 0}

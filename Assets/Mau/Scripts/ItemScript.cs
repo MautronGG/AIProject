@@ -26,7 +26,7 @@ public class ItemScript : MonoBehaviour
 
     [Tooltip("Manager object Fix")]
     [SerializeField]
-    FixColorManager m_fixColorManager;
+    public FixColorManager m_fixColorManager;
 
     public CursorSet color;
 
@@ -38,11 +38,10 @@ public class ItemScript : MonoBehaviour
     private Sprite temporalSprite;
     public List<Sprite> doubleSprites;
 
-    private string actualColor = "Black";
+    public string actualColor = "Black";
     public virtual void Awake()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
-        m_levelManager.m_isEditing = true;
         color = FindObjectOfType<CursorSet>();
         m_fixColorManager = FindObjectOfType<FixColorManager>();
         GameObject spriteObject = new GameObject("TemporalSpriteObject");

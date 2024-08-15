@@ -24,6 +24,6 @@ public class ItemOptionScript : MonoBehaviour
 
     public void Delete()
     {
-        Destroy(m_levelManager.m_item.gameObject);
+        m_levelManager.m_item.Delete();
     }
 }

@@ -10,8 +10,8 @@ public class NewBridgeScript : ItemScript
     public override void Awake()
     {
         m_spriteFollow = GetComponent<SpriteFollow>();
-        base.Awake(); 
-
+        base.Awake();
+        m_levelManager.m_isEditing = true;
     }
     // Update is called once per frame
     public override void Update()
@@ -50,9 +50,15 @@ public class NewBridgeScript : ItemScript
     {
         m_spriteFollow.m_follow = false;
         gameObject.layer = LayerMask.NameToLayer(m_spriteFollow.m_layer);
-        //m_editor.m_itemButtons[m_editor.m_currentButtonID].m_isClicked = false;
         m_levelManager.m_isEditing = false;
-        //m_levelManager.m_HUDBuildCanvas.SetActive(true);
+        m_levelManager.m_HUDBuildCanvas.SetActive(true);
         m_levelManager.m_controlCanvas.SetActive(false);
+    }
+    public void Delete()
+    {
+        m_fixColorManager.getSprite(7, m_object, actualColor);
+        actualColor = m_fixColorManager.getLastColor(m_object);
+        Destroy(gameObject);
+
     }
 }
