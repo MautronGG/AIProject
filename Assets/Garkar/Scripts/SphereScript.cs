@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class SphereScript : MonoBehaviour
 {
-
     [SerializeField] private float m_speed = 5;
     [SerializeField] private float m_timeToDeath = 5;
     [SerializeField] private float m_maxStepHeight = .3f;

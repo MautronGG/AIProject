@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9215072453656306155}
   - component: {fileID: 9215072453656306164}
   - component: {fileID: 9215072453656306165}
-  - component: {fileID: 6182021645851883215}
-  m_Layer: 0
+  - component: {fileID: 2125411218217207250}
+  m_Layer: 14
   m_Name: Spring_Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,18 +111,21 @@ MonoBehaviour:
   m_object: 1
   otherObject: {fileID: 0}
   doubleSprites: []
+  actualColor: Black
   m_springForce: 0
---- !u!136 &6182021645851883215
-CapsuleCollider:
+--- !u!70 &2125411218217207250
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9215072453656306166}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.0226349
-  m_Height: 5.1699996
-  m_Direction: 1
-  m_Center: {x: 0.11151671, y: 0, z: 0}
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.08069013, y: 0}
+  m_Size: {x: 1.9629762, y: 5.1699996}
+  m_Direction: 0

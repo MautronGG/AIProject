@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5684255487658115983}
   - component: {fileID: 1884190119166798687}
   - component: {fileID: 7837739823476275707}
-  - component: {fileID: 5893851945201583211}
-  - component: {fileID: 4975053949443681230}
+  - component: {fileID: -5576582685861909372}
+  - component: {fileID: 1566566388381917965}
+  - component: {fileID: 6221178209250675134}
   m_Layer: 6
   m_Name: LilRed
   m_TagString: Untagged
@@ -94,7 +95,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4029010001505518036}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68aaf3e0c6b2b7c408707f9e0eb35e22, type: 3}
   m_Name: 
@@ -104,32 +105,62 @@ MonoBehaviour:
   m_maxStepHeight: 0.6
   m_smoothStep: 0.2
   m_isActive: 0
---- !u!135 &5893851945201583211
-SphereCollider:
+  m_portaled: 0
+--- !u!58 &-5576582685861909372
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4029010001505518036}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.41263
-  m_Center: {x: -0.022787923, y: 0.0000006608068, z: 0}
---- !u!54 &4975053949443681230
-Rigidbody:
+  m_Radius: 4.3988457
+--- !u!50 &1566566388381917965
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4029010001505518036}
-  serializedVersion: 2
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
   m_Mass: 1
-  m_Drag: 0
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_Constraints: 0
+  m_SleepingMode: 1
   m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &6221178209250675134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029010001505518036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd28e5927b430d34f949d28054708a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_portaled: 0
+  m_portalTime: 0
+  m_reachedGoal: 0
+  m_Rigidbody: {fileID: 0}
+  m_canMove: 0
+  m_moveSpeed: 4
+  m_speed: 0
+  m_timeToDeath: 5
