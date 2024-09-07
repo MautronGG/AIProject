@@ -18,16 +18,17 @@ public class MinionMovement : MonoBehaviour
     public bool m_canMove = false;
     private Vector3 m_initialVelocity;
     private Vector2 m_moveVector;
-    Vector3 m_newMove = new Vector2(1f, 0f);
+    [SerializeField] Vector3 m_newMove = new Vector2(1f, 0f);
 
-    public float m_moveSpeed = 4.0f;
-    public float m_speed;
-    private float m_verticalVelocity;
+    [SerializeField] private float m_actualSpeed = 2.7f;
+    [SerializeField] private float m_moveSpeed = 0f;
+    [SerializeField] public float m_speed;
+    [SerializeField] private float m_verticalVelocity;
 
-    private bool m_isGrounded;
+    [SerializeField] private bool m_isGrounded;
     private float m_groundedOffset = -0.14f;
     private float m_groundedRadius = 0.5f;
-    private LayerMask m_groundLayers;
+    public LayerMask m_groundLayers;
 
     private float m_gravity = -15.0f;
     private float m_speedChangeRate = 10.0f;
@@ -43,8 +44,7 @@ public class MinionMovement : MonoBehaviour
 
     [SerializeField] private float m_timeToDeath = 5;
     private bool m_flipped;
-    private bool m_canKillEnemy;
-    Collider m_Collider;
+    private bool m_canKillEnemy = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,16 +79,16 @@ public class MinionMovement : MonoBehaviour
         //{
         //  this.gameObject.SetActive(false);
         //}
-        else
-        {
-            m_moveSpeed = 0;
-            m_moveVector = Vector2.zero;
-        }
         if (m_canMove)
         {
-            m_moveSpeed = 2.7f;
+            m_actualSpeed = m_moveSpeed;
             //rig.velocity = new Vector3(m_speed,m_speed,m_speed);
             m_moveVector = m_newMove;
+        }
+        else
+        {
+            m_actualSpeed = 0;
+            m_moveVector = Vector2.zero;
         }
         if (m_reachedGoal)
         {
@@ -99,7 +99,6 @@ public class MinionMovement : MonoBehaviour
         }
         else
         {
-            //m_controller.enabled = true;
             Move();
             GroundedCheck();
             Gravity();
@@ -115,13 +114,16 @@ public class MinionMovement : MonoBehaviour
     public void Move()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = m_moveSpeed;
+        float targetSpeed = m_actualSpeed;
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
         // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is no input, set the target speed to 0
-        if (m_moveVector == Vector2.zero) targetSpeed = 0.0f;
+        if (m_moveVector == Vector2.zero)
+        {
+            targetSpeed = 0.0f;
+        }
 
         // a reference to the players current horizontal velocity
         float currentHorizontalSpeed = new Vector2(m_Rigidbody.velocity.x, 0.0f).magnitude;
@@ -158,7 +160,7 @@ public class MinionMovement : MonoBehaviour
     {
         // set sphere position, with offset
         Vector2 spherePosition = new Vector2(transform.position.x, transform.position.y - m_groundedOffset);
-        m_isGrounded = Physics.CheckSphere(spherePosition, m_groundedRadius, m_groundLayers, QueryTriggerInteraction.Ignore);
+        m_isGrounded = Physics2D.OverlapCircle(spherePosition, m_groundedRadius, m_groundLayers);
     }
     private void Gravity()
     {

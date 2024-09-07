@@ -65,9 +65,9 @@ public class LevelManager : MonoBehaviour
 
     FSM m_myFSM;
 
-    public SphereScript m_Red;
-    public SphereScript m_Green;
-    public SphereScript m_Blue;
+    public MinionMovement m_Red;
+    public MinionMovement m_Green;
+    public MinionMovement m_Blue;
 
     public bool m_canPlay = false;
     public UnityEvent m_playEvents;
