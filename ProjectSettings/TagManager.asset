@@ -17,9 +17,6 @@ TagManager:
   - Event2
   - Event1
   - EditorManager
-  - Spring
-  - LevelManager
-  - Portal
   layers:
   - Default
   - TransparentFX

@@ -20,10 +20,7 @@ public class ClickScript : MonoBehaviour
                 { "event_value", 1000 }
             });
       text.text = "An event GREEN has been sent to Google Analytics GA4 & Tutorial Finished";
-      CustomEvent myEvent = new CustomEvent("TutorialFinished")
-      {
-      };
-      AnalyticsService.Instance.RecordEvent(myEvent);
+      Analytics.CustomEvent("TutorialFinished");
     }
     else if (gameObject.tag == "Event2")
     {
@@ -36,20 +33,14 @@ public class ClickScript : MonoBehaviour
                 }
             });
       text.text = "An event BLUE has been sent to Google Analytics GA4 & Level 1 Finished";
-      CustomEvent myEvent1 = new CustomEvent("Level1Finished")
-      {
-      };
-      AnalyticsService.Instance.RecordEvent(myEvent1);
+      Analytics.CustomEvent("Level1Finished");
 
     }
     else if (gameObject.tag == "Event3")
     {
       GoogleAnalytics.Instance.TrackEvent("Event_Red");
       text.text = "An event RED has been sent to Google Analytics GA4 & Level 2 Finished";
-      CustomEvent myEvent2 = new CustomEvent("Level2Finished")
-      {
-      };
-      AnalyticsService.Instance.RecordEvent(myEvent2);
+      Analytics.CustomEvent("Level2Finished");
     }
   }
 }
