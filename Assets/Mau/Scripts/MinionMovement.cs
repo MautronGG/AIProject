@@ -12,17 +12,14 @@ public class MinionMovement : MonoBehaviour
     [HideInInspector] float m_bombTimer = 0f;
 
     public bool m_reachedGoal = false;
-    public Rigidbody2D m_Rigidbody;
+    //public Rigidbody2D m_Rigidbody;
 
     [Header("Movement")]
     public bool m_canMove = false;
     private Vector3 m_initialVelocity;
-    private Vector2 m_moveVector;
-    [SerializeField] Vector3 m_newMove = new Vector2(1f, 0f);
+    private Vector3 m_moveVector = new Vector3(1f, 0f);
 
-    [SerializeField] private float m_actualSpeed = 2.7f;
-    [SerializeField] private float m_moveSpeed = 0f;
-    [SerializeField] public float m_speed;
+    [SerializeField] private float m_speed;
     [SerializeField] private float m_verticalVelocity;
 
     [SerializeField] private bool m_isGrounded;
@@ -45,10 +42,13 @@ public class MinionMovement : MonoBehaviour
     [SerializeField] private float m_timeToDeath = 5;
     private bool m_flipped;
     private bool m_canKillEnemy = false;
+
+    Vector3 AdvanceDirection = Vector3.right;
+    List<GameObject> list = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody2D>();
+        //m_Rigidbody = GetComponent<Rigidbody2D>();
         m_fallTimeoutDelta = m_fallTimeout;
         m_levelManager = FindObjectOfType<LevelManager>();
         m_defaultPosition = transform.position;
@@ -79,17 +79,7 @@ public class MinionMovement : MonoBehaviour
         //{
         //  this.gameObject.SetActive(false);
         //}
-        if (m_canMove)
-        {
-            m_actualSpeed = m_moveSpeed;
-            //rig.velocity = new Vector3(m_speed,m_speed,m_speed);
-            m_moveVector = m_newMove;
-        }
-        else
-        {
-            m_actualSpeed = 0;
-            m_moveVector = Vector2.zero;
-        }
+
         if (m_reachedGoal)
         {
             m_canMove = false;
@@ -100,7 +90,7 @@ public class MinionMovement : MonoBehaviour
         else
         {
             Move();
-            GroundedCheck();
+            //GroundedCheck();
             Gravity();
         }
 
@@ -113,55 +103,29 @@ public class MinionMovement : MonoBehaviour
 
     public void Move()
     {
-        // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = m_actualSpeed;
-
-        // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-        // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is no input, set the target speed to 0
-        if (m_moveVector == Vector2.zero)
+        //Vector3 targetMovement = Vector3.zero;
+        //if (m_canMove)
+        //{
+        //    targetMovement = m_moveVector;
+        //}
+        //transform.position = transform.position + targetMovement.normalized * (m_speed * Time.deltaTime) + (new Vector3(0f, m_verticalVelocity) * Time.deltaTime);
+        if (m_canMove)
         {
-            targetSpeed = 0.0f;
-        }
-
-        // a reference to the players current horizontal velocity
-        float currentHorizontalSpeed = new Vector2(m_Rigidbody.velocity.x, 0.0f).magnitude;
-
-        float speedOffset = 0.1f;
-
-        // accelerate or decelerate to target speed
-        if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-        {
-            // creates curved result rather than a linear one giving a more organic speed change
-            // note T in Lerp is clamped, so we don't need to clamp our speed
-            m_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed, Time.deltaTime * m_speedChangeRate);
-
-            // round speed to 3 decimal places
-            m_speed = Mathf.Round(m_speed * 1000f) / 1000f;
+            m_moveVector = AdvanceDirection;
         }
         else
         {
-            m_speed = targetSpeed;
+            m_moveVector = Vector3.zero;
         }
+        transform.Translate((m_moveVector * m_speed * Time.deltaTime) + new Vector3(0f, m_verticalVelocity) * Time.deltaTime);
 
-        Vector2 moveDirection = new Vector2(m_moveVector.x, 0.0f).normalized;
-        if (m_moveVector != Vector2.zero)
-        {
-
-            // move
-            moveDirection = transform.right * m_moveVector.x;
-        }
-
-        // move the player
-        m_Rigidbody.velocity = (moveDirection.normalized * (m_speed * Time.deltaTime) + new Vector2(0.0f, m_verticalVelocity) * Time.deltaTime);
     }
-    private void GroundedCheck()
-    {
-        // set sphere position, with offset
-        Vector2 spherePosition = new Vector2(transform.position.x, transform.position.y - m_groundedOffset);
-        m_isGrounded = Physics2D.OverlapCircle(spherePosition, m_groundedRadius, m_groundLayers);
-    }
+    //private void GroundedCheck()
+    //{
+    //    // set sphere position, with offset
+    //    Vector2 spherePosition = new Vector2(transform.position.x, transform.position.y - m_groundedOffset);
+    //    m_isGrounded = Physics2D.OverlapCircle(spherePosition, m_groundedRadius, m_groundLayers);
+    //}
     private void Gravity()
     {
         if (m_isGrounded)
@@ -170,9 +134,9 @@ public class MinionMovement : MonoBehaviour
             m_fallTimeoutDelta = m_fallTimeout;
 
             // stop our velocity dropping infinitely when grounded
-            if (m_verticalVelocity < 0.0f)
+            if (m_verticalVelocity != 0.0f)
             {
-                m_verticalVelocity = -2f;
+                m_verticalVelocity = 0f;
             }
         }
         else
@@ -186,32 +150,43 @@ public class MinionMovement : MonoBehaviour
             {
                 m_verticalVelocity = -10f;
             }
-
+            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            if (m_verticalVelocity < m_terminalVelocity)
+            {
+                m_verticalVelocity += m_gravity * Time.deltaTime;
+            }
         }
 
-        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-        if (m_verticalVelocity < m_terminalVelocity)
-        {
-            m_verticalVelocity += m_gravity * Time.deltaTime;
-        }
+
     }
     //private void OnDisable()
     //{
     //  m_levelEditorManager.m_finishedBoids++;
     //}
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision == null)
+        {
+            return;
+        }
         //Si es un muro u otra bola, cambiar la dirección del personaje.
         if (collision.gameObject.tag.Equals("Wall"))
         {
-            FlipVelocity();
+            Collider2D collider = collision.collider;
+            //Vector2 m_Center = collider.bounds.center;
+            //Vector2 m_Size = collider.bounds.size;
+            //Vector2 m_Min = collider.bounds.min;
+            Vector2 m_Max = collider.bounds.max;
+            if (transform.position.y <= m_Max.y)
+            {
+                FlipVelocity();
+            }
         }
-        if (collision.gameObject.tag.Equals("Player"))
-        {
-            FlipVelocity();
-        }
+        //if (collision.gameObject.tag.Equals("Player"))
+        //{
+        //    FlipVelocity();
+        //}
 
         //Si es un enemigo, desactivar al jugador.
         if (collision.gameObject.tag.Equals("Enemy"))
@@ -230,14 +205,54 @@ public class MinionMovement : MonoBehaviour
         }
         if (collision.transform.tag.Equals("Floor"))
         {
-            m_isGrounded = true;
+            if (!list.Contains(collision.gameObject))
+            {
+                list.Add(collision.gameObject);
+                m_isGrounded = true;
+
+                Debug.Log(collision.gameObject.name);
+
+                Vector3 forwardDirection = collision.transform.right;
+
+                Vector3 upDirection = collision.transform.up;
+
+                Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
+
+                Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
+
+                Debug.Log(Vector3.Dot(Vector3.up, upDirection));
+
+                if (Vector3.Dot(Vector3.up, upDirection) >= 0.5f)
+                {
+                    if (AdvanceDirection.x > 0f)
+                    {
+                        AdvanceDirection = forwardDirection;
+                    }
+                    else
+                    {
+                        AdvanceDirection = new Vector3(-forwardDirection.x, forwardDirection.y);
+                    }                    
+                }
+                else
+                { 
+                    FlipVelocity();
+                }
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.transform.tag.Equals("Floor"))
         {
-            m_isGrounded = false;
+            if (list.Contains(collision.gameObject))
+            {
+                list.Remove(collision.gameObject); 
+                if (list.Count <= 0)
+                {
+                    m_isGrounded = false;
+                }
+            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -252,12 +267,12 @@ public class MinionMovement : MonoBehaviour
 
         }
         //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
-        if (collision.transform.tag.Equals("Spring"))
-        {
-            m_isGrounded = false;
-            float springForce = collision.transform.GetComponent<SpringScript>().SpringForce;
-            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, springForce);
-        }
+        //if (collision.transform.tag.Equals("Spring"))
+        //{
+        //    m_isGrounded = false;
+        //    float springForce = collision.transform.GetComponent<SpringScript>().SpringForce;
+        //    m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, springForce);
+        //}
         if (collision.transform.tag.Equals("Portal") && !m_portaled)
         {
             transform.position = collision.GetComponent<NewPortalScript>().otherObject.transform.position;
@@ -267,21 +282,18 @@ public class MinionMovement : MonoBehaviour
         {
             FlipVelocity();
         }
-        if (collision.transform.tag.Equals("Wall"))
-        {
-            FlipVelocity();
-        }
         if (collision.transform.tag.Equals("Void"))
         {
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
         }
     }
+
     //Función para invertir la velocidad de la esfera en X.
     private void FlipVelocity()
     {
         m_flipped = !m_flipped;
-        m_newMove = -m_newMove;
+        AdvanceDirection = new Vector3(-AdvanceDirection.x, AdvanceDirection.y);
         ///FlipSprite
     }
 
@@ -307,13 +319,11 @@ public class MinionMovement : MonoBehaviour
     {
         gameObject.SetActive(true);
         m_verticalVelocity = 0f;
-        m_moveSpeed = 0;
-        m_moveVector = Vector2.zero;
-        m_newMove = new Vector2(1, 0);
         m_canMove = false;
         m_reachedGoal = false;
-        m_Rigidbody.angularVelocity = 0;
+        //m_Rigidbody.angularVelocity = 0;
         EnableMovement(false);
         transform.position = m_defaultPosition;
+        AdvanceDirection = new Vector3(1f, 0f, 0f);
     }
 }
