@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class MinionMovement : MonoBehaviour
@@ -53,6 +54,9 @@ public class MinionMovement : MonoBehaviour
         m_levelManager = FindObjectOfType<LevelManager>();
         m_defaultPosition = transform.position;
     }
+
+    //Quirino
+    Carriable m_item = null;
 
     // Update is called once per frame
     void Update()
@@ -259,11 +263,22 @@ public class MinionMovement : MonoBehaviour
     {
         if (collision.transform.tag.Equals("Destiny"))
         {
+            // Quirino 
+            if (m_item != null && m_item.type == E_CARRY_TYPE.KEY) //if it has key
+            {
+                //mau
+                m_reachedGoal = true;
+                m_levelManager.m_reachedGoals++;
+                m_levelManager.m_playerEnded++;
+                this.gameObject.SetActive(false);
 
-            m_reachedGoal = true;
-            m_levelManager.m_reachedGoals++;
-            m_levelManager.m_playerEnded++;
-            this.gameObject.SetActive(false);
+                //Quirino
+                Debug.Log(collision.gameObject + " triggered " + gameObject);
+                Destroy(m_item.gameObject);
+                m_item = null;
+
+            }
+
 
         }
         //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
@@ -287,6 +302,19 @@ public class MinionMovement : MonoBehaviour
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
         }
+
+        // Quirino
+        if (collision.tag == "Carriable")
+        {
+            Carriable item = collision.gameObject.GetComponent<Carriable>();
+            if(item != null && m_item == null) //if doesnt has carriable item, take it
+            {
+                m_item = item;
+                m_item.AttachTo(this);
+            }
+            Debug.Log(collision.gameObject + " triggered " + gameObject);
+        }
+
     }
 
     //Función para invertir la velocidad de la esfera en X.
