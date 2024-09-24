@@ -12,7 +12,8 @@ public class MinionMovement : MonoBehaviour
     [HideInInspector] float m_bombTimer = 0f;
 
     public bool m_reachedGoal = false;
-    //public Rigidbody2D m_Rigidbody;
+    public Rigidbody2D m_rigidBody;
+    public CircleCollider2D m_collider;
 
     [Header("Movement")]
     public bool m_canMove = false;
@@ -23,12 +24,8 @@ public class MinionMovement : MonoBehaviour
     [SerializeField] private float m_verticalVelocity;
 
     [SerializeField] private bool m_isGrounded;
-    private float m_groundedOffset = -0.14f;
-    private float m_groundedRadius = 0.5f;
-    public LayerMask m_groundLayers;
 
     private float m_gravity = -15.0f;
-    private float m_speedChangeRate = 10.0f;
 
     [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
     private float m_fallTimeout = 0.15f;
@@ -37,7 +34,6 @@ public class MinionMovement : MonoBehaviour
     private float m_terminalVelocity = 53.0f;
 
     private LevelManager m_levelManager;
-    private float m_mass;
 
     [SerializeField] private float m_timeToDeath = 5;
     private bool m_flipped;
@@ -45,10 +41,17 @@ public class MinionMovement : MonoBehaviour
 
     Vector3 AdvanceDirection = Vector3.right;
     List<GameObject> list = new List<GameObject>();
+
+    [Header("StairStep")]
+    public float stepHeight = 0.8f; // Maximum height difference the character can step
+    public float stepDetectionDistance = 0.1f; // Distance to check in front of the player
+
+
     // Start is called before the first frame update
     void Start()
     {
-        //m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_rigidBody = GetComponent<Rigidbody2D>();
+        m_collider = GetComponent<CircleCollider2D>();
         m_fallTimeoutDelta = m_fallTimeout;
         m_levelManager = FindObjectOfType<LevelManager>();
         m_defaultPosition = transform.position;
@@ -207,36 +210,89 @@ public class MinionMovement : MonoBehaviour
         {
             if (!list.Contains(collision.gameObject))
             {
-                list.Add(collision.gameObject);
-                m_isGrounded = true;
+                // Check if the character is colliding from above
+                ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
+                collision.GetContacts(contactPoints);
 
-                Debug.Log(collision.gameObject.name);
+                bool isFromAbove = false;
 
-                Vector3 forwardDirection = collision.transform.right;
-
-                Vector3 upDirection = collision.transform.up;
-
-                Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
-
-                Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
-
-                Debug.Log(Vector3.Dot(Vector3.up, upDirection));
-
-                if (Vector3.Dot(Vector3.up, upDirection) >= 0.5f)
+                foreach (ContactPoint2D contact in contactPoints)
                 {
-                    if (AdvanceDirection.x > 0f)
+                    // Check if the collision normal points upward, meaning the character is above the floor
+                    if (contact.normal.y > 0.5f)
                     {
-                        AdvanceDirection = forwardDirection;
+                        isFromAbove = true;
+                        break;
+                    }
+                }
+
+                // Only apply movement direction if the character is on top of the floor
+                if (isFromAbove)
+                {
+                    list.Add(collision.gameObject);
+                    m_isGrounded = true;
+
+                    Debug.Log(collision.gameObject.name);
+
+                    Vector3 forwardDirection = collision.transform.right;
+                    Vector3 upDirection = collision.transform.up;
+                    Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
+
+                    Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
+                    Debug.Log(Vector3.Dot(Vector3.up, upDirection));
+
+                    if (Vector3.Dot(Vector3.up, upDirection) >= 0.5f)
+                    {
+                        if (AdvanceDirection.x > 0f)
+                        {
+                            AdvanceDirection = forwardDirection;
+                        }
+                        else
+                        {
+                            AdvanceDirection = new Vector3(-forwardDirection.x, forwardDirection.y);
+                        }
                     }
                     else
                     {
-                        AdvanceDirection = new Vector3(-forwardDirection.x, forwardDirection.y);
-                    }                    
+                        FlipVelocity();
+                    }
                 }
-                else
-                { 
-                    FlipVelocity();
-                }
+            }
+            if (list.Count > 1)
+            {
+                HandleStepClimb();
+                //Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
+                //Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
+                //Vector3 col1Max = col1.bounds.max;
+                //Vector3 col1Min = col1.bounds.min;
+                //Vector3 col1Center = col1.bounds.center;
+                //
+                //Vector3 col2Max = col2.bounds.max;
+                //Vector3 col2Min = col2.bounds.min;
+                //Vector3 col2Center = col2.bounds.center;
+                //
+                //
+                //Vector3 point1 = Vector2.zero;
+                //Vector3 point2 = Vector2.zero;
+                //
+                //if (AdvanceDirection.x > 0f)
+                //{
+                //    point1 = col1Center + col1.gameObject.transform.right * (col1.bounds.size.x / 2);
+                //    point2 = col2Center - col1.gameObject.transform.right * (col1.bounds.size.x / 2);
+                //    if(point2.y <= point1.y + m_stepOffSet)
+                //    {
+                //        //transform.position += Vector3.up + Vector3.right;
+                //    }
+                //}
+                //else
+                //{
+                //    point1 = col1Center - col1.gameObject.transform.right * (col1.bounds.size.x / 2);
+                //    point2 = col2Center + col1.gameObject.transform.right * (col1.bounds.size.x / 2);
+                //    if (point2.y <= point1.y + m_stepOffSet)
+                //    {
+                //        //transform.position -= Vector3.up + Vector3.right;
+                //    }
+                //}
             }
         }
     }
@@ -325,5 +381,44 @@ public class MinionMovement : MonoBehaviour
         EnableMovement(false);
         transform.position = m_defaultPosition;
         AdvanceDirection = new Vector3(1f, 0f, 0f);
+        list.Clear();
+        m_isGrounded = false;
+    }
+    void HandleStepClimb()
+    {
+        float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling
+
+        // Cast two rays in front of the player: one at foot height and another at head height
+        Vector2 footPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y - adjustedRadius);
+        Vector2 headPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y + adjustedRadius);
+
+        RaycastHit2D footRay = Physics2D.Raycast(footPosition, Vector2.right, stepDetectionDistance);
+        RaycastHit2D headRay = Physics2D.Raycast(headPosition, Vector2.right, stepDetectionDistance);
+
+        if (footRay.collider != null && !headRay.collider) // If foot detects a collision but head doesn't
+        {
+            // Check if the object hit by the foot ray has the correct tag
+            if (footRay.collider.CompareTag("Floor") || footRay.collider.CompareTag("Wall") || footRay.collider.CompareTag("Bridge"))
+            {
+                float stepDifference = footRay.point.y - transform.position.y;
+                if (stepDifference > 0 && stepDifference <= stepHeight)
+                {
+                    // Step is within the threshold height, step up
+                    m_rigidBody.position = new Vector2(m_rigidBody.position.x, m_rigidBody.position.y + stepDifference);
+                }
+            }
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling
+        // Visualize raycasts in the editor
+        Vector2 footPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y - adjustedRadius);
+        Vector2 headPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y + adjustedRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(footPosition, footPosition + Vector2.right * stepDetectionDistance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(headPosition, headPosition + Vector2.right * stepDetectionDistance);
     }
 }

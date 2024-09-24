@@ -2131,6 +2131,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd28e5927b430d34f949d28054708a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &655940201 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 9072219259913170726, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+  m_PrefabInstance: {fileID: 8035193115270067348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &655940202 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: -1994411084877504702, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+  m_PrefabInstance: {fileID: 8035193115270067348}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &667257091
 GameObject:
   m_ObjectHideFlags: 0
@@ -5414,6 +5424,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd28e5927b430d34f949d28054708a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &1610687820 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 593089099761319972, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+  m_PrefabInstance: {fileID: 2138579214326534626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1610687821 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: -721258379639993690, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+  m_PrefabInstance: {fileID: 2138579214326534626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1613397116 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 1566566388381917965, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+  m_PrefabInstance: {fileID: 2372003990054633950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1613397117 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: -5576582685861909372, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+  m_PrefabInstance: {fileID: 2372003990054633950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1633866484
 GameObject:
   m_ObjectHideFlags: 0
@@ -7163,9 +7193,25 @@ PrefabInstance:
       propertyPath: m_speed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: -1966732901993150151, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+      propertyPath: m_collider
+      value: 
+      objectReference: {fileID: 1610687821}
+    - target: {fileID: -1966732901993150151, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+      propertyPath: m_rigidBody
+      value: 
+      objectReference: {fileID: 1610687820}
+    - target: {fileID: -721258379639993690, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 593089099761319972, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_BodyType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 593089099761319972, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 593089099761319972, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_Constraints
@@ -7173,7 +7219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593089099761319972, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_GravityScale
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_RootOrder
@@ -7243,9 +7289,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5576582685861909372, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1566566388381917965, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_BodyType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566566388381917965, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1566566388381917965, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_Constraints
@@ -7253,7 +7307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566566388381917965, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_GravityScale
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1884190119166798687, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
       propertyPath: m_SortingOrder
@@ -7315,6 +7369,14 @@ PrefabInstance:
       propertyPath: m_speed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6221178209250675134, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+      propertyPath: m_collider
+      value: 
+      objectReference: {fileID: 1613397117}
+    - target: {fileID: 6221178209250675134, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
+      propertyPath: m_rigidBody
+      value: 
+      objectReference: {fileID: 1613397116}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -8205,10 +8267,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1994411084877504702, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1331577327913220856, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_speed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1331577327913220856, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+      propertyPath: m_collider
+      value: 
+      objectReference: {fileID: 655940202}
+    - target: {fileID: 1331577327913220856, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+      propertyPath: m_rigidBody
+      value: 
+      objectReference: {fileID: 655940201}
     - target: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_Name
       value: LilGreen
@@ -8270,12 +8344,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9072219259913170726, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072219259913170726, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9072219259913170726, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_GravityScale
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
