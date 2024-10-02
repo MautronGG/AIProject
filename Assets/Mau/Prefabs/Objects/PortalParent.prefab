@@ -128,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3891123818865878831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4757da77090370041a5b97617d44afc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 86bd645284b33bd45a5be138e8f68446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_isDouble: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
   m_object: 2
-  otherObject: {fileID: 2071137185}
+  otherObject: {fileID: 0}
   doubleSprites: []
   actualColor: Black
 --- !u!58 &8083389558884487976
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3891123819148743600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4757da77090370041a5b97617d44afc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 86bd645284b33bd45a5be138e8f68446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_isDouble: 1
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
   m_object: 2
-  otherObject: {fileID: 1787887364}
+  otherObject: {fileID: 0}
   doubleSprites: []
   actualColor: Black
 --- !u!58 &629758578732093117

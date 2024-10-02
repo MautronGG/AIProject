@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     public bool m_isEditing = false;
 
-    public NewBridgeScript m_item;
+    public Object_Bridge m_item;
     public SpriteFollow m_spriteFollow;
 
     public int m_reachedGoals = 0;
@@ -145,6 +145,7 @@ public class LevelManager : MonoBehaviour
     }
     protected void Initialized()
     {
+        Object_Parent [] objects = FindObjectsOfType<Object_Parent>();
         m_playEvents.AddListener(() =>
         {
             m_Red.EnableMovement(true);
@@ -154,6 +155,10 @@ public class LevelManager : MonoBehaviour
             m_HUDPlayCanvas.SetActive(true);
             m_camera.ChangeMovement(false);
             m_camera.AutomaticMovement(true);
+            foreach (Object_Enemy enemy in objects)
+            {
+                enemy.EnableMovement(true);
+            }
         });
         m_playButton.onClick.AddListener(() =>
         {
@@ -175,6 +180,10 @@ public class LevelManager : MonoBehaviour
             m_camera.AutomaticMovement(false);
             m_camera.ResetTransform();
             ResetDefaults();
+            foreach (Object_Parent _object in objects)
+            {
+                _object.ResetDeafualts();
+            }
         });
     }
     public void ResetDefaults()

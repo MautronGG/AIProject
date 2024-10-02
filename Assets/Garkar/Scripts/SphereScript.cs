@@ -198,7 +198,7 @@ public class SphereScript : MonoBehaviour
         }
         if (other.transform.tag.Equals("Portal") && !m_portaled)
         {
-            transform.position = other.GetComponent<NewPortalScript>().otherObject.transform.position;
+            transform.position = other.GetComponent<Object_Portal>().otherObject.transform.position;
             m_portaled = true;
         }
         if (other.transform.tag.Equals("Destiny"))

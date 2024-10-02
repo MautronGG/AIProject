@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewPortalScript : ItemScript
+public class Object_Portal : Object_Parent
 {
     public override void Awake()
     {
