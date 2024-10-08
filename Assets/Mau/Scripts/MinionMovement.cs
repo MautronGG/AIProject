@@ -40,9 +40,10 @@ public class MinionMovement : MonoBehaviour
     private bool m_canKillEnemy = false;
 
     Vector3 AdvanceDirection = Vector3.right;
-    [SerializeField]List<GameObject> list = new List<GameObject>();
+    [SerializeField] List<GameObject> list = new List<GameObject>();
     List<Collision2D> m_collisions = new List<Collision2D>();
     List<Collider2D> m_colliders = new List<Collider2D>();
+    bool m_applyDirection = false;
 
     [Header("StairStep")]
     float stepHeight = .3f; // Maximum height difference the character can step
@@ -172,6 +173,7 @@ public class MinionMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        m_applyDirection = false;
         if (collision == null)
         {
             return;
@@ -185,9 +187,13 @@ public class MinionMovement : MonoBehaviour
             //Vector2 m_Size = collider.bounds.size;
             //Vector2 m_Min = collider.bounds.min;
 
-            if (colliderMinion.bounds.min.y +.2 <= colliderWall.bounds.max.y)
+            if (colliderMinion.bounds.min.y + .2 <= colliderWall.bounds.max.y)
             {
                 FlipVelocity();
+            }
+            else
+            {
+                m_applyDirection = true;
             }
         }
         //if (collision.gameObject.tag.Equals("Player"))
@@ -209,11 +215,17 @@ public class MinionMovement : MonoBehaviour
                 //gameObject.SetActive(false);
                 m_colliders.Add(collision.collider);
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
-                DeathCountdown(this.gameObject);
+                StartCoroutine(DeathCountdown(this.gameObject));
+
             }
         }
         if (collision.transform.tag.Equals("Floor"))
         {
+            m_applyDirection = true;    
+        }
+        if (m_applyDirection)
+        {
+            Vector2 rightContactPoint = new Vector2();
             if (!list.Contains(collision.gameObject))
             {
                 // Check if the character is colliding from above
@@ -224,6 +236,9 @@ public class MinionMovement : MonoBehaviour
 
                 foreach (ContactPoint2D contact in contactPoints)
                 {
+                    Debug.DrawLine(contact.point, contact.point + (contact.normal * 10), Color.yellow, 100);
+                    rightContactPoint = new Vector2(contact.normal.y, -contact.normal.x);
+                    Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
                     // Check if the collision normal points upward, meaning the character is above the floor
                     if (contact.normal.y > 0f)
                     {
@@ -240,7 +255,7 @@ public class MinionMovement : MonoBehaviour
 
                     Debug.Log(collision.gameObject.name);
 
-                    Vector3 forwardDirection = collision.transform.right;
+                    Vector3 forwardDirection = rightContactPoint;
                     Vector3 upDirection = collision.transform.up;
                     Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
 
@@ -271,41 +286,45 @@ public class MinionMovement : MonoBehaviour
                 Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
                 Collision2D collision1 = m_collisions[0];
                 Collision2D collision2 = m_collisions[1];
-                Vector3 col1Max = col1.bounds.max;
-                Vector3 col1Min = col1.bounds.min;
-                Vector3 col1Center = col1.bounds.center;
-                
-                Vector3 col2Max = col2.bounds.max;
-                Vector3 col2Min = col2.bounds.min;
-                Vector3 col2Center = col2.bounds.center;
-                
-                Vector3 point1 = Vector2.zero;
-                Vector3 point2 = Vector2.zero;
-                
-                if (AdvanceDirection.x > 0f)
+
+                if (col2.transform.rotation.z <= 10 && col2.transform.rotation.z >= -10)
                 {
-                    point1 = col1Center + collision1.transform.right * (col1.bounds.size.x / 2);
-                    point2 = col2Center - collision2.transform.right * (col2.bounds.size.x / 2);
-                    if (point2.y <= point1.y + stepHeight)
+                    Vector3 col1Max = col1.bounds.max;
+                    Vector3 col1Min = col1.bounds.min;
+                    Vector3 col1Center = col1.bounds.center;
+
+                    Vector3 col2Max = col2.bounds.max;
+                    Vector3 col2Min = col2.bounds.min;
+                    Vector3 col2Center = col2.bounds.center;
+
+                    Vector3 point1 = Vector2.zero;
+                    Vector3 point2 = Vector2.zero;
+
+                    if (AdvanceDirection.x > 0f)
                     {
-                        transform.position += new Vector3(0, stepHeight);
+                        point1 = col1Center + collision1.transform.right * (col1.bounds.size.x / 2);
+                        point2 = col2Center - collision2.transform.right * (col2.bounds.size.x / 2);
+                        if (point2.y <= point1.y + stepHeight)
+                        {
+                            transform.position += new Vector3(0, stepHeight);
+                        }
+                        else
+                        {
+                            FlipVelocity();
+                        }
                     }
                     else
                     {
-                        FlipVelocity();
-                    }
-                }
-                else
-                {
-                    point1 = col1Center - collision1.transform.right * (col1.bounds.size.x / 2);
-                    point2 = col2Center + collision2.transform.right * (col2.bounds.size.x / 2);
-                    if (point2.y <= point1.y + stepHeight)
-                    {
-                        transform.position += new Vector3(0, stepHeight);
-                    }
-                    else
-                    {
-                        FlipVelocity();
+                        point1 = col1Center - collision1.transform.right * (col1.bounds.size.x / 2);
+                        point2 = col2Center + collision2.transform.right * (col2.bounds.size.x / 2);
+                        if (point2.y <= point1.y + stepHeight)
+                        {
+                            transform.position += new Vector3(0, stepHeight);
+                        }
+                        else
+                        {
+                            FlipVelocity();
+                        }
                     }
                 }
             }
@@ -313,25 +332,28 @@ public class MinionMovement : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.transform.tag.Equals("Floor"))
+
+        if (list.Contains(collision.gameObject))
         {
-            if (list.Contains(collision.gameObject))
+            list.Remove(collision.gameObject);
+            if (list.Count <= 0)
             {
-                list.Remove(collision.gameObject);
-                if (list.Count <= 0)
-                {
-                    m_isGrounded = false;
-                }
+                m_isGrounded = false;
             }
-            if (m_collisions.Contains(collision))
-            {
-                m_collisions.Remove(collision);
-            }
-            
         }
+        if (m_collisions.Contains(collision))
+        {
+            m_collisions.Remove(collision);
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.transform.tag.Equals("Void"))
+        {
+            m_levelManager.m_playerEnded++;
+            this.gameObject.SetActive(false);
+        }
         if (collision.transform.tag.Equals("Destiny"))
         {
 
@@ -353,6 +375,12 @@ public class MinionMovement : MonoBehaviour
             transform.position = collision.GetComponent<Object_Portal>().otherObject.transform.position;
             m_portaled = true;
         }
+        if (collision.transform.tag.Equals("Spring"))
+        {
+            m_isGrounded = false;
+            float springForce = collision.transform.GetComponent<Object_Spring>().SpringForce;
+            m_verticalVelocity = springForce;
+        }
         if (collision.transform.tag.Equals("Door") && !m_bomb)
         {
             FlipVelocity();
@@ -368,7 +396,7 @@ public class MinionMovement : MonoBehaviour
     private void FlipVelocity()
     {
         m_flipped = !m_flipped;
-        AdvanceDirection = new Vector3(-AdvanceDirection.x, AdvanceDirection.y);
+        AdvanceDirection = -AdvanceDirection;
         ///FlipSprite
     }
 
@@ -389,6 +417,7 @@ public class MinionMovement : MonoBehaviour
             yield return null;
         }
         obj.SetActive(false);
+
     }
     public void ResetTransform()
     {

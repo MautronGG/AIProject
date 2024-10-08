@@ -33,8 +33,10 @@ public class LevelManager : MonoBehaviour
     public Button m_playButton;
     public Button m_resetButton;
     public Button m_bridgeButton;
+    public TextMeshProUGUI m_points;
 
-    //[Header("Lists")]
+    [Header("Lists")]
+    [SerializeField] Object_Parent[] m_objects;
     //public List<ItemManager> m_itemsList;
     //public List<ItemManager> m_bombsList;
     //public List<ItemManager> m_enemyList;
@@ -83,7 +85,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         m_myFSM = GetComponent<FSM>();
-
+        m_objects = FindObjectsOfType<Object_Parent>(); 
         Initialized();
     }
 
@@ -103,6 +105,7 @@ public class LevelManager : MonoBehaviour
             if (m_reachedGoals > 0)
             {
                 m_winCanvas.SetActive(true);
+                m_points.text = "Points " + m_reachedGoals + "/3";
             }
             else
             {
@@ -145,7 +148,6 @@ public class LevelManager : MonoBehaviour
     }
     protected void Initialized()
     {
-        Object_Parent [] objects = FindObjectsOfType<Object_Parent>();
         m_playEvents.AddListener(() =>
         {
             m_Red.EnableMovement(true);
@@ -155,9 +157,13 @@ public class LevelManager : MonoBehaviour
             m_HUDPlayCanvas.SetActive(true);
             m_camera.ChangeMovement(false);
             m_camera.AutomaticMovement(true);
-            foreach (Object_Enemy enemy in objects)
+            foreach (Object_Parent obj in m_objects)
             {
-                enemy.EnableMovement(true);
+                Object_Enemy enemy = obj as Object_Enemy;
+                if (enemy != null)
+                {
+                    enemy.EnableMovement(true);
+                }
             }
         });
         m_playButton.onClick.AddListener(() =>
@@ -180,7 +186,7 @@ public class LevelManager : MonoBehaviour
             m_camera.AutomaticMovement(false);
             m_camera.ResetTransform();
             ResetDefaults();
-            foreach (Object_Parent _object in objects)
+            foreach (Object_Parent _object in m_objects)
             {
                 _object.ResetDeafualts();
             }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpringScript : Object_Parent
+public class Object_Spring : Object_Parent
 {
     [SerializeField] private float m_springForce;
     public float SpringForce { get { return m_springForce; } }
