@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 3891123818865878828}
   - component: {fileID: 3891123818865878829}
   - component: {fileID: 1787887364}
-  - component: {fileID: 7581821473644993147}
-  m_Layer: 0
+  - component: {fileID: 8083389558884487976}
+  m_Layer: 14
   m_Name: Portal_Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,19 +144,23 @@ MonoBehaviour:
   m_object: 2
   otherObject: {fileID: 2071137185}
   doubleSprites: []
---- !u!135 &7581821473644993147
-SphereCollider:
+  actualColor: Black
+--- !u!58 &8083389558884487976
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3891123818865878831}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: 0}
   serializedVersion: 2
   m_Radius: 2.79864
-  m_Center: {x: 0.060559656, y: 0, z: 0}
 --- !u!1 &3891123819148743600
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,8 +172,8 @@ GameObject:
   - component: {fileID: 3891123819148743601}
   - component: {fileID: 3891123819148743566}
   - component: {fileID: 2071137185}
-  - component: {fileID: 5434793044530596837}
-  m_Layer: 0
+  - component: {fileID: 629758578732093117}
+  m_Layer: 14
   m_Name: Portal_Black (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,16 +272,20 @@ MonoBehaviour:
   m_object: 2
   otherObject: {fileID: 1787887364}
   doubleSprites: []
---- !u!135 &5434793044530596837
-SphereCollider:
+  actualColor: Black
+--- !u!58 &629758578732093117
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3891123819148743600}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.79864
-  m_Center: {x: 0.060559656, y: 0, z: 0}

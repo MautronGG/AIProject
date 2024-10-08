@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9215072453656306166
+--- !u!1 &6169781552549865068
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9215072453656306155}
-  - component: {fileID: 9215072453656306164}
-  - component: {fileID: 9215072453656306165}
-  - component: {fileID: 2125411218217207250}
-  m_Layer: 14
-  m_Name: Spring_Black
+  - component: {fileID: 3076952887484806598}
+  - component: {fileID: 7469423559199272696}
+  - component: {fileID: 3874819169839109690}
+  m_Layer: 0
+  m_Name: Laser Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9215072453656306155
+--- !u!4 &3076952887484806598
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215072453656306166}
+  m_GameObject: {fileID: 6169781552549865068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.77, y: 2.01, z: 0}
-  m_LocalScale: {x: 0.38128, y: 0.38128, z: 0.38128}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9215072453656306164
+--- !u!212 &7469423559199272696
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215072453656306166}
+  m_GameObject: {fileID: 6169781552549865068}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,57 +74,26 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d253180c5cecd0440921ae39aca6317b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 889f5b7a3580eae4c8ed4923fd7548c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.21, y: 5.17}
+  m_Size: {x: 2.49, y: 1.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9215072453656306165
+--- !u!114 &3874819169839109690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215072453656306166}
+  m_GameObject: {fileID: 6169781552549865068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06437cc633364945bdf76fab118ec9b, type: 3}
+  m_Script: {fileID: 11500000, guid: bcb76673045d03a4bb339c738fe53598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_isDouble: 0
-  m_levelManager: {fileID: 0}
-  m_personalID: 0
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
-  m_checks: 1
-  m_canClick: 1
-  m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
-  m_object: 1
-  otherObject: {fileID: 0}
-  doubleSprites: []
-  actualColor: Black
-  m_springForce: 0
---- !u!70 &2125411218217207250
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215072453656306166}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.08069013, y: 0}
-  m_Size: {x: 1.9629762, y: 5.1699996}
-  m_Direction: 0
