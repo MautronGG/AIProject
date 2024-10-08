@@ -46,13 +46,21 @@ public class MinionMovement : MonoBehaviour
 
     Vector3 AdvanceDirection = Vector3.right;
     List<GameObject> list = new List<GameObject>();
-    // Start is called before the first frame update
+    
+    // Quirino
+    GameObject m_carryPos = null;
+
+
     void Start()
     {
         //m_Rigidbody = GetComponent<Rigidbody2D>();
         m_fallTimeoutDelta = m_fallTimeout;
         m_levelManager = FindObjectOfType<LevelManager>();
         m_defaultPosition = transform.position;
+
+        // Quirino
+        m_carryPos = transform.GetChild(0).gameObject;
+
     }
 
     //Quirino
@@ -310,7 +318,7 @@ public class MinionMovement : MonoBehaviour
             if(item != null && m_item == null) //if doesnt has carriable item, take it
             {
                 m_item = item;
-                m_item.AttachTo(this);
+                m_item.AttachTo(m_carryPos);
             }
             Debug.Log(collision.gameObject + " triggered " + gameObject);
         }

@@ -18,7 +18,7 @@ public class Carriable : MonoBehaviour
     
     [SerializeField] protected E_CARRY_TYPE m_type;
 
-    private MinionMovement m_target;
+    private GameObject m_target;
 
     public E_CARRY_TYPE type
     {
@@ -40,14 +40,16 @@ public class Carriable : MonoBehaviour
         }
     }
 
-    public void AttachTo(MinionMovement target)
+    public void AttachTo(GameObject target)
     {
         m_target = target;
+        transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
 
     public void UnAttach()
     {
         m_target = null;
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
 }
