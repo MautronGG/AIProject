@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBridgeScript : ItemScript
+public class Object_Bridge : Object_Parent
 {
     public SpriteFollow m_spriteFollow;
 

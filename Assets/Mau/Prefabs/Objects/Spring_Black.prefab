@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2125411218217207250}
   m_Layer: 14
   m_Name: Spring_Black
-  m_TagString: Untagged
+  m_TagString: Spring
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   otherObject: {fileID: 0}
   doubleSprites: []
   actualColor: Black
-  m_springForce: 0
+  m_springForce: 10
 --- !u!70 &2125411218217207250
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.08069013, y: 0}

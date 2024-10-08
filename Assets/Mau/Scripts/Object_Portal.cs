@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpringScript : ItemScript
+public class Object_Portal : Object_Parent
 {
-    [SerializeField] private float m_springForce;
-    public float SpringForce { get { return m_springForce; } }
-    // Start is called before the first frame update
     public override void Awake()
     {
         base.Awake();
@@ -15,6 +12,7 @@ public class SpringScript : ItemScript
     {
         base.Update();
     }
+
     public override void OnMouseOver()
     {
         base.OnMouseOver();

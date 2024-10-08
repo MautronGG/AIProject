@@ -6,14 +6,14 @@ public class SpriteFollow : MonoBehaviour
 {
     LevelManager m_levelManager;
     public bool m_follow = true;
-    ItemScript m_item;
+    Object_Parent m_item;
     public string m_layer;
     //public GameObject m_child;
 
     private void Awake()
     {    
-        m_levelManager = GameObject.FindObjectOfType<LevelManager>();
-        m_item = GetComponent<ItemScript>();
+        m_levelManager = FindObjectOfType<LevelManager>();
+        m_item = gameObject.GetComponent<Object_Parent>();
         //ChangeDefaults(m_defaultRotation, m_defaultScale, 7);
     }
 

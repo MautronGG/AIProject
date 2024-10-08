@@ -20,7 +20,7 @@ TagManager:
   - Spring
   - LevelManager
   - Portal
-  - Carriable
+  - Enemy
   layers:
   - Default
   - TransparentFX

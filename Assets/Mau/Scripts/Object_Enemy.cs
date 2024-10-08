@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionMovement : MonoBehaviour
+public class Object_Enemy : Object_Parent
 {
-    public Vector3 m_defaultPosition;
-
-    [HideInInspector] public bool m_portaled = false;
-    [HideInInspector] public float m_portalTime = 0f;
-    [HideInInspector] bool m_bomb = false;
-    [HideInInspector] float m_bombTimer = 0f;
-
-    public bool m_reachedGoal = false;
     public Rigidbody2D m_rigidBody;
     public CircleCollider2D m_collider;
 
     [Header("Movement")]
     public bool m_canMove = false;
-    private Vector3 m_initialVelocity;
     private Vector3 m_moveVector = new Vector3(1f, 0f);
 
     [SerializeField] private float m_speed;
@@ -33,81 +24,43 @@ public class MinionMovement : MonoBehaviour
 
     private float m_terminalVelocity = 53.0f;
 
-    private LevelManager m_levelManager;
-
-    [SerializeField] private float m_timeToDeath = 1.5f;
+    [SerializeField] private float m_timeToDeath = 5;
     private bool m_flipped;
-    private bool m_canKillEnemy = false;
 
     Vector3 AdvanceDirection = Vector3.right;
     [SerializeField] List<GameObject> list = new List<GameObject>();
     List<Collision2D> m_collisions = new List<Collision2D>();
-    List<Collider2D> m_colliders = new List<Collider2D>();
-    bool m_applyDirection = false;
 
     [Header("StairStep")]
     float stepHeight = .3f; // Maximum height difference the character can step
-    float stepDetectionDistance = 0.1f; // Distance to check in front of the player
-
-
-    // Start is called before the first frame update
-    void Start()
+    bool m_applyDirection = false;
+    public override void Awake()
     {
+        base.Awake();
+    }
+    public override void Start()
+    {
+        base.Start();
         m_rigidBody = GetComponent<Rigidbody2D>();
         m_collider = GetComponent<CircleCollider2D>();
         m_fallTimeoutDelta = m_fallTimeout;
-        m_levelManager = FindObjectOfType<LevelManager>();
-        m_defaultPosition = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        if (m_bomb)
-        {
-            m_bombTimer += Time.deltaTime;
-            if (m_bombTimer >= 0.5f)
-            {
-                m_bombTimer = 0f;
-                m_bomb = false;
-            }
-        }
-        if (m_portaled)
-        {
-            m_portalTime += Time.deltaTime;
-            if (m_portalTime >= 1.5f)
-            {
-                m_portalTime = 0f;
-                m_portaled = false;
-            }
-        }
-        //if (transform.position.y <= -4f)
-        //{
-        //  this.gameObject.SetActive(false);
-        //}
-
-        if (m_reachedGoal)
-        {
-            m_canMove = false;
-            //SoundEffect
-            //AddPoints
-            //FinishLevel
-        }
-        else
-        {
-            Move();
-            //GroundedCheck();
-            Gravity();
-            //HandleStepClimb();
-        }
-
+        base.Update();
+        Move();
+        Gravity();
     }
-    public void SetMovement()
+
+    public override void OnMouseOver()
     {
-        m_canMove = true;
-
+        base.OnMouseOver();
     }
-
+    public override void SaveDefaults()
+    {
+        base.SaveDefaults();
+    }
     public void Move()
     {
         //Vector3 targetMovement = Vector3.zero;
@@ -166,11 +119,6 @@ public class MinionMovement : MonoBehaviour
 
 
     }
-    //private void OnDisable()
-    //{
-    //  m_levelEditorManager.m_finishedBoids++;
-    //}
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_applyDirection = false;
@@ -178,7 +126,7 @@ public class MinionMovement : MonoBehaviour
         {
             return;
         }
-        //Si es un muro u otra bola, cambiar la direcciÃ³n del personaje.
+        //Si es un muro u otra bola, cambiar la dirección del personaje.
         if (collision.gameObject.tag.Equals("Wall"))
         {
             Collider2D colliderWall = collision.collider;
@@ -196,32 +144,13 @@ public class MinionMovement : MonoBehaviour
                 m_applyDirection = true;
             }
         }
-        //if (collision.gameObject.tag.Equals("Player"))
-        //{
-        //    FlipVelocity();
-        //}
-
-        //Si es un enemigo, desactivar al jugador.
         if (collision.gameObject.tag.Equals("Enemy"))
         {
-            if (m_canKillEnemy)
-            {
-                collision.gameObject.SetActive(false);
-            }
-            else
-            {
-                m_canMove = false;
-                ///Animation
-                //gameObject.SetActive(false);
-                m_colliders.Add(collision.collider);
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
-                StartCoroutine(DeathCountdown(this.gameObject));
-
-            }
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(), true);
         }
         if (collision.transform.tag.Equals("Floor"))
         {
-            m_applyDirection = true;    
+            m_applyDirection = true;
         }
         if (m_applyDirection)
         {
@@ -332,7 +261,6 @@ public class MinionMovement : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-
         if (list.Contains(collision.gameObject))
         {
             list.Remove(collision.gameObject);
@@ -347,52 +275,12 @@ public class MinionMovement : MonoBehaviour
         }
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.tag.Equals("Void"))
-        {
-            m_levelManager.m_playerEnded++;
-            this.gameObject.SetActive(false);
-        }
-        if (collision.transform.tag.Equals("Destiny"))
-        {
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //
+    //}
 
-            m_reachedGoal = true;
-            m_levelManager.m_reachedGoals++;
-            m_levelManager.m_playerEnded++;
-            this.gameObject.SetActive(false);
-
-        }
-        //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
-        //if (collision.transform.tag.Equals("Spring"))
-        //{
-        //    m_isGrounded = false;
-        //    float springForce = collision.transform.GetComponent<SpringScript>().SpringForce;
-        //    m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, springForce);
-        //}
-        if (collision.transform.tag.Equals("Portal") && !m_portaled)
-        {
-            transform.position = collision.GetComponent<Object_Portal>().otherObject.transform.position;
-            m_portaled = true;
-        }
-        if (collision.transform.tag.Equals("Spring"))
-        {
-            m_isGrounded = false;
-            float springForce = collision.transform.GetComponent<Object_Spring>().SpringForce;
-            m_verticalVelocity = springForce;
-        }
-        if (collision.transform.tag.Equals("Door") && !m_bomb)
-        {
-            FlipVelocity();
-        }
-        if (collision.transform.tag.Equals("Void"))
-        {
-            m_levelManager.m_playerEnded++;
-            this.gameObject.SetActive(false);
-        }
-    }
-
-    //FunciÃ³n para invertir la velocidad de la esfera en X.
+    //Función para invertir la velocidad de la esfera en X.
     private void FlipVelocity()
     {
         m_flipped = !m_flipped;
@@ -400,7 +288,7 @@ public class MinionMovement : MonoBehaviour
         ///FlipSprite
     }
 
-    //Llamar a esta funciÃ³n para activar el movimiento.
+    //Llamar a esta función para activar el movimiento.
     public void EnableMovement(bool state)
     {
         m_canMove = state;
@@ -417,62 +305,16 @@ public class MinionMovement : MonoBehaviour
             yield return null;
         }
         obj.SetActive(false);
-
     }
-    public void ResetTransform()
+    public override void ResetDeafualts()
     {
-        gameObject.SetActive(true);
+        base.ResetDeafualts();
         m_verticalVelocity = 0f;
-        m_canMove = false;
-        m_reachedGoal = false;
         //m_Rigidbody.angularVelocity = 0;
         EnableMovement(false);
-        transform.position = m_defaultPosition;
         AdvanceDirection = new Vector3(1f, 0f, 0f);
         list.Clear();
         m_collisions.Clear();
         m_isGrounded = false;
-        foreach (Collider2D collider in m_colliders)
-        {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, false);
-        }
-        m_colliders.Clear();
     }
-    //void HandleStepClimb()
-    //{
-    //    float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling
-    //
-    //    // Cast two rays in front of the player: one at foot height and another at head height
-    //    Vector2 footPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y - adjustedRadius);
-    //    Vector2 headPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y + adjustedRadius);
-    //
-    //    RaycastHit2D footRay = Physics2D.Raycast(footPosition, Vector2.right, stepDetectionDistance);
-    //    RaycastHit2D headRay = Physics2D.Raycast(headPosition, Vector2.right, stepDetectionDistance);
-    //
-    //    if (footRay.collider != null && !headRay.collider) // If foot detects a collision but head doesn't
-    //    {
-    //        // Check if the object hit by the foot ray has the correct tag
-    //        if (footRay.collider.CompareTag("Floor") || footRay.collider.CompareTag("Wall"))
-    //        {
-    //            float stepDifference = footRay.point.y - transform.position.y;
-    //            if (stepDifference > 0 && stepDifference <= stepHeight)
-    //            {
-    //                // Step is within the threshold height, step up
-    //                m_rigidBody.position = new Vector2(m_rigidBody.position.x, m_rigidBody.position.y + stepDifference);
-    //            }
-    //        }
-    //    }
-    //}
-    //private void OnDrawGizmosSelected()
-    //{
-    //    float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling
-    //    // Visualize raycasts in the editor
-    //    Vector2 footPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y - adjustedRadius);
-    //    Vector2 headPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y + adjustedRadius);
-    //
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawLine(footPosition, footPosition + Vector2.right * stepDetectionDistance);
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawLine(headPosition, headPosition + Vector2.right * stepDetectionDistance);
-    //}
 }

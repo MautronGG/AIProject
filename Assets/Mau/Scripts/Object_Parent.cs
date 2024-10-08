@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemScript : MonoBehaviour
+public class Object_Parent : MonoBehaviour
 {
     [SerializeField]
     public bool m_isDouble = false;
@@ -32,7 +32,7 @@ public class ItemScript : MonoBehaviour
 
     [SerializeField]
     public typesObects m_object;
-    public ItemScript otherObject;
+    public Object_Parent otherObject;
 
     private SpriteRenderer spriteRenderer;
     private Sprite temporalSprite;
@@ -46,6 +46,14 @@ public class ItemScript : MonoBehaviour
         m_fixColorManager = FindObjectOfType<FixColorManager>();
         GameObject spriteObject = new GameObject("TemporalSpriteObject");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        SaveDefaults();
+    }
+    public virtual void Start()
+    {
+        if (otherObject == null)
+        {
+            otherObject = this;
+        }
     }
     public virtual void Update()
     {
