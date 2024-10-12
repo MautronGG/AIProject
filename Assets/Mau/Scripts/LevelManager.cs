@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
         {
             Pause();
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && m_pause)
+        else if (Input.GetKeyDown(KeyCode.Escape) && m_pause)
         {
             UnPause();
         }

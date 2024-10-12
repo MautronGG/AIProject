@@ -128,6 +128,7 @@ public class Object_Parent : MonoBehaviour
                     return;
                 }
                 actualColor = m_fixColorManager.getLastColor(m_object);
+                otherObject.actualColor = m_fixColorManager.getLastColor(otherObject.m_object);
                 spriteRenderer.sprite = doubleSprites[0];
                 otherObject.spriteRenderer.sprite = doubleSprites[1];
                 gameObject.layer = LayerMask.NameToLayer(actualColor);

@@ -10,6 +10,8 @@ public class MinionMovement : MonoBehaviour
     [HideInInspector] public float m_portalTime = 0f;
     [HideInInspector] bool m_bomb = false;
     [HideInInspector] float m_bombTimer = 0f;
+    [HideInInspector] Carriable m_carriedItem;
+    [SerializeField]  GameObject m_carryPos;
 
     public bool m_reachedGoal = false;
     public Rigidbody2D m_rigidBody;
@@ -41,7 +43,7 @@ public class MinionMovement : MonoBehaviour
 
     Vector3 AdvanceDirection = Vector3.right;
     [SerializeField] List<GameObject> list = new List<GameObject>();
-    List<Collision2D> m_collisions = new List<Collision2D>();
+    List<Vector3> m_rights = new List<Vector3>();
     List<Collider2D> m_colliders = new List<Collider2D>();
     bool m_applyDirection = false;
 
@@ -247,7 +249,7 @@ public class MinionMovement : MonoBehaviour
                     }
                 }
                 list.Add(collision.gameObject);
-                m_collisions.Add(collision);
+                m_rights.Add(collision.transform.right);
                 // Only apply movement direction if the character is on top of the floor
                 if (isFromAbove)
                 {
@@ -284,8 +286,8 @@ public class MinionMovement : MonoBehaviour
                 //HandleStepClimb();
                 Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
                 Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
-                Collision2D collision1 = m_collisions[0];
-                Collision2D collision2 = m_collisions[1];
+                Vector3 collision1 = m_rights[0];
+                Vector3 collision2 = m_rights[1];
 
                 if (col2.transform.rotation.z <= 10 && col2.transform.rotation.z >= -10)
                 {
@@ -302,8 +304,8 @@ public class MinionMovement : MonoBehaviour
 
                     if (AdvanceDirection.x > 0f)
                     {
-                        point1 = col1Center + collision1.transform.right * (col1.bounds.size.x / 2);
-                        point2 = col2Center - collision2.transform.right * (col2.bounds.size.x / 2);
+                        point1 = col1Center + collision1 * (col1.bounds.size.x / 2);
+                        point2 = col2Center - collision2 * (col2.bounds.size.x / 2);
                         if (point2.y <= point1.y + stepHeight)
                         {
                             transform.position += new Vector3(0, stepHeight);
@@ -315,8 +317,8 @@ public class MinionMovement : MonoBehaviour
                     }
                     else
                     {
-                        point1 = col1Center - collision1.transform.right * (col1.bounds.size.x / 2);
-                        point2 = col2Center + collision2.transform.right * (col2.bounds.size.x / 2);
+                        point1 = col1Center - collision1 * (col1.bounds.size.x / 2);
+                        point2 = col2Center + collision2 * (col2.bounds.size.x / 2);
                         if (point2.y <= point1.y + stepHeight)
                         {
                             transform.position += new Vector3(0, stepHeight);
@@ -335,17 +337,14 @@ public class MinionMovement : MonoBehaviour
 
         if (list.Contains(collision.gameObject))
         {
-            list.Remove(collision.gameObject);
+            int index = list.IndexOf(collision.gameObject);
+            list.RemoveAt(index);
+            m_rights.Remove(collision.transform.right);
             if (list.Count <= 0)
             {
                 m_isGrounded = false;
             }
         }
-        if (m_collisions.Contains(collision))
-        {
-            m_collisions.Remove(collision);
-        }
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -361,7 +360,6 @@ public class MinionMovement : MonoBehaviour
             m_levelManager.m_reachedGoals++;
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
-
         }
         //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
         //if (collision.transform.tag.Equals("Spring"))
@@ -380,6 +378,23 @@ public class MinionMovement : MonoBehaviour
             m_isGrounded = false;
             float springForce = collision.transform.GetComponent<Object_Spring>().SpringForce;
             m_verticalVelocity = springForce;
+        }
+        if (collision.transform.tag.Equals("Carriable"))
+        {
+            Carriable item = collision.gameObject.GetComponent<Carriable>();
+            if (item != null && m_carriedItem == null) //if doesnt has carriable item, take it
+            {
+                m_carriedItem = item;
+                m_carriedItem.AttachTo(m_carryPos);
+            }
+            Debug.Log(collision.gameObject + " triggered " + gameObject);
+        }
+        if (collision.transform.tag.Equals("KeyDoor"))
+        {
+            if (m_carriedItem != null && m_carriedItem.m_type == E_CARRY_TYPE.KEY)
+            {
+                collision.GetComponent<Object_Door>().m_wall.SetActive(false);
+            }
         }
         if (collision.transform.tag.Equals("Door") && !m_bomb)
         {
@@ -430,7 +445,7 @@ public class MinionMovement : MonoBehaviour
         transform.position = m_defaultPosition;
         AdvanceDirection = new Vector3(1f, 0f, 0f);
         list.Clear();
-        m_collisions.Clear();
+        m_rights.Clear();
         m_isGrounded = false;
         foreach (Collider2D collider in m_colliders)
         {

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
   m_object: 2
-  otherObject: {fileID: 0}
+  otherObject: {fileID: 2071137185}
   doubleSprites: []
   actualColor: Black
 --- !u!58 &8083389558884487976
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
   m_object: 2
-  otherObject: {fileID: 0}
+  otherObject: {fileID: 1787887364}
   doubleSprites: []
   actualColor: Black
 --- !u!58 &629758578732093117
