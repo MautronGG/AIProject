@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766680981582747865}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41398352, y: -1.6822666, z: 0}
+  m_LocalPosition: {x: -0.4139836, y: -1.6822666, z: 0}
   m_LocalScale: {x: 4.599815, y: 4.5466647, z: 5.669159}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_type: 1
   m_defaultScale: {x: 0, y: 0, z: 0}
-  m_newScale: 0
+  m_newScale: 0.05301302
 --- !u!61 &1986378243301501767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 2481838365840898302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.09000005, y: 0.37000015, z: 0}
-  m_LocalScale: {x: 0.21740006, y: 0.21994144, z: 0.176393}
+  m_LocalScale: {x: 0.21740004, y: 0.21994144, z: 0.176393}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3660239030625647157}
@@ -378,7 +378,7 @@ MonoBehaviour:
   otherObject: {fileID: 2481838365409504742}
   doubleSprites: []
   actualColor: Black
-  m_wall: {fileID: 2481838365840898302}
+  m_wall: {fileID: 766680981582747865}
 --- !u!61 &8907897747480092379
 BoxCollider2D:
   m_ObjectHideFlags: 0

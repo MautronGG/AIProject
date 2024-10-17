@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Object_Door : Object_Parent
 {
-    public GameObject m_wall;
     public override void Awake()
     {
         base.Awake();

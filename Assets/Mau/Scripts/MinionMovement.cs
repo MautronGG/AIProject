@@ -48,8 +48,8 @@ public class MinionMovement : MonoBehaviour
     bool m_applyDirection = false;
 
     [Header("StairStep")]
-    float stepHeight = .3f; // Maximum height difference the character can step
-    float stepDetectionDistance = 0.1f; // Distance to check in front of the player
+    [SerializeField] float m_stepHeight;
+    [SerializeField] float m_maxStepHeight = .7f; // Maximum height difference the character can step
 
 
     // Start is called before the first frame update
@@ -242,7 +242,7 @@ public class MinionMovement : MonoBehaviour
                     rightContactPoint = new Vector2(contact.normal.y, -contact.normal.x);
                     Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
                     // Check if the collision normal points upward, meaning the character is above the floor
-                    if (contact.normal.y > 0f)
+                    if (contact.normal.y > .5f)
                     {
                         isFromAbove = true;
                         break;
@@ -286,6 +286,8 @@ public class MinionMovement : MonoBehaviour
                 //HandleStepClimb();
                 Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
                 Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
+                DebugBounds og1 = list[0].gameObject.GetComponent<DebugBounds>();
+                DebugBounds og2 = list[0].gameObject.GetComponent<DebugBounds>();
                 Vector3 collision1 = m_rights[0];
                 Vector3 collision2 = m_rights[1];
 
@@ -306,9 +308,10 @@ public class MinionMovement : MonoBehaviour
                     {
                         point1 = col1Center + collision1 * (col1.bounds.size.x / 2);
                         point2 = col2Center - collision2 * (col2.bounds.size.x / 2);
-                        if (point2.y <= point1.y + stepHeight)
+                        if (point2.y <= point1.y + m_maxStepHeight)
                         {
-                            transform.position += new Vector3(0, stepHeight);
+                            m_stepHeight = point2.y - point1.y;
+                            transform.position += new Vector3(0, m_stepHeight);
                         }
                         else
                         {
@@ -319,9 +322,10 @@ public class MinionMovement : MonoBehaviour
                     {
                         point1 = col1Center - collision1 * (col1.bounds.size.x / 2);
                         point2 = col2Center + collision2 * (col2.bounds.size.x / 2);
-                        if (point2.y <= point1.y + stepHeight)
+                        if (point2.y <= point1.y + m_maxStepHeight)
                         {
-                            transform.position += new Vector3(0, stepHeight);
+                            m_stepHeight = point2.y - point1.y;
+                            transform.position += new Vector3(0, m_stepHeight);
                         }
                         else
                         {
@@ -393,12 +397,12 @@ public class MinionMovement : MonoBehaviour
         {
             if (m_carriedItem != null && m_carriedItem.m_type == E_CARRY_TYPE.KEY)
             {
-                collision.GetComponent<Object_Door>().m_wall.SetActive(false);
+                collision.gameObject.SetActive(false);
+                //m_carriedItem.GetComponentInParent<Transform>().gameObject.SetActive(false);
+                m_carriedItem.gameObject.SetActive(false);
+                m_carriedItem.UnAttach();
+                m_carriedItem = null;
             }
-        }
-        if (collision.transform.tag.Equals("Door") && !m_bomb)
-        {
-            FlipVelocity();
         }
         if (collision.transform.tag.Equals("Void"))
         {
@@ -447,6 +451,11 @@ public class MinionMovement : MonoBehaviour
         list.Clear();
         m_rights.Clear();
         m_isGrounded = false;
+        if (m_carriedItem != null)
+        {
+            m_carriedItem.UnAttach();
+            m_carriedItem = null;
+        }
         foreach (Collider2D collider in m_colliders)
         {
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, false);
