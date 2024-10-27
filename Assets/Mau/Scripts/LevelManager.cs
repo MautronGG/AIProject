@@ -164,8 +164,8 @@ public class LevelManager : MonoBehaviour
     {
         m_playEvents.AddListener(() =>
         {
-            //m_Red.EnableMovement(true);
-            //m_Green.EnableMovement(true);
+            m_Red.EnableMovement(true);
+            m_Green.EnableMovement(true);
             m_Blue.EnableMovement(true);
             //m_HUDBuildCanvas.SetActive(false);
             //m_HUDPlayCanvas.SetActive(true);
@@ -183,8 +183,8 @@ public class LevelManager : MonoBehaviour
         });
         m_restartEvents.AddListener(() =>
         {
-            //m_Red.ResetTransform();
-            //m_Green.ResetTransform();
+            m_Red.ResetTransform();
+            m_Green.ResetTransform();
             m_Blue.ResetTransform();
             //m_HUDBuildCanvas.SetActive(true);
             //m_HUDPlayCanvas.SetActive(false);

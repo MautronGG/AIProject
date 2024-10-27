@@ -13,7 +13,7 @@ public class SphereScript : MonoBehaviour
     [SerializeField] private float m_maxStepHeight = .3f;
     [SerializeField] private float m_smoothStep = 0.1f;
     private bool m_flipped;
-    private bool m_grounded;
+    public bool m_grounded;
     private bool m_canKillEnemy;
     public bool m_isActive;
     public bool m_portaled = false;
