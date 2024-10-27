@@ -306,17 +306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f031360084924408e534c001469aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &113688853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2796440991641369502, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
-  m_PrefabInstance: {fileID: 2138579214326534626}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68aaf3e0c6b2b7c408707f9e0eb35e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &126496569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,15 +1835,17 @@ MonoBehaviour:
   m_playButton: {fileID: 824701058}
   m_resetButton: {fileID: 1128182823}
   m_bridgeButton: {fileID: 1136010300}
+  m_points: {fileID: 0}
+  m_objects: []
   m_pause: 0
   m_isEditing: 0
   m_item: {fileID: 0}
   m_spriteFollow: {fileID: 0}
   m_reachedGoals: 0
   m_playerEnded: 0
-  m_Red: {fileID: 1367339438}
-  m_Green: {fileID: 655940199}
-  m_Blue: {fileID: 113688853}
+  m_Red: {fileID: 0}
+  m_Green: {fileID: 0}
+  m_Blue: {fileID: 0}
   m_canPlay: 0
   m_playEvents:
     m_PersistentCalls:
@@ -1926,14 +1917,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bc316d64702b05c4c8d2def1c7a3e68d, type: 3}
   m_spriteBlack:
   - {fileID: 21300000, guid: ace5e630d40dc2a45a0cc4e0d9433e61, type: 3}
-  m_listTypeObjectId:
-  - Bridge
-  - Spring
-  - Portal
-  - Key
-  - Enemy
-  - NormalBlock
-  - SpikyBlock
+  m_listTypeObjectId: 00000000000000000000000000000000000000000000000000000000
 --- !u!1 &651450056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,17 +2106,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
   m_PrefabInstance: {fileID: 8035193115270067348}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &655940199 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2208021712805623022, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
-  m_PrefabInstance: {fileID: 8035193115270067348}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655940198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68aaf3e0c6b2b7c408707f9e0eb35e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &667257091
 GameObject:
   m_ObjectHideFlags: 0
@@ -4810,17 +4783,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332788131}
   m_CullTransparentMesh: 1
---- !u!114 &1367339438 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7837739823476275707, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
-  m_PrefabInstance: {fileID: 2372003990054633950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68aaf3e0c6b2b7c408707f9e0eb35e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1391118816 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4580797942285159804, guid: 2f236c05b8f35034ab87b1b46b5a4cda, type: 3}
@@ -7054,23 +7016,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1336075398951156335, guid: 4a77c843c8668874086c42eafc0a2f4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

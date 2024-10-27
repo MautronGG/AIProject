@@ -27,7 +27,7 @@ public class MinionMovement : MonoBehaviour
 
     [SerializeField] private bool m_isGrounded;
 
-    private float m_gravity = -15.0f;
+    [SerializeField] private float m_gravity = -15.0f;
 
     [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
     private float m_fallTimeout = 0.15f;
@@ -48,6 +48,7 @@ public class MinionMovement : MonoBehaviour
     bool m_applyDirection = false;
 
     [Header("StairStep")]
+    Vector3 m_normal;
     [SerializeField] float m_stepHeight;
     [SerializeField] float m_maxStepHeight = .7f; // Maximum height difference the character can step
 
@@ -125,6 +126,7 @@ public class MinionMovement : MonoBehaviour
         else
         {
             m_moveVector = Vector3.zero;
+            //m_verticalVelocity = 0f;
         }
         transform.Translate((m_moveVector * m_speed * Time.deltaTime) + new Vector3(0f, m_verticalVelocity) * Time.deltaTime);
 
@@ -242,9 +244,10 @@ public class MinionMovement : MonoBehaviour
                     rightContactPoint = new Vector2(contact.normal.y, -contact.normal.x);
                     Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
                     // Check if the collision normal points upward, meaning the character is above the floor
-                    if (contact.normal.y > .5f)
+                    if (contact.normal.y > 0f)
                     {
                         isFromAbove = true;
+                        m_normal = contact.normal;
                         break;
                     }
                 }
@@ -258,13 +261,13 @@ public class MinionMovement : MonoBehaviour
                     Debug.Log(collision.gameObject.name);
 
                     Vector3 forwardDirection = rightContactPoint;
-                    Vector3 upDirection = collision.transform.up;
+                    Vector3 upDirection = m_normal;
                     Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
 
                     Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
-                    Debug.Log(Vector3.Dot(Vector3.up, upDirection));
+                    Debug.Log("Angle: " + Vector3.Angle(Vector3.up, upDirection));
 
-                    if (Vector3.Dot(Vector3.up, upDirection) >= 0.5f)
+                    if (Vector3.Angle(Vector3.up, upDirection) <= 45)
                     {
                         if (AdvanceDirection.x > 0f)
                         {
@@ -277,59 +280,62 @@ public class MinionMovement : MonoBehaviour
                     }
                     else
                     {
-                        FlipVelocity();
-                    }
-                }
-            }
-            if (list.Count > 1)
-            {
-                //HandleStepClimb();
-                Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
-                Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
-                DebugBounds og1 = list[0].gameObject.GetComponent<DebugBounds>();
-                DebugBounds og2 = list[0].gameObject.GetComponent<DebugBounds>();
-                Vector3 collision1 = m_rights[0];
-                Vector3 collision2 = m_rights[1];
-
-                if (col2.transform.rotation.z <= 10 && col2.transform.rotation.z >= -10)
-                {
-                    Vector3 col1Max = col1.bounds.max;
-                    Vector3 col1Min = col1.bounds.min;
-                    Vector3 col1Center = col1.bounds.center;
-
-                    Vector3 col2Max = col2.bounds.max;
-                    Vector3 col2Min = col2.bounds.min;
-                    Vector3 col2Center = col2.bounds.center;
-
-                    Vector3 point1 = Vector2.zero;
-                    Vector3 point2 = Vector2.zero;
-
-                    if (AdvanceDirection.x > 0f)
-                    {
-                        point1 = col1Center + collision1 * (col1.bounds.size.x / 2);
-                        point2 = col2Center - collision2 * (col2.bounds.size.x / 2);
-                        if (point2.y <= point1.y + m_maxStepHeight)
+                        if (list.Count > 1)
                         {
-                            m_stepHeight = point2.y - point1.y;
-                            transform.position += new Vector3(0, m_stepHeight);
-                        }
-                        else
-                        {
-                            FlipVelocity();
-                        }
-                    }
-                    else
-                    {
-                        point1 = col1Center - collision1 * (col1.bounds.size.x / 2);
-                        point2 = col2Center + collision2 * (col2.bounds.size.x / 2);
-                        if (point2.y <= point1.y + m_maxStepHeight)
-                        {
-                            m_stepHeight = point2.y - point1.y;
-                            transform.position += new Vector3(0, m_stepHeight);
-                        }
-                        else
-                        {
-                            FlipVelocity();
+                            //HandleStepClimb();
+                            Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
+                            Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
+                            DebugBounds og1 = list[0].gameObject.GetComponent<DebugBounds>();
+                            DebugBounds og2 = list[0].gameObject.GetComponent<DebugBounds>();
+                            Vector3 collision1 = m_rights[0];
+                            Vector3 collision2 = m_rights[1];
+
+                            if ((col2.gameObject.transform.eulerAngles.z <= 10 && col2.gameObject.transform.eulerAngles.z >= 0) || (col2.gameObject.transform.eulerAngles.z >= 350 && col2.gameObject.transform.eulerAngles.z <= 360))
+                            {
+                                Vector3 col1Max = col1.bounds.max;
+                                Vector3 col1Min = col1.bounds.min;
+                                Vector3 col1Center = col1.bounds.center;
+
+                                Vector3 col2Max = col2.bounds.max;
+                                Vector3 col2Min = col2.bounds.min;
+                                Vector3 col2Center = col2.bounds.center;
+
+                                Vector3 point1 = Vector2.zero;
+                                Vector3 point2 = Vector2.zero;
+
+                                if (AdvanceDirection.x > 0f)
+                                {
+                                    point1 = col1Center + collision1 * (col1.bounds.size.x / 2);
+                                    point2 = col2Center - collision2 * (col2.bounds.size.x / 2);
+                                    if (point2.y <= point1.y + m_maxStepHeight)
+                                    {
+                                        m_stepHeight = point2.y - point1.y;
+                                        transform.position += new Vector3(0, m_stepHeight);
+                                    }
+                                    else
+                                    {
+                                        FlipVelocity();
+                                    }
+                                }
+                                else
+                                {
+                                    point1 = col1Center - collision1 * (col1.bounds.size.x / 2);
+                                    point2 = col2Center + collision2 * (col2.bounds.size.x / 2);
+                                    if (point2.y <= point1.y + m_maxStepHeight)
+                                    {
+                                        m_stepHeight = point2.y - point1.y;
+                                        transform.position += new Vector3(0, m_stepHeight);
+                                    }
+                                    else
+                                    {
+                                        FlipVelocity();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                FlipVelocity();
+                            }
                         }
                     }
                 }
