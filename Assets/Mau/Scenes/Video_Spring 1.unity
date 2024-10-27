@@ -4619,6 +4619,7 @@ MonoBehaviour:
   m_autoMove: 1
   m_minion: {fileID: 655940198}
   m_defaultPosition: {x: 0, y: 0, z: 0}
+  trig: -0.8
 --- !u!81 &1147134675
 AudioListener:
   m_ObjectHideFlags: 0
@@ -7556,11 +7557,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.424
+      value: 1.84
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.089
+      value: 2.61
       objectReference: {fileID: 0}
     - target: {fileID: 914805520121344761, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7604,7 +7605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8121111071185761011, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8121111071185761011, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
       propertyPath: m_TagString
@@ -8621,7 +8622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
       propertyPath: m_TagString

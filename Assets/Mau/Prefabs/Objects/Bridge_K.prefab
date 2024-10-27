@@ -148,14 +148,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_levelManager: {fileID: 0}
   m_personalID: 0
-  m_canOpenOptions: 1
-  m_canDelete: 1
+  m_canOpenOptions: 0
+  m_canDelete: 0
   m_defaultPosition: {x: 0, y: 0, z: 0}
   m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
   m_defaultScale: {x: 0, y: 0, z: 0}
   m_checks: 1
   m_canClick: 1
-  m_spriteFollow: {fileID: 0}
   m_fixColorManager: {fileID: 0}
   color: {fileID: 0}
   m_object: Bridge
+  isDoubleObject: 0
+  m_spriteFollow: {fileID: 0}
