@@ -2023,13 +2023,13 @@ MonoBehaviour:
   m_spriteBlack:
   - {fileID: 21300000, guid: ace5e630d40dc2a45a0cc4e0d9433e61, type: 3}
   m_listTypeObjectId:
-  - Bridge
-  - Spring
-  - Portal
-  - Key
-  - Enemy
-  - NormalBlock
-  - SpikyBlock
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!1 &651450056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4594,6 +4594,7 @@ MonoBehaviour:
   m_autoMove: 1
   m_minion: {fileID: 1970862200}
   m_defaultPosition: {x: 0, y: 0, z: 0}
+  trig: -0.8
 --- !u!81 &1147134675
 AudioListener:
   m_ObjectHideFlags: 0

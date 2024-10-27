@@ -53,7 +53,8 @@ public class CameraMovement : MonoBehaviour
         }
         if (m_autoMove)
         {
-            if(trig>= 0)
+            newpos = m_minion.transform.position.y;
+            if (trig>= 0)
             {
                 newpos += trig * Time.deltaTime;
                 if(newpos >= pos+trig)
