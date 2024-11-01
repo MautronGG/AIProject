@@ -240,11 +240,11 @@ public class MinionMovement : MonoBehaviour
 
                 foreach (ContactPoint2D contact in contactPoints)
                 {
-                    Debug.DrawLine(contact.point, contact.point + (contact.normal * 10), Color.yellow, 100);
+                    //Debug.DrawLine(contact.point, contact.point + (contact.normal * 10), Color.yellow, 100);
                     rightContactPoint = new Vector2(contact.normal.y, -contact.normal.x);
-                    Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
+                    //Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
                     // Check if the collision normal points upward, meaning the character is above the floor
-                    if (contact.normal.y > 0f)
+                    if (contact.normal.y >= 0f)
                     {
                         isFromAbove = true;
                         m_normal = contact.normal;
@@ -264,7 +264,7 @@ public class MinionMovement : MonoBehaviour
                     Vector3 upDirection = m_normal;
                     Vector3 finalPos = collision.gameObject.transform.position + (upDirection * 10);
 
-                    Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
+                    //Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
                     Debug.Log("Angle: " + Vector3.Angle(Vector3.up, upDirection));
 
                     if (Vector3.Angle(Vector3.up, upDirection) <= 45)
@@ -275,7 +275,7 @@ public class MinionMovement : MonoBehaviour
                         }
                         else
                         {
-                            AdvanceDirection = new Vector3(-forwardDirection.x, forwardDirection.y);
+                            AdvanceDirection = -forwardDirection;
                         }
                     }
                     else
@@ -284,58 +284,73 @@ public class MinionMovement : MonoBehaviour
                         {
                             //HandleStepClimb();
                             Collider2D col1 = list[0].gameObject.GetComponent<Collider2D>();
-                            Collider2D col2 = list[1].gameObject.GetComponent<Collider2D>();
+                            BoxCollider2D col2 = list[1].gameObject.GetComponent<BoxCollider2D>();
                             DebugBounds og1 = list[0].gameObject.GetComponent<DebugBounds>();
                             DebugBounds og2 = list[0].gameObject.GetComponent<DebugBounds>();
                             Vector3 collision1 = m_rights[0];
                             Vector3 collision2 = m_rights[1];
 
-                            if ((col2.gameObject.transform.eulerAngles.z <= 10 && col2.gameObject.transform.eulerAngles.z >= 0) || (col2.gameObject.transform.eulerAngles.z >= 350 && col2.gameObject.transform.eulerAngles.z <= 360))
+                            //Vector3 col1Max = col1.bounds.max;
+                            //Vector3 col1Min = col1.bounds.min;
+                            //Vector3 col1Center = col1.bounds.center;
+                            //
+                            //Vector3 col2Max = col2.bounds.max;
+                            //Vector3 col2Min = col2.bounds.min;
+                            Vector3 col2Center = col2.bounds.center;
+
+                            Vector3 col2Size = col2.size;
+
+                            // Get half the width and height of the box
+                            Vector2 col2HalfSize = col2Size * 0.5f;
+
+                            Vector2[] col2LocalCorners = new Vector2[4];
+                            col2LocalCorners[0] = col2.offset + new Vector2(-col2HalfSize.x, col2HalfSize.y);   // Top-left
+                            col2LocalCorners[1] = col2.offset + new Vector2(col2HalfSize.x, col2HalfSize.y);    // Top-right
+                            col2LocalCorners[2] = col2.offset + new Vector2(-col2HalfSize.x, -col2HalfSize.y);  // Bottom-left
+                            col2LocalCorners[3] = col2.offset + new Vector2(col2HalfSize.x, -col2HalfSize.y);   // Bottom-right
+
+                            // Use rotation to calculate the actual corners in world space
+                            Vector2[] col2WorldCorners = new Vector2[4];
+                            for (int i = 0; i < col2LocalCorners.Length; i++)
                             {
-                                Vector3 col1Max = col1.bounds.max;
-                                Vector3 col1Min = col1.bounds.min;
-                                Vector3 col1Center = col1.bounds.center;
-
-                                Vector3 col2Max = col2.bounds.max;
-                                Vector3 col2Min = col2.bounds.min;
-                                Vector3 col2Center = col2.bounds.center;
-
-                                Vector3 point1 = Vector2.zero;
-                                Vector3 point2 = Vector2.zero;
-
-                                if (AdvanceDirection.x > 0f)
+                                col2WorldCorners[i] = col2.transform.TransformPoint(col2LocalCorners[i]);
+                                //Vector2 rotatedCorner = RotatePoint(col2LocalCorners[i], Vector2.zero, col2.transform.eulerAngles.z);
+                                //col2WorldCorners[i] = col2CenterOff + rotatedCorner;
+                            }
+                            Debug.DrawLine(col2Center, col2WorldCorners[0], Color.blue, 100);
+                            //Debug.DrawLine(this.gameObject.GetComponent<Collider2D>().bounds.center, (this.gameObject.GetComponent<Collider2D>().bounds.center - new Vector3(0f, this.gameObject.GetComponent<Collider2D>().bounds.extents.y)), Color.red, 100);
+                            if (AdvanceDirection.x > 0f)
+                            {
+                                float difference = (col2WorldCorners[0].y - this.gameObject.GetComponent<Collider2D>().bounds.min.y);
+                                if (difference <= m_maxStepHeight)
                                 {
-                                    point1 = col1Center + collision1 * (col1.bounds.size.x / 2);
-                                    point2 = col2Center - collision2 * (col2.bounds.size.x / 2);
-                                    if (point2.y <= point1.y + m_maxStepHeight)
-                                    {
-                                        m_stepHeight = point2.y - point1.y;
-                                        transform.position += new Vector3(0, m_stepHeight);
-                                    }
-                                    else
-                                    {
-                                        FlipVelocity();
-                                    }
+                                    m_stepHeight = difference;
+                                    //col2WorldCorners[0].y - transform.position.y + 0.01f;
+                                    transform.position += new Vector3(0, m_stepHeight);
                                 }
                                 else
                                 {
-                                    point1 = col1Center - collision1 * (col1.bounds.size.x / 2);
-                                    point2 = col2Center + collision2 * (col2.bounds.size.x / 2);
-                                    if (point2.y <= point1.y + m_maxStepHeight)
-                                    {
-                                        m_stepHeight = point2.y - point1.y;
-                                        transform.position += new Vector3(0, m_stepHeight);
-                                    }
-                                    else
-                                    {
-                                        FlipVelocity();
-                                    }
+                                    FlipVelocity();
                                 }
                             }
-                            else
+                            else if (AdvanceDirection.x < 0f)
                             {
-                                FlipVelocity();
+                                float difference = (col2WorldCorners[1].y - this.gameObject.GetComponent<Collider2D>().bounds.min.y);
+                                if (difference <= m_maxStepHeight)
+                                {
+                                    m_stepHeight = difference;
+                                    //col2WorldCorners[0].y - transform.position.y + 0.01f;
+                                    transform.position += new Vector3(0, m_stepHeight);
+                                }
+                                else
+                                {
+                                    FlipVelocity();
+                                }
                             }
+                        }
+                        else
+                        {
+                            FlipVelocity();
                         }
                     }
                 }
@@ -468,31 +483,6 @@ public class MinionMovement : MonoBehaviour
         }
         m_colliders.Clear();
     }
-    //void HandleStepClimb()
-    //{
-    //    float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling
-    //
-    //    // Cast two rays in front of the player: one at foot height and another at head height
-    //    Vector2 footPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y - adjustedRadius);
-    //    Vector2 headPosition = new Vector2(transform.position.x + adjustedRadius, transform.position.y + adjustedRadius);
-    //
-    //    RaycastHit2D footRay = Physics2D.Raycast(footPosition, Vector2.right, stepDetectionDistance);
-    //    RaycastHit2D headRay = Physics2D.Raycast(headPosition, Vector2.right, stepDetectionDistance);
-    //
-    //    if (footRay.collider != null && !headRay.collider) // If foot detects a collision but head doesn't
-    //    {
-    //        // Check if the object hit by the foot ray has the correct tag
-    //        if (footRay.collider.CompareTag("Floor") || footRay.collider.CompareTag("Wall"))
-    //        {
-    //            float stepDifference = footRay.point.y - transform.position.y;
-    //            if (stepDifference > 0 && stepDifference <= stepHeight)
-    //            {
-    //                // Step is within the threshold height, step up
-    //                m_rigidBody.position = new Vector2(m_rigidBody.position.x, m_rigidBody.position.y + stepDifference);
-    //            }
-    //        }
-    //    }
-    //}
     //private void OnDrawGizmosSelected()
     //{
     //    float adjustedRadius = m_collider.radius * transform.localScale.x; // Assuming uniform scaling

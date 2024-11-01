@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Reload : MonoBehaviour
 {
-  LevelEditorManager _manager;
+  LevelManager _manager;
   private void Start()
   {
-    _manager = GetComponent<LevelEditorManager>();
+    _manager = GetComponent<LevelManager>();
   }
   public void Scene(int scene)
   {
