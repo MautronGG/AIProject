@@ -84,11 +84,6 @@ public class MinionMovement : MonoBehaviour
                 m_portaled = false;
             }
         }
-        //if (transform.position.y <= -4f)
-        //{
-        //  this.gameObject.SetActive(false);
-        //}
-
         if (m_reachedGoal)
         {
             m_canMove = false;
@@ -96,12 +91,15 @@ public class MinionMovement : MonoBehaviour
             //AddPoints
             //FinishLevel
         }
-        else
+    }
+    private void FixedUpdate()
+    {
+        
+        if (!m_reachedGoal)
         {
             Move();
             //GroundedCheck();
             Gravity();
-            //HandleStepClimb();
         }
 
     }
@@ -267,7 +265,7 @@ public class MinionMovement : MonoBehaviour
                     //Debug.DrawLine(collision.gameObject.transform.position, finalPos, Color.blue, 100);
                     Debug.Log("Angle: " + Vector3.Angle(Vector3.up, upDirection));
 
-                    if (Vector3.Angle(Vector3.up, upDirection) <= 45)
+                    if (Vector3.Angle(Vector3.up, upDirection) <= 66)
                     {
                         if (AdvanceDirection.x > 0f)
                         {
@@ -353,6 +351,10 @@ public class MinionMovement : MonoBehaviour
                             FlipVelocity();
                         }
                     }
+                }
+                else if (list.Count > 1)
+                {
+                    FlipVelocity();
                 }
             }
         }

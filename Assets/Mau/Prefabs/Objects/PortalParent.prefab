@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 3891123818865878829}
   - component: {fileID: 1787887364}
   - component: {fileID: 8083389558884487976}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: Portal_Black
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +155,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.03, y: 0}
@@ -173,9 +173,9 @@ GameObject:
   - component: {fileID: 3891123819148743566}
   - component: {fileID: 2071137185}
   - component: {fileID: 629758578732093117}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: Portal_Black (1)
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,7 +283,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

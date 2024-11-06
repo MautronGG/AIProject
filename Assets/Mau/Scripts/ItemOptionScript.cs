@@ -25,5 +25,6 @@ public class ItemOptionScript : MonoBehaviour
     public void Delete()
     {
         m_levelManager.m_item.Delete();
+        m_levelManager.m_bridgeButton.GetComponent<ButtonScript>().ChangeQuantity(true);
     }
 }

@@ -5,13 +5,17 @@ using UnityEngine;
 public class Object_Bridge : Object_Parent
 {
     public SpriteFollow m_spriteFollow;
+    public bool m_startFollow;
 
     // Start is called before the first frame update
     public override void Awake()
     {
         m_spriteFollow = GetComponent<SpriteFollow>();
         base.Awake();
-        m_levelManager.m_isEditing = true;
+        if (m_startFollow)
+        {
+            m_spriteFollow.StartFollow();
+        }
     }
     // Update is called once per frame
     public override void Update()

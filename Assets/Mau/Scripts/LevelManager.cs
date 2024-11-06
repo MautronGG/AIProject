@@ -77,10 +77,6 @@ public class LevelManager : MonoBehaviour
 
     public CameraMovement m_camera;
 
-    private void Awake()
-    {
-
-    }
     private void Start()
     {
         Time.timeScale = 1.0f;

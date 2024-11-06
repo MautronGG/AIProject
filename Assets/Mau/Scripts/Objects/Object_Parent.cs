@@ -113,6 +113,7 @@ public class Object_Parent : MonoBehaviour
                 temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);
                 if (temporalSprite == null)
                 {
+                    m_levelManager.CantChangeColor();
                     return;
                 }
                 actualColor = m_fixColorManager.getLastColor(m_object);
@@ -125,6 +126,7 @@ public class Object_Parent : MonoBehaviour
                 doubleSprites = m_fixColorManager.getSpriteLinkObjects(theColor, m_object, otherObject.m_object, actualColor);
                 if (doubleSprites == null)
                 {
+                    m_levelManager.CantChangeColor();
                     return;
                 }
                 actualColor = m_fixColorManager.getLastColor(m_object);
