@@ -101,6 +101,8 @@ public class LevelManager : MonoBehaviour
             if (m_reachedGoals > 0)
             {
                 m_winCanvas.SetActive(true);
+                m_HUDPlayCanvas.SetActive(false);
+                m_HUDBuildCanvas.SetActive(false);
                 m_points.text = "Points " + m_reachedGoals + "/3";
             }
             else

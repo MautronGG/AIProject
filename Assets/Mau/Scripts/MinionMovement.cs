@@ -228,18 +228,19 @@ public class MinionMovement : MonoBehaviour
         if (m_applyDirection)
         {
             Vector2 rightContactPoint = new Vector2();
+            Vector2 ContactPoint = new Vector2();
             if (!list.Contains(collision.gameObject))
             {
                 // Check if the character is colliding from above
                 ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
                 collision.GetContacts(contactPoints);
-
                 bool isFromAbove = false;
 
                 foreach (ContactPoint2D contact in contactPoints)
                 {
                     //Debug.DrawLine(contact.point, contact.point + (contact.normal * 10), Color.yellow, 100);
                     rightContactPoint = new Vector2(contact.normal.y, -contact.normal.x);
+                    ContactPoint = contact.point;
                     //Debug.DrawLine(contact.point, contact.point + (rightContactPoint * 10), Color.magenta, 100);
                     // Check if the collision normal points upward, meaning the character is above the floor
                     if (contact.normal.y >= 0f)
@@ -354,7 +355,20 @@ public class MinionMovement : MonoBehaviour
                 }
                 else if (list.Count > 1)
                 {
-                    FlipVelocity();
+                    if (AdvanceDirection.x > 0)
+                    {
+                        if (ContactPoint.x > transform.position.x)
+                        {
+                            FlipVelocity();
+                        }
+                    }
+                    else if (AdvanceDirection.x < 0)
+                    {
+                        if (ContactPoint.x < transform.position.x)
+                        {
+                            FlipVelocity();
+                        }
+                    }
                 }
             }
         }

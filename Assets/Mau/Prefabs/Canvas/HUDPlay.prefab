@@ -269,7 +269,7 @@ RectTransform:
   m_GameObject: {fileID: 5285097813133256838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 73.19}
-  m_LocalScale: {x: 0.27808732, y: 0.27808732, z: 0.27808732}
+  m_LocalScale: {x: 0.18534394, y: 0.18534394, z: 0.18534394}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5285097813605200750}
@@ -278,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 273, y: 344}
+  m_AnchoredPosition: {x: 0, y: 384}
   m_SizeDelta: {x: 994, y: 621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5285097813133256843
@@ -399,6 +399,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+        m_MethodName: ChangeMovement
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5285097813133256840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +452,7 @@ RectTransform:
   m_GameObject: {fileID: 5285097813467724661}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 73.19}
-  m_LocalScale: {x: 0.27808732, y: 0.27808732, z: 0.27808732}
+  m_LocalScale: {x: 0.3031836, y: 0.3031836, z: 0.3031836}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5285097814047556770}
@@ -449,8 +461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 737.2, y: 344}
-  m_SizeDelta: {x: 994, y: 621}
+  m_AnchoredPosition: {x: 361, y: 385}
+  m_SizeDelta: {x: 587, y: 622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5285097813467724665
 CanvasRenderer:
@@ -480,8 +492,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d3aa58f6cf6f43c4486ba8b2674924e9, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -688,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5285097814047556770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -737,7 +749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -835,7 +847,7 @@ RectTransform:
   m_GameObject: {fileID: 5285097814464618601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 73.19}
-  m_LocalScale: {x: 0.27808732, y: 0.27808732, z: 0.27808732}
+  m_LocalScale: {x: 0.18534394, y: 0.18534394, z: 0.18534394}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5285097812893343141}
@@ -844,7 +856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 273, y: 344}
+  m_AnchoredPosition: {x: 0, y: 384}
   m_SizeDelta: {x: 994, y: 621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5285097814464618605
@@ -964,6 +976,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+        m_MethodName: ChangeMovement
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5285097814464618602
 MonoBehaviour:
