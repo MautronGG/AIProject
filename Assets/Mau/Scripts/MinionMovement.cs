@@ -165,8 +165,6 @@ public class MinionMovement : MonoBehaviour
                 m_verticalVelocity += m_gravity * Time.deltaTime;
             }
         }
-
-
     }
     //private void OnDisable()
     //{

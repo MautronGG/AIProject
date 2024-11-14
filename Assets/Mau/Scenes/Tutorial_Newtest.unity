@@ -2063,6 +2063,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4036695851829077147, guid: 18c556e9df101f64e921b1a6ede53a36, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4036695851829077149, guid: 18c556e9df101f64e921b1a6ede53a36, type: 3}
       propertyPath: m_Name
       value: HUDBuild
@@ -2247,7 +2251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5285097812940407967, guid: 26e6b6883358585428f915847c43ea3c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5285097813133256839, guid: 26e6b6883358585428f915847c43ea3c, type: 3}
       propertyPath: m_LocalScale.x
