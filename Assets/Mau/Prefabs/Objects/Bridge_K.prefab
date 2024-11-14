@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: ace5e630d40dc2a45a0cc4e0d9433e61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   doubleSprites: []
   actualColor: Black
   m_spriteFollow: {fileID: 0}
+  m_startFollow: 0
 --- !u!61 &7368983579818233965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,6 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b841934022e846b4aa87080103f72e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Min: {x: 0, y: 0, z: 0}
+  m_Max: {x: 0, y: 0, z: 0}
+  m_Extents: {x: 0, y: 0, z: 0}
 --- !u!114 &1537497939644134421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b841934022e846b4aa87080103f72e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Min: {x: 0, y: 0, z: 0}
+  m_Max: {x: 0, y: 0, z: 0}
+  m_Extents: {x: 0, y: 0, z: 0}
