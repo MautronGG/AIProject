@@ -370,6 +370,10 @@ public class MinionMovement : MonoBehaviour
                         }
                     }
                 }
+                else if (list.Count == 1)
+                {
+                    m_verticalVelocity = 0f;
+                }
             }
         }
     }
