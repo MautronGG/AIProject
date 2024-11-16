@@ -396,9 +396,8 @@ public class MinionMovement : MonoBehaviour
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
         }
-        if (collision.transform.tag.Equals("Destiny"))
-        {
-
+        if (collision.transform.tag.Equals("Destiny") && !m_levelManager.m_doorsLocked)
+        {  
             m_reachedGoal = true;
             m_levelManager.m_reachedGoals++;
             m_levelManager.m_playerEnded++;
