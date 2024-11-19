@@ -77,6 +77,8 @@ public class LevelManager : MonoBehaviour
 
     public CameraMovement m_camera;
 
+    public bool m_doorsLocked = false;
+
     private void Start()
     {
         Time.timeScale = 1.0f;
@@ -162,6 +164,10 @@ public class LevelManager : MonoBehaviour
                 {
                     enemy.EnableMovement(true);
                 }
+                if (obj.actualColor == "Black")
+                {
+                    m_doorsLocked = true;
+                }
             }
         });
         m_playButton.onClick.AddListener(() =>
@@ -188,6 +194,7 @@ public class LevelManager : MonoBehaviour
             {
                 _object.ResetDeafualts();
             }
+            m_doorsLocked = false;
         });
     }
     public void ResetDefaults()

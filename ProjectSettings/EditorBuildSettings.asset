@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Mau/Scenes/MainMenu.unity
     guid: 171c1e32d1ee9e249bff464d86c290cd
   - enabled: 1
-    path: Assets/Mau/Scenes/Tutorial_Newtest.unity
+    path: Assets/Mau/Scenes/Level_2_Key.unity
     guid: b71518363e2c52541b0606110a6308b6
   m_configObjects: {}
