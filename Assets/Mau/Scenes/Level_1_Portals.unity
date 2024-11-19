@@ -537,6 +537,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_camera: {fileID: 1147134674}
+  m_doorsLocked: 0
 --- !u!114 &613464081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,6 +2063,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1147134676}
+    - target: {fileID: 1881576315760314466, guid: 39da23d6e045346438772b84198c34c0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1881576315760314467, guid: 39da23d6e045346438772b84198c34c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
