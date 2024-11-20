@@ -57,12 +57,12 @@ public class Object_Bridge : Object_Parent
         m_levelManager.m_isEditing = false;
         m_levelManager.m_HUDBuildCanvas.SetActive(true);
         m_levelManager.m_controlCanvas.SetActive(false);
+        m_levelManager.CheckColors();
     }
     public void Delete()
     {
         m_fixColorManager.getSprite(7, m_object, actualColor);
         actualColor = m_fixColorManager.getLastColor(m_object);
         Destroy(gameObject);
-
     }
 }

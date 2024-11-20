@@ -28,7 +28,7 @@ public class Object_Parent : MonoBehaviour
     [SerializeField]
     public FixColorManager m_fixColorManager;
 
-    public CursorSet color;
+    public CursorSet m_cursor;
 
     [SerializeField]
     public typesObects m_object;
@@ -39,10 +39,22 @@ public class Object_Parent : MonoBehaviour
     public List<Sprite> doubleSprites;
 
     public string actualColor = "Black";
+
+    public enum ColorEnum
+    {
+        White,
+        Red,
+        Yellow,
+        Green,
+        Cyan,
+        Blue,
+        Magenta,
+        Black
+    };
     public virtual void Awake()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
-        color = FindObjectOfType<CursorSet>();
+        m_cursor = FindObjectOfType<CursorSet>();
         m_fixColorManager = FindObjectOfType<FixColorManager>();
         GameObject spriteObject = new GameObject("TemporalSpriteObject");
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,7 +73,7 @@ public class Object_Parent : MonoBehaviour
     }
     public virtual void OnMouseOver()
     {
-        int theColor = color.color;
+        int theColor = m_cursor.color;
         m_checks = true;
         if (m_levelManager.m_optionsCanvas.activeInHierarchy)
         {
@@ -108,35 +120,7 @@ public class Object_Parent : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && theColor < 8 && m_checks)
         {
-            if (!m_isDouble)
-            {
-                temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);
-                if (temporalSprite == null)
-                {
-                    m_levelManager.CantChangeColor();
-                    return;
-                }
-                actualColor = m_fixColorManager.getLastColor(m_object);
-                gameObject.layer = LayerMask.NameToLayer(actualColor);
-                spriteRenderer.sprite = temporalSprite;
-                temporalSprite = null;
-            }
-            else
-            {
-                doubleSprites = m_fixColorManager.getSpriteLinkObjects(theColor, m_object, otherObject.m_object, actualColor);
-                if (doubleSprites == null)
-                {
-                    m_levelManager.CantChangeColor();
-                    return;
-                }
-                actualColor = m_fixColorManager.getLastColor(m_object);
-                otherObject.actualColor = m_fixColorManager.getLastColor(otherObject.m_object);
-                spriteRenderer.sprite = doubleSprites[0];
-                otherObject.spriteRenderer.sprite = doubleSprites[1];
-                gameObject.layer = LayerMask.NameToLayer(actualColor);
-                otherObject.gameObject.layer = LayerMask.NameToLayer(actualColor);
-                doubleSprites = null;
-            } 
+            ChangeColor(theColor);
         }
     }
     public virtual void ResetDeafualts()
@@ -155,5 +139,39 @@ public class Object_Parent : MonoBehaviour
         m_defaultPosition = transform.position;
         m_defaultScale = transform.localScale;
         m_defaultRotation = transform.rotation;
+    }
+    public void ChangeColor(int theColor)
+    {
+        if (!m_isDouble)
+        {
+            temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);
+            if (temporalSprite == null)
+            {
+                m_levelManager.CantChangeColor();
+                return;
+            }
+            actualColor = m_fixColorManager.getLastColor(m_object);
+            gameObject.layer = LayerMask.NameToLayer(actualColor);
+            spriteRenderer.sprite = temporalSprite;
+            temporalSprite = null;
+            m_levelManager.CheckColors();
+        }
+        else
+        {
+            doubleSprites = m_fixColorManager.getSpriteLinkObjects(theColor, m_object, otherObject.m_object, actualColor);
+            if (doubleSprites == null)
+            {
+                m_levelManager.CantChangeColor();
+                return;
+            }
+            actualColor = m_fixColorManager.getLastColor(m_object);
+            otherObject.actualColor = m_fixColorManager.getLastColor(otherObject.m_object);
+            spriteRenderer.sprite = doubleSprites[0];
+            otherObject.spriteRenderer.sprite = doubleSprites[1];
+            gameObject.layer = LayerMask.NameToLayer(actualColor);
+            otherObject.gameObject.layer = LayerMask.NameToLayer(actualColor);
+            doubleSprites = null;
+            m_levelManager.CheckColors();
+        }
     }
 }

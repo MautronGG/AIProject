@@ -31,6 +31,7 @@ public class ButtonScript : MonoBehaviour
     void Start()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
+        m_text.text = m_numBridges.ToString();
     }
     public void OnClick()
     {
@@ -42,6 +43,7 @@ public class ButtonScript : MonoBehaviour
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             m_isClicked = true;
             m_obj = Instantiate(m_object, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+            m_levelManager.m_bridges.Add(m_obj.GetComponent<Object_Bridge>());
             m_spriteFollow = m_obj.GetComponent<SpriteFollow>();
             //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
             m_spriteFollow.StartFollow();

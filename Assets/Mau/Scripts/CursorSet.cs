@@ -19,7 +19,7 @@ public class CursorSet : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {        
-        //ChangeCursor();
+        ChangeCursor();
     }
     private void Update()
     {

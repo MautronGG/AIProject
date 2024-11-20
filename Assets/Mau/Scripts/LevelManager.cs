@@ -36,8 +36,9 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI m_points;
 
     [Header("Lists")]
-    [SerializeField] Object_Parent[] m_objects;
-    [SerializeField] Object_FinalDoor[] m_doors;
+    [SerializeField] public Object_Parent[] m_objects;
+    [SerializeField] public List<Object_Bridge> m_bridges;
+    [SerializeField] public Object_FinalDoor[] m_doors;
     //public List<ItemManager> m_itemsList;
     //public List<ItemManager> m_bombsList;
     //public List<ItemManager> m_enemyList;
@@ -74,8 +75,16 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         m_myFSM = GetComponent<FSM>();
-        m_objects = FindObjectsOfType<Object_Parent>(); 
+        m_objects = FindObjectsOfType<Object_Parent>();
+        m_doors = FindObjectsOfType<Object_FinalDoor>();
         Initialized();
+        foreach (Object_Parent obj in m_objects)
+        {
+            if (obj.actualColor != "Black")
+            {
+                
+            }
+        }
     }
 
     private void Update()
@@ -155,10 +164,6 @@ public class LevelManager : MonoBehaviour
                 {
                     enemy.EnableMovement(true);
                 }
-                if (obj.actualColor == "Black")
-                {
-                    m_doorsLocked = true;
-                }
             }
         });
         m_playButton.onClick.AddListener(() =>
@@ -185,7 +190,6 @@ public class LevelManager : MonoBehaviour
             {
                 _object.ResetDeafualts();
             }
-            m_doorsLocked = false;
         });
     }
     public void ResetDefaults()
@@ -201,18 +205,35 @@ public class LevelManager : MonoBehaviour
     }
     public void CheckColors()
     {
+        m_doorsLocked = false;
         foreach (Object_Parent obj in m_objects)
         {
             if (obj.actualColor == "Black")
             {
                 m_doorsLocked = true;
+                continue;
             }
         }
         if (m_doorsLocked == false)
         {
-            foreach (Object_FinalDoor door in m_doors)
+            foreach (Object_Bridge obj in m_bridges)
+            {
+                if (obj.actualColor == "Black")
+                {
+                    m_doorsLocked = true;
+                    continue;
+                }
+            }
+        }
+        foreach (Object_FinalDoor door in m_doors)
+        {
+            if (m_doorsLocked == false)
             {
                 door.ChangeSprite(true);
+            }
+            else
+            {
+                door.ChangeSprite(false);
             }
         }
     }
