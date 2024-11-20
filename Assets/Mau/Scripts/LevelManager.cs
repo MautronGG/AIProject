@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Lists")]
     [SerializeField] Object_Parent[] m_objects;
+    [SerializeField] Object_FinalDoor[] m_doors;
     //public List<ItemManager> m_itemsList;
     //public List<ItemManager> m_bombsList;
     //public List<ItemManager> m_enemyList;
@@ -44,16 +45,6 @@ public class LevelManager : MonoBehaviour
     //public List<Material> m_materialsPortalArray;
     //public List<Material> m_materialsBombArray;
     //public List<Material> m_materialsEnemyArray;
-
-    //[Header("Colors")]
-    //public Material m_red;
-    //public Material m_yellow;
-    //public Material m_green;
-    //public Material m_cyan;
-    //public Material m_blue;
-    //public Material m_magenta;
-    //public Material m_white;
-    //public Material m_black;
 
     public bool m_pause = false;
 
@@ -207,5 +198,22 @@ public class LevelManager : MonoBehaviour
     public void CantChangeColor()
     {
         m_cantRepeatColorCanvas.SetActive(true);
+    }
+    public void CheckColors()
+    {
+        foreach (Object_Parent obj in m_objects)
+        {
+            if (obj.actualColor == "Black")
+            {
+                m_doorsLocked = true;
+            }
+        }
+        if (m_doorsLocked == false)
+        {
+            foreach (Object_FinalDoor door in m_doors)
+            {
+                door.ChangeSprite(true);
+            }
+        }
     }
 }

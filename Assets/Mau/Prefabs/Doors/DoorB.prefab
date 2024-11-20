@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7113782267382199645}
   - component: {fileID: 7113782267382199646}
   - component: {fileID: 3710722895878704458}
+  - component: {fileID: -8684189191134444914}
   m_Layer: 10
   m_Name: DoorB
   m_TagString: Destiny
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: c4aaadeb6bf565642b25e58599372b9d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70324d1083f9d5b488d86aad9334a395, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,3 +112,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0765392, y: 6.57}
   m_EdgeRadius: 0
+--- !u!114 &-8684189191134444914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7113782267382199640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec133df08b322ea4181c2085c3a3d878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_normal: {fileID: 21300000, guid: c4aaadeb6bf565642b25e58599372b9d, type: 3}
+  m_locked: {fileID: 21300000, guid: 70324d1083f9d5b488d86aad9334a395, type: 3}
+  m_canEnter: 0
