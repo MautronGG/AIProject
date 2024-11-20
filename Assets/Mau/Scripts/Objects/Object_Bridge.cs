@@ -28,7 +28,7 @@ public class Object_Bridge : Object_Parent
     }
     public override void OnMouseOver()
     {
-        int theColor = color.color;
+        int theColor = m_cursor.color;
         if (!m_spriteFollow.m_follow)
         {
             base.OnMouseOver();

@@ -80,9 +80,11 @@ public class LevelManager : MonoBehaviour
         Initialized();
         foreach (Object_Parent obj in m_objects)
         {
-            if (obj.actualColor != "Black")
+            if (obj.actualColor != ColorEnum.Black)
             {
-                
+                int a = ((int)obj.actualColor);
+                obj.actualColor = ColorEnum.Black;
+                obj.ChangeColor(a);
             }
         }
     }
@@ -208,20 +210,20 @@ public class LevelManager : MonoBehaviour
         m_doorsLocked = false;
         foreach (Object_Parent obj in m_objects)
         {
-            if (obj.actualColor == "Black")
+            if (obj.actualColor == ColorEnum.Black)
             {
                 m_doorsLocked = true;
-                continue;
+                break;
             }
         }
         if (m_doorsLocked == false)
         {
             foreach (Object_Bridge obj in m_bridges)
             {
-                if (obj.actualColor == "Black")
+                if (obj.actualColor == ColorEnum.Black)
                 {
                     m_doorsLocked = true;
-                    continue;
+                    break;
                 }
             }
         }

@@ -140,11 +140,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 2
   otherObject: {fileID: 2071137185}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
 --- !u!58 &8083389558884487976
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -268,11 +268,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 2
   otherObject: {fileID: 1787887364}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
 --- !u!58 &629758578732093117
 CircleCollider2D:
   m_ObjectHideFlags: 0

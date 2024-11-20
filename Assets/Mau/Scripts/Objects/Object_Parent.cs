@@ -31,26 +31,15 @@ public class Object_Parent : MonoBehaviour
     public CursorSet m_cursor;
 
     [SerializeField]
-    public typesObects m_object;
+    public typesObjects m_object;
     public Object_Parent otherObject;
 
     private SpriteRenderer spriteRenderer;
     private Sprite temporalSprite;
     public List<Sprite> doubleSprites;
 
-    public string actualColor = "Black";
+    public ColorEnum actualColor = ColorEnum.Black;
 
-    public enum ColorEnum
-    {
-        White,
-        Red,
-        Yellow,
-        Green,
-        Cyan,
-        Blue,
-        Magenta,
-        Black
-    };
     public virtual void Awake()
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -151,7 +140,7 @@ public class Object_Parent : MonoBehaviour
                 return;
             }
             actualColor = m_fixColorManager.getLastColor(m_object);
-            gameObject.layer = LayerMask.NameToLayer(actualColor);
+            gameObject.layer = LayerMask.NameToLayer(actualColor.ToString());
             spriteRenderer.sprite = temporalSprite;
             temporalSprite = null;
             m_levelManager.CheckColors();
@@ -168,8 +157,8 @@ public class Object_Parent : MonoBehaviour
             otherObject.actualColor = m_fixColorManager.getLastColor(otherObject.m_object);
             spriteRenderer.sprite = doubleSprites[0];
             otherObject.spriteRenderer.sprite = doubleSprites[1];
-            gameObject.layer = LayerMask.NameToLayer(actualColor);
-            otherObject.gameObject.layer = LayerMask.NameToLayer(actualColor);
+            gameObject.layer = LayerMask.NameToLayer(ToString());
+            otherObject.gameObject.layer = LayerMask.NameToLayer(ToString());
             doubleSprites = null;
             m_levelManager.CheckColors();
         }

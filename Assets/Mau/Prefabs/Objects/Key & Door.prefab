@@ -219,11 +219,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 3
   otherObject: {fileID: 2481838365840898299}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
 --- !u!114 &2481838365409504743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,11 +373,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 4
   otherObject: {fileID: 2481838365409504742}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
 --- !u!61 &8907897747480092379
 BoxCollider2D:
   m_ObjectHideFlags: 0

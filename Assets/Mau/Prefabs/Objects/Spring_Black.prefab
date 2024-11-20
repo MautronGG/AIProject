@@ -107,11 +107,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 1
   otherObject: {fileID: 0}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
   m_springForce: 10
 --- !u!70 &2125411218217207250
 CapsuleCollider2D:

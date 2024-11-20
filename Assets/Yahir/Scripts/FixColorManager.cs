@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum typesObects
+public enum typesObjects
 {
     Bridge = 0,
     Spring,
@@ -13,13 +13,24 @@ public enum typesObects
     Monster,
     Laser
 }
+public enum ColorEnum
+{
+    White,
+    Red,
+    Yellow,
+    Green,
+    Cyan,
+    Blue,
+    Magenta,
+    Black,
+    Null
+}
 class spriteObjects
 {
 
+    public typesObjects m_typeObject;
 
-    public typesObects m_typeObject;
-
-    public string lastColor = "Black";
+    public ColorEnum lastColor = ColorEnum.Black;
 
     public Sprite m_spriteRed;
 
@@ -72,12 +83,12 @@ public class FixColorManager : MonoBehaviour
     private List<Sprite> m_spriteBlack;
     [Tooltip("Sprite Yellow")]
     [SerializeField]
-    private List<typesObects> m_listTypeObjectId;
+    private List<typesObjects> m_listTypeObjectId;
 
     private List<spriteObjects> m_listSpriteObjests = new List<spriteObjects>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < m_spriteRed.Count; i++)
         {
@@ -94,7 +105,7 @@ public class FixColorManager : MonoBehaviour
             m_listSpriteObjests.Add(newSpriteObjects);
         }
     }
-    public Sprite getSprite(int colorFix, typesObects idTypeObject, string actualColor)
+    public Sprite getSprite(int colorFix, typesObjects idTypeObject, ColorEnum actualColor)
     {
         for (int i = 0; i < m_listSpriteObjests.Count; i++)
         {
@@ -103,55 +114,55 @@ public class FixColorManager : MonoBehaviour
                 if (colorFix == 1 && m_listSpriteObjests[i].m_activeRed == true)
                 {
                     m_listSpriteObjests[i].m_activeRed = false;
-                    m_listSpriteObjests[i].lastColor = "Red";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Red;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteRed;
                 }
                 else if (colorFix == 5 && m_listSpriteObjests[i].m_activeBlue == true)
                 {
                     m_listSpriteObjests[i].m_activeBlue = false;
-                    m_listSpriteObjests[i].lastColor = "Blue";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Blue;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteBlue;
                 }
                 else if (colorFix == 3 && m_listSpriteObjests[i].m_activeGreen == true)
                 {
                     m_listSpriteObjests[i].m_activeGreen = false;
-                    m_listSpriteObjests[i].lastColor = "Green";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Green;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteGreen;
                 }
                 else if (colorFix == 0 && m_listSpriteObjests[i].m_activeWhite == true)
                 {
                     m_listSpriteObjests[i].m_activeWhite = false;
-                    m_listSpriteObjests[i].lastColor = "White";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.White;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteWhite;
                 }
                 else if (colorFix == 4 && m_listSpriteObjests[i].m_activeCyan == true)
                 {
                     m_listSpriteObjests[i].m_activeCyan = false;
-                    m_listSpriteObjests[i].lastColor = "Cyan";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Cyan;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteCyan;
                 }
                 else if (colorFix == 2 && m_listSpriteObjests[i].m_activeYellow == true)
                 {
                     m_listSpriteObjests[i].m_activeYellow = false;
-                    m_listSpriteObjests[i].lastColor = "Yellow";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Yellow;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteYellow;
                 }
                 else if (colorFix == 6 && m_listSpriteObjests[i].m_activeMagenta == true)
                 {
                     m_listSpriteObjests[i].m_activeMagenta = false;
-                    m_listSpriteObjests[i].lastColor = "Magenta";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Magenta;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteMagenta;
                 }
                 else if (colorFix == 7)
                 {
-                    m_listSpriteObjests[i].lastColor = "Black";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Black;
                     activeColors(actualColor, i);
                     return m_listSpriteObjests[i].m_spriteBlack;
                 }
@@ -160,7 +171,7 @@ public class FixColorManager : MonoBehaviour
         return null;
     }
 
-    public List<Sprite> getSpriteLinkObjects(int colorFix, typesObects enumObject, typesObects enumLinkObject, string actualColor)
+    public List<Sprite> getSpriteLinkObjects(int colorFix, typesObjects enumObject, typesObjects enumLinkObject, ColorEnum actualColor)
     {
         List<Sprite> newObject = new List<Sprite>();
         for (int i = 0; i < m_listSpriteObjests.Count; i++)
@@ -169,7 +180,7 @@ public class FixColorManager : MonoBehaviour
             {
                 if (colorFix == 1 && m_listSpriteObjests[i].m_activeRed == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Red";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Red;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteRed);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -177,7 +188,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 5 && m_listSpriteObjests[i].m_activeBlue == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Blue";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Blue;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteBlue);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -185,7 +196,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 3 && m_listSpriteObjests[i].m_activeGreen == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Green";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Green;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteGreen);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -193,7 +204,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 0 && m_listSpriteObjests[i].m_activeWhite == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "White";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.White;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteWhite);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -201,7 +212,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 4 && m_listSpriteObjests[i].m_activeCyan == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Cyan";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Cyan;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteCyan);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -209,7 +220,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 2 && m_listSpriteObjests[i].m_activeYellow == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Yellow";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Yellow;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteYellow);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -217,7 +228,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 6 && m_listSpriteObjests[i].m_activeMagenta == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Magenta";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Magenta;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteMagenta);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -225,7 +236,7 @@ public class FixColorManager : MonoBehaviour
                 }
                 else if (colorFix == 7 && m_listSpriteObjests[i].m_activeBlack == true)
                 {
-                    m_listSpriteObjests[i].lastColor = "Black";
+                    m_listSpriteObjests[i].lastColor = ColorEnum.Black;
                     activeColors(actualColor, i);
                     newObject.Add(m_listSpriteObjests[i].m_spriteBlack);
                     newObject.Add(getSprite(colorFix, enumLinkObject, actualColor));
@@ -239,46 +250,46 @@ public class FixColorManager : MonoBehaviour
         return newObject;
     }
 
-    private void activeColors(string actualColor, int iter)
+    private void activeColors(ColorEnum actualColor, int iter)
     {
-        if (actualColor == "Red")
+        if (actualColor == ColorEnum.Red)
         {
             m_listSpriteObjests[iter].m_activeRed = true;
         }
-        else if (actualColor == "Blue")
+        else if (actualColor == ColorEnum.Blue)
         {
             m_listSpriteObjests[iter].m_activeBlue = true;
         }
-        else if (actualColor == "Green")
+        else if (actualColor == ColorEnum.Green)
         {
             m_listSpriteObjests[iter].m_activeGreen = true;
         }
-        else if (actualColor == "White")
+        else if (actualColor == ColorEnum.White)
         {
             m_listSpriteObjests[iter].m_activeWhite = true;
         }
-        else if (actualColor == "Black")
+        else if (actualColor == ColorEnum.Black)
         {
             m_listSpriteObjests[iter].m_activeBlack = true;
         }
-        else if (actualColor == "Cyan")
+        else if (actualColor == ColorEnum.Cyan)
         {
             m_listSpriteObjests[iter].m_activeCyan = true;
         }
-        else if (actualColor == "Yellow")
+        else if (actualColor == ColorEnum.Yellow)
         {
             m_listSpriteObjests[iter].m_activeYellow = true;
         }
-        else if (actualColor == "Magenta")
+        else if (actualColor == ColorEnum.Magenta)
         {
             m_listSpriteObjests[iter].m_activeMagenta = true;
         }
     }
-    public string getLastColor(int iter)
+    public ColorEnum getLastColor(int iter)
     { 
         return m_listSpriteObjests[iter].lastColor; 
     }
-    public string getLastColor(typesObects idObject)
+    public ColorEnum getLastColor(typesObjects idObject)
     {
         for (int i = 0; i < m_listSpriteObjests.Count; i++)
         {
@@ -287,6 +298,6 @@ public class FixColorManager : MonoBehaviour
                 return m_listSpriteObjests[i].lastColor;
             }
         }
-        return null;
+        return ColorEnum.Null;
     }
 }

@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 5f83d8ae9d068764b907ad22c5c1852c, type: 3}
     - target: {fileID: 9215072453656306165, guid: d4a39ccff54e14d45b053670d55dbbc4, type: 3}
       propertyPath: actualColor
-      value: White
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9215072453656306166, guid: d4a39ccff54e14d45b053670d55dbbc4, type: 3}
       propertyPath: m_Name
@@ -602,7 +602,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 83c8483e180a29e4aa28126013b0ac97, type: 3}
   - {fileID: 2800000, guid: 9f5c89d01fa61c7468b9ef9fbedd223c, type: 3}
   - {fileID: 2800000, guid: 1ef84b59752218244a599acea68c4488, type: 3}
-  - {fileID: 2800000, guid: d638be60c51556e40a7b444e394e99df, type: 3}
+  - {fileID: 2800000, guid: 5ce61bba774b14245ab7199bd8a2e413, type: 3}
   cursorOn:
   - {fileID: 2800000, guid: e2eabfa65f59e2549998f1a138058492, type: 3}
   - {fileID: 2800000, guid: 143ca90b778e139498b01ae27a31411e, type: 3}

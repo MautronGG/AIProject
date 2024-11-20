@@ -145,11 +145,11 @@ MonoBehaviour:
   m_checks: 1
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
-  color: {fileID: 0}
+  m_cursor: {fileID: 0}
   m_object: 5
   otherObject: {fileID: 0}
   doubleSprites: []
-  actualColor: Black
+  actualColor: 7
   m_rigidBody: {fileID: 0}
   m_collider: {fileID: 0}
   m_canMove: 0
