@@ -157,8 +157,8 @@ public class Object_Parent : MonoBehaviour
             otherObject.actualColor = m_fixColorManager.getLastColor(otherObject.m_object);
             spriteRenderer.sprite = doubleSprites[0];
             otherObject.spriteRenderer.sprite = doubleSprites[1];
-            gameObject.layer = LayerMask.NameToLayer(ToString());
-            otherObject.gameObject.layer = LayerMask.NameToLayer(ToString());
+            gameObject.layer = LayerMask.NameToLayer(actualColor.ToString());
+            otherObject.gameObject.layer = LayerMask.NameToLayer(actualColor.ToString());
             doubleSprites = null;
             m_levelManager.CheckColors();
         }

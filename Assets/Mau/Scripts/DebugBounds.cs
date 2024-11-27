@@ -24,16 +24,16 @@ public partial class DebugBounds : MonoBehaviour
     }
 }
 
-[CustomEditor(typeof(DebugBounds))]
-public partial class DebugBoundsEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        DebugBounds db = (DebugBounds)target;
-        if (GUILayout.Button("Get Bounds"))
-        {
-            db.Bounds();
-        }
-    }
-}
+//[CustomEditor(typeof(DebugBounds))]
+//public partial class DebugBoundsEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
+//        DebugBounds db = (DebugBounds)target;
+//        if (GUILayout.Button("Get Bounds"))
+//        {
+//            db.Bounds();
+//        }
+//    }
+//}

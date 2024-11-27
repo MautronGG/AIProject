@@ -442,11 +442,6 @@ public class MinionMovement : MonoBehaviour
                 m_carriedItem = null;
             }
         }
-        if (collision.transform.tag.Equals("Void"))
-        {
-            m_levelManager.m_playerEnded++;
-            this.gameObject.SetActive(false);
-        }
     }
 
     //Función para invertir la velocidad de la esfera en X.

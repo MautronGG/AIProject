@@ -82,9 +82,36 @@ public class LevelManager : MonoBehaviour
         {
             if (obj.actualColor != ColorEnum.Black)
             {
-                int a = ((int)obj.actualColor);
-                obj.actualColor = ColorEnum.Black;
-                obj.ChangeColor(a);
+                int a = ((int)obj.m_object);
+                int b = ((int)obj.actualColor);
+                if (obj.actualColor == ColorEnum.White)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeWhite = false;
+                }
+                else if (obj.actualColor == ColorEnum.Red)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeRed = false;
+                }
+                else if (obj.actualColor == ColorEnum.Yellow)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeYellow = false;
+                }
+                else if (obj.actualColor == ColorEnum.Green)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeGreen = false;
+                }
+                else if (obj.actualColor == ColorEnum.Cyan)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeCyan = false;
+                }
+                else if (obj.actualColor == ColorEnum.Blue)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeBlue = false;
+                }
+                else if (obj.actualColor == ColorEnum.Magenta)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeMagenta = false;
+                }
             }
         }
     }
