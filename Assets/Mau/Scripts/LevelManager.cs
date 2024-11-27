@@ -188,11 +188,7 @@ public class LevelManager : MonoBehaviour
             m_camera.AutomaticMovement(true);
             foreach (Object_Parent obj in m_objects)
             {
-                Object_Enemy enemy = obj as Object_Enemy;
-                if (enemy != null)
-                {
-                    enemy.EnableMovement(true);
-                }
+                obj.StartObject();
             }
         });
         m_playButton.onClick.AddListener(() =>

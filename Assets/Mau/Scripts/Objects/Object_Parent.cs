@@ -129,6 +129,10 @@ public class Object_Parent : MonoBehaviour
         m_defaultScale = transform.localScale;
         m_defaultRotation = transform.rotation;
     }
+    public virtual void StartObject()
+    {
+
+    }
     public void ChangeColor(int theColor)
     {
         if (!m_isDouble)

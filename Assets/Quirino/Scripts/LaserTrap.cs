@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserTrap : MonoBehaviour
+public class LaserTrap : Object_Parent
 {
 
     //[SerializeField] private Vector3 m_Direction = Vector3.zero;
     [SerializeField] private float m_Speed = 0.0f;
-    [SerializeField] private bool m_canShoot = true;
+    [SerializeField] private bool m_canShoot = false;
     [SerializeField] private float m_shootCooldown = 1.0f;
     [SerializeField] private GameObject bulletPrefab;
 
@@ -18,22 +18,34 @@ public class LaserTrap : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         m_muzzle = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        m_shootTimer += Time.deltaTime;
-        if (m_shootTimer >= m_shootCooldown)
+        if (m_canShoot)
         {
-            Shoot();
-            m_shootTimer = 0.0f;
+            m_shootTimer += Time.deltaTime;
+            if (m_shootTimer >= m_shootCooldown)
+            {
+                Shoot();
+                m_shootTimer = 0.0f;
+            }
         }
+        else
+        {
+            m_shootTimer = 0f;
+        }
+        
     }
-
+    public override void StartObject()
+    {
+        base.StartObject();
+        m_canShoot = true;
+    }
     void Shoot()
     {
         //var dir = m_muzzle.transform.rotation * Vector3.forward;

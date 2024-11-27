@@ -216,6 +216,7 @@ public class MinionMovement : MonoBehaviour
                 m_colliders.Add(collision.collider);
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
                 StartCoroutine(DeathCountdown(this.gameObject));
+                Die(collision.collider);
 
             }
         }
@@ -442,6 +443,11 @@ public class MinionMovement : MonoBehaviour
                 m_carriedItem = null;
             }
         }
+        if (collision.transform.tag.Equals("Laser"))
+        {
+            Die(collision);
+            Destroy(collision.gameObject);
+        }
     }
 
     //Función para invertir la velocidad de la esfera en X.
@@ -494,6 +500,15 @@ public class MinionMovement : MonoBehaviour
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, false);
         }
         m_colliders.Clear();
+    }
+    public void Die(Collider2D collision)
+    {
+        m_canMove = false;
+        ///Animation
+        //gameObject.SetActive(false);
+        m_colliders.Add(collision);
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision, true);
+        StartCoroutine(DeathCountdown(this.gameObject));
     }
     //private void OnDrawGizmosSelected()
     //{

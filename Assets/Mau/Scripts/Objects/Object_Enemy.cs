@@ -289,9 +289,9 @@ public class Object_Enemy : Object_Parent
     }
 
     //Llamar a esta función para activar el movimiento.
-    public void EnableMovement(bool state)
+    public override void StartObject()
     {
-        m_canMove = state;
+        m_canMove = true;
         m_flipped = false;
     }
 
@@ -311,7 +311,8 @@ public class Object_Enemy : Object_Parent
         base.ResetDeafualts();
         m_verticalVelocity = 0f;
         //m_Rigidbody.angularVelocity = 0;
-        EnableMovement(false);
+        m_canMove = false;
+        m_flipped = false;
         AdvanceDirection = new Vector3(1f, 0f, 0f);
         list.Clear();
         m_collisions.Clear();
