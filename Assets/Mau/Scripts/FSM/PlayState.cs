@@ -11,6 +11,7 @@ public class PlayState : State
     public override void onEnter()
     {
         m_levelManager.m_playEvents.Invoke();
+        m_levelManager.m_currentStateCanvas = m_levelManager.m_HUDPlayCanvas;
     }
 
     public override void onExit()

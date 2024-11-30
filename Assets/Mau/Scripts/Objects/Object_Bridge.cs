@@ -38,6 +38,7 @@ public class Object_Bridge : Object_Parent
                 m_levelManager.m_item = this;
                 m_levelManager.m_item.m_canClick = false;
                 m_levelManager.m_optionsCanvas.SetActive(true);
+                m_levelManager.m_currentStateCanvas.SetActive(false);
             }
         }
         

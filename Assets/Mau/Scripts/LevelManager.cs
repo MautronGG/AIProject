@@ -33,12 +33,16 @@ public class LevelManager : MonoBehaviour
     public Button m_playButton;
     public Button m_resetButton;
     public Button m_bridgeButton;
+    public Button m_cancelEditButton;
     public TextMeshProUGUI m_points;
+
+    public GameObject m_currentStateCanvas;
 
     [Header("Lists")]
     [SerializeField] public Object_Parent[] m_objects;
     [SerializeField] public List<Object_Bridge> m_bridges;
     [SerializeField] public Object_FinalDoor[] m_doors;
+    public GameObject[] m_voidsList;
     //public List<ItemManager> m_itemsList;
     //public List<ItemManager> m_bombsList;
     //public List<ItemManager> m_enemyList;
@@ -129,11 +133,11 @@ public class LevelManager : MonoBehaviour
         }
         if (m_playerEnded == 3)
         {
+            m_currentStateCanvas.SetActive(false);
+            m_camera.ChangeMovement(false);
             if (m_reachedGoals > 0)
             {
                 m_winCanvas.SetActive(true);
-                m_HUDPlayCanvas.SetActive(false);
-                m_HUDBuildCanvas.SetActive(false);
                 m_points.text = "Points " + m_reachedGoals + "/3";
             }
             else
@@ -151,28 +155,13 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0.0f;
         m_pauseCanvas.SetActive(true);
         m_pause = true;
-
-        if (m_myFSM.m_currentState == m_myFSM.m_onEditorState)
-        {
-            m_HUDBuildCanvas.SetActive(false);
-        }
-        if (m_myFSM.m_currentState == m_myFSM.m_onPlayState)
-        {
-            m_HUDPlayCanvas.SetActive(false);
-        }
+        m_currentStateCanvas.SetActive(false);
     }
     public void UnPause()
     {
         Time.timeScale = 1f;
         m_pause = false;
-        if (m_myFSM.m_currentState == m_myFSM.m_onEditorState)
-        {
-            m_HUDBuildCanvas.SetActive(true);
-        }
-        if (m_myFSM.m_currentState == m_myFSM.m_onPlayState)
-        {
-            m_HUDPlayCanvas.SetActive(true);
-        }
+        m_currentStateCanvas.SetActive(true);
         m_pauseCanvas.SetActive(false);
     }
     protected void Initialized()
@@ -216,6 +205,10 @@ public class LevelManager : MonoBehaviour
                 _object.ResetDeafualts();
             }
         });
+        m_cancelEditButton.onClick.AddListener(() =>
+        {
+            m_currentStateCanvas.SetActive(true);
+        });
     }
     public void ResetDefaults()
     {
@@ -238,7 +231,7 @@ public class LevelManager : MonoBehaviour
                 m_doorsLocked = true;
                 break;
             }
-        }
+        }   
         if (m_doorsLocked == false)
         {
             foreach (Object_Bridge obj in m_bridges)

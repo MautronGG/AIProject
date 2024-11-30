@@ -11,7 +11,7 @@ public class FSM : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    m_onEditorState = gameObject.AddComponent<EditorState>();
+    m_onEditorState = gameObject.AddComponent<BuildState>();
     m_onPlayState = gameObject.AddComponent<PlayState>();
     m_onEditorState.SetFSM(this);
     m_onPlayState.SetFSM(this);
