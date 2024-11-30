@@ -204,7 +204,7 @@ public class LevelManager : MonoBehaviour
             {
                 _object.ResetDeafualts();
             }
-        });
+        }); 
         m_cancelEditButton.onClick.AddListener(() =>
         {
             m_currentStateCanvas.SetActive(true);
