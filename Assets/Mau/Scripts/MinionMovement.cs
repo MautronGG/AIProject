@@ -106,7 +106,6 @@ public class MinionMovement : MonoBehaviour
     public void SetMovement()
     {
         m_canMove = true;
-
     }
 
     public void Move()
@@ -215,7 +214,7 @@ public class MinionMovement : MonoBehaviour
                 //gameObject.SetActive(false);
                 m_colliders.Add(collision.collider);
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
-                StartCoroutine(DeathCountdown(this.gameObject));
+                //StartCoroutine(DeathCountdown(this.gameObject));
                 Die(collision.collider);
 
             }
@@ -475,6 +474,7 @@ public class MinionMovement : MonoBehaviour
             yield return null;
         }
         obj.SetActive(false);
+        m_levelManager.m_playerEnded++;
 
     }
     public void ResetTransform()
