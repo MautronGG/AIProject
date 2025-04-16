@@ -403,18 +403,12 @@ public class MinionMovement : MonoBehaviour
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
         }
-        //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
-        //if (collision.transform.tag.Equals("Spring"))
-        //{
-        //    m_isGrounded = false;
-        //    float springForce = collision.transform.GetComponent<SpringScript>().SpringForce;
-        //    m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, springForce);
-        //}
         if (collision.transform.tag.Equals("Portal") && !m_portaled)
         {
             transform.position = collision.GetComponent<Object_Portal>().otherObject.transform.position;
             m_portaled = true;
         }
+        //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
         if (collision.transform.tag.Equals("Spring"))
         {
             m_isGrounded = false;
