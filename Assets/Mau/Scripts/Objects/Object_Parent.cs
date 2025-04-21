@@ -135,6 +135,8 @@ public class Object_Parent : MonoBehaviour
     }
     public void ChangeColor(int theColor)
     {
+        m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_Spray);
+        m_levelManager.SpawnSpray(theColor);
         if (!m_isDouble)
         {
             temporalSprite = m_fixColorManager.getSprite(theColor, m_object, actualColor);

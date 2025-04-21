@@ -51,8 +51,6 @@ public class MinionMovement : MonoBehaviour
     Vector3 m_normal;
     [SerializeField] float m_stepHeight;
     [SerializeField] float m_maxStepHeight = .7f; // Maximum height difference the character can step
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -209,12 +207,12 @@ public class MinionMovement : MonoBehaviour
             }
             else
             {
-                m_canMove = false;
-                ///Animation
-                //gameObject.SetActive(false);
-                m_colliders.Add(collision.collider);
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
-                //StartCoroutine(DeathCountdown(this.gameObject));
+                //m_canMove = false;
+                /////Animation
+                ////gameObject.SetActive(false);
+                //m_colliders.Add(collision.collider);
+                //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
+                ////StartCoroutine(DeathCountdown(this.gameObject));
                 Die(collision.collider);
 
             }
@@ -393,11 +391,13 @@ public class MinionMovement : MonoBehaviour
     {
         if (collision.transform.tag.Equals("Void"))
         {
+            m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_DieFall);
             m_levelManager.m_playerEnded++;
             this.gameObject.SetActive(false);
         }
         if (collision.transform.tag.Equals("Destiny") && !m_levelManager.m_doorsLocked)
-        {  
+        {
+            m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_ReachedGoal);
             m_reachedGoal = true;
             m_levelManager.m_reachedGoals++;
             m_levelManager.m_playerEnded++;
@@ -405,12 +405,14 @@ public class MinionMovement : MonoBehaviour
         }
         if (collision.transform.tag.Equals("Portal") && !m_portaled)
         {
+            m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_Portal);
             transform.position = collision.GetComponent<Object_Portal>().otherObject.transform.position;
             m_portaled = true;
         }
         //Si se encuentra con un resorte, obtener su fuerza y aplicarla a la esfera.
         if (collision.transform.tag.Equals("Spring"))
         {
+            m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_Spring);
             m_isGrounded = false;
             float springForce = collision.transform.GetComponent<Object_Spring>().SpringForce;
             m_verticalVelocity = springForce;
@@ -420,6 +422,7 @@ public class MinionMovement : MonoBehaviour
             Carriable item = collision.gameObject.GetComponent<Carriable>();
             if (item != null && m_carriedItem == null) //if doesnt has carriable item, take it
             {
+                m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_PickUp);
                 m_carriedItem = item;
                 m_carriedItem.AttachTo(m_carryPos);
             }
@@ -429,6 +432,7 @@ public class MinionMovement : MonoBehaviour
         {
             if (m_carriedItem != null && m_carriedItem.m_type == E_CARRY_TYPE.KEY)
             {
+                m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_OpenDoor);
                 collision.gameObject.SetActive(false);
                 //m_carriedItem.GetComponentInParent<Transform>().gameObject.SetActive(false);
                 m_carriedItem.gameObject.SetActive(false);
@@ -499,7 +503,7 @@ public class MinionMovement : MonoBehaviour
     {
         m_canMove = false;
         ///Animation
-        //gameObject.SetActive(false);
+        m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_DieEnemy);
         m_colliders.Add(collision);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision, true);
         StartCoroutine(DeathCountdown(this.gameObject));

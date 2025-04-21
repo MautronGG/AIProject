@@ -53,6 +53,7 @@ public class Object_Bridge : Object_Parent
     }
     private void PlaceDown()
     {
+        m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_PlaceBridge);
         m_spriteFollow.m_follow = false;
         gameObject.layer = LayerMask.NameToLayer(m_spriteFollow.m_layer);
         m_levelManager.m_isEditing = false;
@@ -62,6 +63,7 @@ public class Object_Bridge : Object_Parent
     }
     public void Delete()
     {
+        m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_RemoveBridge);
         m_fixColorManager.getSprite(7, m_object, actualColor);
         actualColor = m_fixColorManager.getLastColor(m_object);
         Destroy(gameObject);

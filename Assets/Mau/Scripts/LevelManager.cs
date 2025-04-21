@@ -75,8 +75,15 @@ public class LevelManager : MonoBehaviour
 
     public bool m_doorsLocked = false;
 
+    public AudioManager m_audioManager;
+
+    [SerializeField] GameObject m_sprayAnim;
+    [SerializeField] GameObject m_sprayPrefab;
+    float m_sprayTime = 0.0f;
+
     private void Start()
     {
+
         Time.timeScale = 1.0f;
         m_myFSM = GetComponent<FSM>();
         m_objects = FindObjectsOfType<Object_Parent>();
@@ -118,6 +125,9 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+        m_audioManager = FindObjectOfType<AudioManager>();
+        m_audioManager.PlayMusic(m_audioManager.m_music_Gameplay);
+        m_sprayPrefab = Resources.Load("Prefabs/SprayEffect") as GameObject;
     }
 
     private void Update()
@@ -137,11 +147,13 @@ public class LevelManager : MonoBehaviour
             m_camera.ChangeMovement(false);
             if (m_reachedGoals > 0)
             {
+                m_audioManager.PlaySFX(m_audioManager.m_sfx_Win);
                 m_winCanvas.SetActive(true);
                 m_points.text = "Points " + m_reachedGoals + "/3";
             }
             else
             {
+                m_audioManager.PlaySFX(m_audioManager.m_sfx_GameOver);
                 m_gameOverCanvas.SetActive(true);
             }
         }
@@ -149,6 +161,20 @@ public class LevelManager : MonoBehaviour
         ///To move Sprite when placing in Level
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector2 offset = new Vector2(0.3f, 0.2f);
+        if (m_sprayAnim)
+        {
+            m_sprayAnim.transform.position = worldPosition - offset;
+            if (m_sprayTime <= 1f)
+            {
+                m_sprayTime += Time.deltaTime;
+            }
+            else
+            {
+                Destroy(m_sprayAnim);
+            }
+        }
+
     }
     public void Pause()
     {
@@ -219,6 +245,7 @@ public class LevelManager : MonoBehaviour
 
     public void CantChangeColor()
     {
+        m_audioManager.PlaySFX(m_audioManager.m_sfx_CantSpray);
         m_cantRepeatColorCanvas.SetActive(true);
     }
     public void CheckColors()
@@ -247,12 +274,75 @@ public class LevelManager : MonoBehaviour
         {
             if (m_doorsLocked == false)
             {
+                m_audioManager.PlaySFX(m_audioManager.m_sfx_GoalOpen);
                 door.ChangeSprite(true);
             }
             else
             {
+                m_audioManager.PlaySFX(m_audioManager.m_sfx_GoalClose);
                 door.ChangeSprite(false);
             }
+        }
+    }
+
+    public void SpawnSpray(int color)
+    {
+        if (m_sprayPrefab)
+        {
+            if (m_sprayAnim)
+            {
+                Destroy(m_sprayAnim);
+            }
+            m_sprayTime = 0.0f;
+            Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+            Vector2 offset = new Vector2(.3f, .2f);
+            m_sprayAnim = Instantiate(m_sprayPrefab, worldPosition - offset, Quaternion.identity);
+            var newColor = Color.white;
+            if (color >= 0)
+            {
+                switch (color)
+                {
+                    case 1:
+                        newColor = Color.red;
+                        break;
+                    case 2:
+                        newColor = Color.yellow;
+                        break;
+                    case 3:
+                        newColor = Color.green;
+                        break;
+                    case 4:
+                        newColor = Color.cyan;
+                        break;
+                    case 5:
+                        newColor = Color.blue;
+                        break;
+                    case 6:
+                        newColor = Color.magenta;
+                        break;
+                    case 7:
+                        newColor = Color.black;
+                        break;
+                    default:
+                        newColor = Color.white;
+                        break;  
+                }
+            }
+            //m_sprayAnim.GetComponent<SpriteRenderer>().color = newColor;
+            SpriteRenderer [] child = m_sprayAnim.GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer sprite in child)
+            {
+                sprite.color = newColor;
+            }
+        }
+    }
+
+    public void DespawnSpray()
+    {
+        if (m_sprayAnim)
+        {
+            Destroy(m_sprayAnim);
         }
     }
 }

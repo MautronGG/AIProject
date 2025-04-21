@@ -14,9 +14,6 @@ public class LaserTrap : Object_Parent
     private GameObject m_muzzle;
     private float m_shootTimer = 0.0f;
 
-
-
-
     // Start is called before the first frame update
     public override void Start()
     {
@@ -48,6 +45,8 @@ public class LaserTrap : Object_Parent
     }
     void Shoot()
     {
+        
+        m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_LaserShoot);
         //var dir = m_muzzle.transform.rotation * Vector3.forward;
         var bullet = Instantiate(bulletPrefab, m_muzzle.transform);
         var laser = bullet.GetComponent<Laser>();
