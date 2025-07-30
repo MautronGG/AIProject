@@ -34,6 +34,8 @@ public class LevelManager : MonoBehaviour
     public Button m_resetButton;
     public Button m_bridgeButton;
     public Button m_cancelEditButton;
+    public Button m_autoMove_enabled;
+    public Button m_autoMove_disabled;
     public TextMeshProUGUI m_points;
 
     public GameObject m_currentStateCanvas;
@@ -128,6 +130,7 @@ public class LevelManager : MonoBehaviour
         m_audioManager = FindObjectOfType<AudioManager>();
         m_audioManager.PlayMusic(m_audioManager.m_music_Gameplay);
         m_sprayPrefab = Resources.Load("Prefabs/SprayEffect") as GameObject;
+        m_camera = FindObjectOfType<CameraMovement>();
     }
 
     private void Update()
@@ -235,7 +238,23 @@ public class LevelManager : MonoBehaviour
         {
             m_currentStateCanvas.SetActive(true);
         });
+
+        m_autoMove_enabled.onClick.AddListener(() =>
+        {
+            m_autoMove_enabled.gameObject.SetActive(false);
+            m_autoMove_disabled.gameObject.SetActive(true);
+            m_camera.AutomaticMovement(false);
+            m_camera.ChangeMovement(true);
+        });
+        m_autoMove_disabled.onClick.AddListener(() =>
+        {
+            m_autoMove_enabled.gameObject.SetActive(true);
+            m_autoMove_disabled.gameObject.SetActive(false);
+            m_camera.AutomaticMovement(true);
+            m_camera.ChangeMovement(false);
+        });
     }
+
     public void ResetDefaults()
     {
         m_reachedGoals = 0;
