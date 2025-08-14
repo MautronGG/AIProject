@@ -77,4 +77,6 @@ public class EditorManager : MonoBehaviour
         m_HUDCanvas.SetActive(true);
         m_pauseCanvas.SetActive(false);
     }
+
+    
 }

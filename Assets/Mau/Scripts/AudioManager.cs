@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip m_sfx_DieEnemy;
     public AudioClip m_sfx_ReachedGoal;
 
-    [Header("Objetcts")]
+    [Header("Objects")]
     public AudioClip m_sfx_Spring;
     public AudioClip m_sfx_Portal;
     public AudioClip m_sfx_PickUp;
