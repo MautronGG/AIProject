@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     public bool m_autoMove = false;
     public GameObject m_minion;
     public Vector3 m_defaultPosition;
-    public LevelManager m_levelManager;
+    public EditorBorderManager m_borders;
     float m_xValue = 9.5f;
     float m_yValue = 4.75f;
         
@@ -19,7 +19,9 @@ public class CameraMovement : MonoBehaviour
     {
         m_speed = m_defaultSpeed;
         m_defaultPosition = transform.position;
-        m_levelManager = GameObject.FindObjectOfType<LevelManager>();
+        m_borders = FindFirstObjectByType<EditorBorderManager>();
+        //m_xValue *= 1.2f;
+        //m_yValue *= 1.2f;
     }
     // Update is called once per frame
     void Update()
@@ -29,33 +31,33 @@ public class CameraMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position += new Vector3(1f, 0f, 0f) * Time.deltaTime * m_speed;
-                if (transform.position.x >= m_levelManager.m_voidsList[1].transform.position.x - m_xValue)
+                if (transform.position.x >= m_borders.m_rightBorder.transform.position.x - m_xValue)
                 {
-                    transform.position = new Vector3(m_levelManager.m_voidsList[1].transform.position.x - m_xValue, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(m_borders.m_rightBorder.transform.position.x - m_xValue, transform.position.y, transform.position.z);
                 }
             }
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position += new Vector3(-1f, 0f, 0f) * Time.deltaTime * m_speed;
-                if (transform.position.x <= m_levelManager.m_voidsList[3].transform.position.x + m_xValue)
+                if (transform.position.x <= m_borders.m_leftBorder.transform.position.x + m_xValue)
                 {
-                    transform.position = new Vector3(m_levelManager.m_voidsList[3].transform.position.x + m_xValue, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(m_borders.m_leftBorder.transform.position.x + m_xValue, transform.position.y, transform.position.z);
                 }
             }
             if (Input.GetKey(KeyCode.W))
             {
                 transform.position += new Vector3(0f, 1f, 0f) * Time.deltaTime * m_speed;
-                if (transform.position.y >= m_levelManager.m_voidsList[0].transform.position.y - m_yValue)
+                if (transform.position.y >= m_borders.m_topBorder.transform.position.y - m_yValue)
                 {
-                    transform.position = new Vector3(transform.position.x, m_levelManager.m_voidsList[0].transform.position.y - m_yValue, transform.position.z);
+                    transform.position = new Vector3(transform.position.x, m_borders.m_topBorder.transform.position.y - m_yValue, transform.position.z);
                 }
             }   
             if (Input.GetKey(KeyCode.S))    
             {
                 transform.position += new Vector3(0f, -1f, 0f) * Time.deltaTime * m_speed;
-                if (transform.position.y <= m_levelManager.m_voidsList[2].transform.position.y + m_yValue)
+                if (transform.position.y <= m_borders.m_bottomBorder.transform.position.y + m_yValue)
                 {
-                    transform.position = new Vector3(transform.position.x, m_levelManager.m_voidsList[2].transform.position.y + m_yValue, transform.position.z);
+                    transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
                 }
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -70,21 +72,21 @@ public class CameraMovement : MonoBehaviour
         if (m_autoMove)
         {
             transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, transform.position.z);
-            if (transform.position.x >= m_levelManager.m_voidsList[1].transform.position.x - m_xValue)
+            if (transform.position.x >= m_borders.m_rightBorder.transform.position.x - m_xValue)
             {
-                transform.position = new Vector3(m_levelManager.m_voidsList[1].transform.position.x - m_xValue, transform.position.y, transform.position.z);
+                transform.position = new Vector3(m_borders.m_rightBorder.transform.position.x - m_xValue, transform.position.y, transform.position.z);
             }
-            if (transform.position.x <= m_levelManager.m_voidsList[3].transform.position.x + m_xValue)
+            if (transform.position.x <= m_borders.m_leftBorder.transform.position.x + m_xValue)
             {
-                transform.position = new Vector3(m_levelManager.m_voidsList[3].transform.position.x + m_xValue, transform.position.y, transform.position.z);
+                transform.position = new Vector3(m_borders.m_leftBorder.transform.position.x + m_xValue, transform.position.y, transform.position.z);
             }
-            if (transform.position.y >= m_levelManager.m_voidsList[0].transform.position.y - m_yValue)
+            if (transform.position.y >= m_borders.m_topBorder.transform.position.y - m_yValue)
             {
-                transform.position = new Vector3(transform.position.x, m_levelManager.m_voidsList[0].transform.position.y - m_yValue, transform.position.z);
+                transform.position = new Vector3(transform.position.x, m_borders.m_topBorder.transform.position.y - m_yValue, transform.position.z);
             }
-            if (transform.position.y <= m_levelManager.m_voidsList[2].transform.position.y + m_yValue)
+            if (transform.position.y <= m_borders.m_bottomBorder.transform.position.y + m_yValue)
             {
-                transform.position = new Vector3(transform.position.x, m_levelManager.m_voidsList[2].transform.position.y + m_yValue, transform.position.z);
+                transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
             }
 
         }

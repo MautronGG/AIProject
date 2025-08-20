@@ -9,47 +9,21 @@ using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour
 {
-    //public List<string> m_objectsList;
-
-    //public int m_currentButtonID;
-    //public int m_personalID = 0;
-    //
-    //[Header("Arrays")]
-    //public EditorItem[] m_itemButtons;
-    //public GameObject[] m_itemPrefabs;
-    ////public GameObject[] m_itemSprite;
-
     [Header("Canvas")]
     public GameObject m_optionsCanvas;
     public GameObject m_HUDCanvas;
     public GameObject m_pauseCanvas;
     public Button m_playButton;
 
-    //[Header("Lists")]
-    //public List<ItemManager> m_itemsList;
-    //public List<ItemManager> m_bombsList;
-    //public List<ItemManager> m_enemyList;
-    //public List<Material> m_materialsBridgeArray;
-    //public List<Material> m_materialsPortalArray;
-    //public List<Material> m_materialsBombArray;
-    //public List<Material> m_materialsEnemyArray;
-
-    //[Header("Colors")]
-    //public Material m_red;
-    //public Material m_yellow;
-    //public Material m_green;
-    //public Material m_cyan;
-    //public Material m_blue;
-    //public Material m_magenta;
-    //public Material m_white;
-    //public Material m_black;
-
     public bool m_pause = false;
 
     public bool m_isEditing = false;
 
+    public EditorGridManager m_grid;
     public EditorItemManager m_item;
     public EditorSpriteFollow m_spriteFollow;
+
+    public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
 
     private void Start()
     {
