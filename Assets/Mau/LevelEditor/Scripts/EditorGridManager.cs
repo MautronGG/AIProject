@@ -12,6 +12,11 @@ public class EditorGridManager : MonoBehaviour
     private Mesh m_gridMesh;
     public Color m_gridColor = Color.gray;
 
+    public int m_gridWidth { get; private set; }   // number of columns (cells in X)
+    public int m_gridHeight { get; private set; }  // number of rows (cells in Y)
+    public float GridWidthWorld => m_gridWidth * m_cellSize;   // world size X
+    public float GridHeightWorld => m_gridHeight * m_cellSize; // world size Y
+
     [Header("Border")]
     public EditorBorderManager m_borders;
     private Vector3 m_lastBottomLeft;
@@ -70,7 +75,8 @@ public class EditorGridManager : MonoBehaviour
 
         if (cols < 0) cols = 0;
         if (rows < 0) rows = 0;
-        //
+        m_gridWidth = cols;
+        m_gridHeight = rows;
 
         List<Vector3> vertices = new List<Vector3>();
         List<int> indices = new List<int>();

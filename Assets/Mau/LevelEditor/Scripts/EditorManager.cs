@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class EditorManager : MonoBehaviour
 {
@@ -14,21 +15,37 @@ public class EditorManager : MonoBehaviour
     public GameObject m_HUDCanvas;
     public GameObject m_pauseCanvas;
     public Button m_playButton;
+    //public GameObject m_typeButtons;
+    //public GameObject m_ObjectsButtons;
+
+    public ButtonSelectionTracker[] m_buttonSelectionTrackers;
 
     public bool m_pause = false;
 
     public bool m_isEditing = false;
 
     public EditorGridManager m_grid;
-    public EditorItemManager m_item;
+    public EditorItem m_item;
     public EditorSpriteFollow m_spriteFollow;
 
     public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
 
-    private void Start()
+    private void Awake()
     {
         Time.timeScale = 1.0f;
+        m_buttonSelectionTrackers = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>();  
     }
+   //private void Start()
+   //{
+   //    //if (m_typeButtons)
+   //    //{
+   //    //    m_typeButtons.SetActive(false);
+   //    //}
+   //    //if (m_ObjectsButtons)
+   //    //{
+   //    //    m_ObjectsButtons.SetActive(false);
+   //    //}
+   //}
     private void Update()
     {
         ///To Pause Game

@@ -10,11 +10,19 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
     public bool IsSelected = false;
     //LevelEditorManager m_levelEditor;
     LevelManager m_levelManager;
+    EditorManager m_editorManager;
     Button button;
+
+    bool m_onLevel = true;
     private void Start()
     {
         //m_levelEditor = FindObjectOfType<LevelEditorManager>();
         m_levelManager = FindObjectOfType<LevelManager>();
+        if (!m_levelManager)
+        {
+            m_editorManager = FindObjectOfType<EditorManager>();
+            m_onLevel = false;
+        }
         button = GetComponent<Button>();
         button.onClick.AddListener(() =>
         {
@@ -36,14 +44,25 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
         //{
         //    IsSelected = false;
         //}
-        if (m_levelManager.m_pauseCanvas.activeInHierarchy)
+        if (m_onLevel)
         {
-            IsSelected = false;
+
+            if (m_levelManager.m_pauseCanvas.activeInHierarchy)
+            {
+                IsSelected = false;
+            }
+            if (IsSelected && Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Button Clicked: " + gameObject.name);
+                m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_ButtonClick);
+            }
         }
-        if (IsSelected && Input.GetMouseButtonDown(0))
+        else
         {
-            Debug.Log("Button Clicked: " + gameObject.name);
-            m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_ButtonClick);
+            if (m_editorManager.m_pauseCanvas.activeInHierarchy)
+            {
+                IsSelected = false;
+            }
         }
     }
 }

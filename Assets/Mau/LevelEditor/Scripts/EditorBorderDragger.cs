@@ -8,69 +8,168 @@ public class EditorBorderDragger : MonoBehaviour
     public enum Axis { Horizontal, Vertical }
     public Axis m_movementAxis;
 
+    public enum Restriction { Positive, Negative }
+    public Restriction m_movementRestriction;
+
     public EditorGridManager m_gridManager;
+    public EditorManager m_editorManager;
+
+    public int m_maxCells = 25;
 
     private Vector3 m_lastMouseWorld;
-    //private Camera m_camera;
-    //private Vector3 m_offSet;
+    private bool m_isDragging = false;
+    public bool m_buffer = false;
+    public bool m_checks = false;
+
+    private Vector3 m_minPosition; // starting position (min limit)
+    private Vector3 m_maxPosition; // computed from restriction
+
 
     private void Start()
     {
         //m_camera = Camera.main;
         m_gridManager = FindFirstObjectByType<EditorGridManager>();
-    }
-
-    private void OnMouseDown()
-    {
-        //Vector3 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-        //mousePos.z = 0f;
-        //m_offSet = transform.position - mousePos;
-        m_lastMouseWorld = GetMouseWorld();
-    }
-
-    private void OnMouseDrag()
-    {
-        //Vector3 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-        //mousePos.z = transform.position.z;
-        //
-        //Vector3 newPos = transform.position;
-        //
-        //if (m_movementAxis == Axis.Horizontal)
-        //{
-        //    newPos.x = mousePos.x + m_offSet.x;
-        //}
-        //else if (m_movementAxis == Axis.Vertical)
-        //{
-        //    newPos.y = mousePos.y + m_offSet.y;
-        //}
-        //
-        //transform.position = newPos;
-
-        Vector3 mouse = GetMouseWorld();
-        Vector3 delta = mouse - m_lastMouseWorld;
+        m_editorManager = FindFirstObjectByType<EditorManager>();
+        m_minPosition = transform.position;
 
         float size = m_gridManager.m_cellSize;
+        Vector3 offset = Vector3.zero;
 
         if (m_movementAxis == Axis.Vertical)
         {
-            // how many full tiles did the mouse move vertically?
-            int step = (int)(delta.y / size); // truncates toward zero, so only moves when >= 1 tile
-            if (step != 0)
-            {
-                transform.position += new Vector3(0f, step * size, 0f);
-                m_lastMouseWorld += new Vector3(0f, step * size, 0f);
-                m_gridManager.UpdateGrid(); // rebuild grid for new size
-            }
+            if (m_movementRestriction == Restriction.Positive)
+                offset = new Vector3(0f, m_maxCells * size, 0f);
+            else
+                offset = new Vector3(0f, -m_maxCells * size, 0f);
         }
         else // Horizontal
         {
-            int step = (int)(delta.x / size);
-            if (step != 0)
+            if (m_movementRestriction == Restriction.Positive)
+                offset = new Vector3(m_maxCells * size, 0f, 0f);
+            else
+                offset = new Vector3(-m_maxCells * size, 0f, 0f);
+        }
+
+        m_maxPosition = m_minPosition + offset;
+
+    }
+
+    private void OnMouseOver()
+    {
+        m_checks = true;
+        if (m_editorManager.m_optionsCanvas.activeInHierarchy)
+        {
+            m_checks = false;
+        }
+        ////else if (!m_editor.m_colorCanvas.activeInHierarchy)
+        //{
+        //  m_checks = false;
+        //}
+        ////else if (!m_editor.m_winCanvas.activeInHierarchy)
+        //{
+        //  m_checks = false;
+        //}
+        ////else if (!m_editor.m_gameOverCanvas.activeInHierarchy)
+        //{
+        //  m_checks = false;
+        //}
+        ////else if (!m_editor.m_controlCanvas.activeInHierarchy)
+        //{
+        //  m_checks = false;
+        //}
+        //else if (!m_canOpenOptions)
+        //{
+        //    m_checks = false;
+        //}
+        else if (m_editorManager.m_isEditing)
+        {
+            m_checks = false;
+        }
+        else if (m_editorManager.m_playButton.GetComponent<ButtonSelectionTracker>().IsSelected)
+        {
+            m_checks = false;
+        }
+        ////else if (!m_editor.m_bridgeButton.GetComponent<ButtonSelectionTracker>().IsSelected)
+        //{
+        //  m_checks = false;
+        //}
+        else if (m_editorManager.m_pauseCanvas.activeInHierarchy)
+        {
+            m_checks = false;
+        }
+        if (m_checks)
+        {
+            foreach (ButtonSelectionTracker bst in m_editorManager.m_buttonSelectionTrackers)
             {
-                transform.position += new Vector3(step * size, 0f, 0f);
-                m_lastMouseWorld += new Vector3(step * size, 0f, 0f);
-                m_gridManager.UpdateGrid();
+                if (bst.IsSelected)
+                {
+                    m_checks = false;
+                    break;
+                }
             }
+        }
+
+        if (Input.GetMouseButtonDown(0) && m_checks && !m_isDragging)
+        {
+            m_lastMouseWorld = GetMouseWorld();
+
+            m_isDragging = true;
+
+            m_editorManager.m_isEditing = true;
+        }
+    }
+
+
+
+    private void Update()
+    {
+        if (m_isDragging)
+        {
+            Vector3 mouse = GetMouseWorld();
+            Vector3 delta = mouse - m_lastMouseWorld;
+
+            float size = m_gridManager.m_cellSize;
+
+            if (m_movementAxis == Axis.Vertical)
+            {
+                // how many full tiles did the mouse move vertically?
+                int step = (int)(delta.y / size); // truncates toward zero, so only moves when >= 1 tile
+                if (step != 0)
+                {
+                    Vector3 newPos = transform.position + new Vector3(0f, step * size, 0f);
+
+                    // Clamp between min and max
+                    newPos.y = Mathf.Clamp(newPos.y, Mathf.Min(m_minPosition.y, m_maxPosition.y), Mathf.Max(m_minPosition.y, m_maxPosition.y));
+
+                    transform.position = newPos; //+= new Vector3(0f, step * size, 0f);
+                    m_lastMouseWorld += new Vector3(0f, step * size, 0f);
+                    m_gridManager.UpdateGrid(); // rebuild grid for new size
+                }
+            }
+            else // Horizontal
+            {
+                int step = (int)(delta.x / size);
+                if (step != 0)
+                {
+                    Vector3 newPos = transform.position + new Vector3(step * size, 0f, 0f);
+
+                    // Clamp between min and max
+                    newPos.x = Mathf.Clamp(newPos.x, Mathf.Min(m_minPosition.x, m_maxPosition.x), Mathf.Max(m_minPosition.x, m_maxPosition.x));
+
+                    transform.position = newPos;//+= new Vector3(step * size, 0f, 0f);
+                    m_lastMouseWorld += new Vector3(step * size, 0f, 0f);
+                    m_gridManager.UpdateGrid();
+                }
+            }
+
+            if (Input.GetMouseButtonDown(0) && m_buffer)
+            {
+                m_isDragging = false;
+                m_editorManager.m_isEditing = false;
+                m_buffer = false;
+                return;
+            }
+            m_buffer = true;
         }
     }
 

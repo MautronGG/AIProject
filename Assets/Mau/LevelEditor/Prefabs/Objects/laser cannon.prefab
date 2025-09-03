@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2938325598001345097}
   - component: {fileID: 2582569985605152322}
   - component: {fileID: 5485074241471356144}
+  - component: {fileID: 6893659310546888302}
   m_Layer: 0
   m_Name: laser cannon
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726825447017675872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.34, y: 2.43, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.501, z: 0}
+  m_LocalScale: {x: 0.82322, y: 0.82322, z: 0.82322}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7323802738080676243}
@@ -101,6 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_follow: 1
   m_isParent: 0
+  m_gridManager: {fileID: 0}
+  m_lastMouseWorld: {x: 0, y: 0, z: 0}
 --- !u!114 &5485074241471356144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +124,32 @@ MonoBehaviour:
   m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
   m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1
+--- !u!61 &6893659310546888302
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726825447017675872}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.6, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.421881, y: 1.2160566}
+    newSize: {x: 28.75, y: 11.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1.2}
+  m_EdgeRadius: 0
 --- !u!1 &4663411182260749540
 GameObject:
   m_ObjectHideFlags: 0

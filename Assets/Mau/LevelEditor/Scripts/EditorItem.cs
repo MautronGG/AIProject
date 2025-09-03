@@ -4,44 +4,129 @@ using UnityEngine;
 
 public class EditorItem : MonoBehaviour
 {
-  [SerializeField] GameObject m_object;
-  public bool m_isClicked = false;
-  public EditorManager m_editor;
-  GameObject m_obj;
-  EditorSpriteFollow m_spriteFollow;
-  
-  //[Dropdown("m_editor.m_objectsList")]
-  //public string m_name;
-  //public ObjectsEnum m_ID = new ObjectsEnum();
+    //public int m_ID;
+    //public int m_colorID = 7;
+    //public GameObject m_optionsCanvas;
+    //public GameObject m_colorCanvas;
+    public EditorManager m_editor;
+    //public GameObject m_child;
+    //public bool m_changedColor = false;
+    //public GameObject m_mySprite;
+    public int m_personalID;
 
-  public enum ObjectsEnum
-  {
-    NormalBlock,
-    SpikyBlock,
-    Portal,
-    Key,
-    Spring,
-    Enemy,
-    Laser,
-  };
-  
-  void Start()
-  {
-    m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
-    m_spriteFollow = GetComponent<EditorSpriteFollow>();
-  }
-  public void OnClick()
-  {
-    Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-    Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-    m_isClicked = true;
-    m_obj = Instantiate(m_object, new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-   //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-   m_obj.gameObject.layer = LayerMask.NameToLayer("nocol");
-   //m_editor.m_currentButtonID = (int)m_ID;
-   m_editor.m_HUDCanvas.SetActive(false);
-   m_editor.m_isEditing = true;
-  }
- 
- 
+    public bool m_canOpenOptions = true;
+    //public bool m_canEdit = true;
+    public bool m_canDelete = true;
+
+    public Vector3 m_defaultPosition;
+    public Quaternion m_defaultRotation;
+    public Vector3 m_defaultScale;
+
+    bool m_checks = true;
+    public bool m_canClick = true;
+    EditorSpriteFollow m_spriteFollow;
+    private void Awake()
+    {
+        m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
+        m_defaultPosition = transform.position;
+        m_defaultScale = transform.localScale;
+        m_defaultRotation = transform.rotation;
+        m_spriteFollow = GetComponent<EditorSpriteFollow>();
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && m_spriteFollow.m_follow && m_canClick)
+        {
+          PlaceDown();
+        }
+        m_canClick = true;
+    }
+    private void OnMouseOver()
+    {
+        if (!m_spriteFollow.m_follow)
+        {
+            m_checks = true;
+            if (m_editor.m_optionsCanvas.activeInHierarchy)
+            {
+                m_checks = false;
+            }
+            ////else if (!m_editor.m_colorCanvas.activeInHierarchy)
+            //{
+            //  m_checks = false;
+            //}
+            ////else if (!m_editor.m_winCanvas.activeInHierarchy)
+            //{
+            //  m_checks = false;
+            //}
+            ////else if (!m_editor.m_gameOverCanvas.activeInHierarchy)
+            //{
+            //  m_checks = false;
+            //}
+            ////else if (!m_editor.m_controlCanvas.activeInHierarchy)
+            //{
+            //  m_checks = false;
+            //}
+            else if (!m_canOpenOptions)
+            {
+                m_checks = false;
+            }
+            else if (m_editor.m_isEditing)
+            {
+                m_checks = false;
+            }
+            if (m_checks)
+            {
+                foreach (ButtonSelectionTracker bst in m_editor.m_buttonSelectionTrackers)
+                {
+                    if (bst.IsSelected)
+                    {
+                        m_checks = false;
+                        break;
+                    }
+                }
+            }
+            ////else if (!m_editor.m_bridgeButton.GetComponent<ButtonSelectionTracker>().IsSelected)
+            //{
+            //  m_checks = false;
+            //}
+            else if (m_editor.m_pauseCanvas.activeInHierarchy)
+            {
+                m_checks = false;
+            }
+            if (Input.GetMouseButtonDown(0) && m_checks)
+            {
+                m_editor.m_spriteFollow = m_spriteFollow;
+                m_editor.m_item = this;
+                PickUp();
+                //m_editor.m_optionsCanvas.SetActive(true);
+            }
+        }
+    }
+    public virtual void ResetDeafualts()
+    {
+        transform.position = m_defaultPosition;
+        transform.rotation = m_defaultRotation;
+        transform.localScale = m_defaultScale;
+    }
+    private void OnEnable()
+    {
+        ResetDeafualts();
+    }
+    private void PickUp()
+    {
+        //m_editor.m_itemID = this.gameObject;
+        //m_editor.m_optionsCanvas.SetActive(true);
+        m_editor.m_HUDCanvas.SetActive(false);
+        m_spriteFollow.m_follow = true;
+        m_editor.m_isEditing = true;
+        m_canClick = false;
+    }
+    private void PlaceDown()
+    {
+        m_spriteFollow.m_follow = false;
+        //gameObject.layer = LayerMask.NameToLayer("Black");
+        //m_editor.m_itemButtons[m_editor.m_currentButtonID].m_isClicked = false;
+        m_editor.m_isEditing = false;
+        m_editor.m_HUDCanvas.SetActive(true);
+    }
 }

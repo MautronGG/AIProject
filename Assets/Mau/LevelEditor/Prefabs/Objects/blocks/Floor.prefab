@@ -145,6 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_follow: 1
   m_isParent: 0
+  m_gridManager: {fileID: 0}
+  m_lastMouseWorld: {x: 0, y: 0, z: 0}
 --- !u!114 &-576394581249885418
 MonoBehaviour:
   m_ObjectHideFlags: 0

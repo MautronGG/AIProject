@@ -15,7 +15,7 @@ public class EditorUI : MonoBehaviour
     public void SaveLevel()
     {
         LevelData level = new LevelData();
-        foreach (var tile in  FindObjectsOfType<EditorItem>())
+        foreach (var tile in  FindObjectsOfType<EditorItemButton>())
         {
             for (int i = 0; i < m_tileBrush.m_objectsPrefabs.Length; i++)
             {
