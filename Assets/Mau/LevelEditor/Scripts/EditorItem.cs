@@ -18,19 +18,22 @@ public class EditorItem : MonoBehaviour
     //public bool m_canEdit = true;
     public bool m_canDelete = true;
 
-    public Vector3 m_defaultPosition;
-    public Quaternion m_defaultRotation;
-    public Vector3 m_defaultScale;
+    //public Vector3 m_defaultPosition;
+    //public Quaternion m_defaultRotation;
+    //public Vector3 m_defaultScale;
 
     bool m_checks = true;
     public bool m_canClick = true;
     EditorSpriteFollow m_spriteFollow;
+
+    bool m_created = true;
+
     private void Awake()
     {
         m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
-        m_defaultPosition = transform.position;
-        m_defaultScale = transform.localScale;
-        m_defaultRotation = transform.rotation;
+        //m_defaultPosition = transform.position;
+        //m_defaultScale = transform.localScale;
+        //m_defaultRotation = transform.rotation;
         m_spriteFollow = GetComponent<EditorSpriteFollow>();
     }
     private void Update()
@@ -102,16 +105,16 @@ public class EditorItem : MonoBehaviour
             }
         }
     }
-    public virtual void ResetDeafualts()
-    {
-        transform.position = m_defaultPosition;
-        transform.rotation = m_defaultRotation;
-        transform.localScale = m_defaultScale;
-    }
-    private void OnEnable()
-    {
-        ResetDeafualts();
-    }
+    //public virtual void ResetDeafualts()
+    //{
+    //    transform.position = m_defaultPosition;
+    //    transform.rotation = m_defaultRotation;
+    //    transform.localScale = m_defaultScale;
+    //}
+    //private void OnEnable()
+    //{
+    //    ResetDeafualts();
+    //}
     private void PickUp()
     {
         //m_editor.m_itemID = this.gameObject;
@@ -120,6 +123,7 @@ public class EditorItem : MonoBehaviour
         m_spriteFollow.m_follow = true;
         m_editor.m_isEditing = true;
         m_canClick = false;
+        m_spriteFollow.m_lastValidPosition = transform.position;
     }
     private void PlaceDown()
     {
@@ -128,5 +132,23 @@ public class EditorItem : MonoBehaviour
         //m_editor.m_itemButtons[m_editor.m_currentButtonID].m_isClicked = false;
         m_editor.m_isEditing = false;
         m_editor.m_HUDCanvas.SetActive(true);
+
+        // Record move action
+        Vector3 oldPos = m_spriteFollow.m_lastValidPosition; // <- track before moving
+        Vector3 newPos = transform.position;
+        if (oldPos != newPos && !m_created) // Only store if it actually moved
+        {
+            m_editor.DoAction(new MoveAction(gameObject, oldPos, newPos));
+        }
+        if (m_created)
+        {
+            m_editor.DoAction(new CreateObjectAction(newPos, transform.rotation, gameObject));
+            m_created = false;
+        }
+    }
+    public void DeleteItem(GameObject obj)
+    {
+        gameObject.SetActive(false);
+        m_editor.DoAction(new DeleteAction(obj));
     }
 }

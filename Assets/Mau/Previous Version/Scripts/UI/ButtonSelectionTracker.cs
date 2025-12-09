@@ -24,16 +24,21 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
             m_onLevel = false;
         }
         button = GetComponent<Button>();
-        button.onClick.AddListener(() =>
-        {
-            IsSelected = false;
-        });
+        //button.onClick.AddListener(() =>
+        //{
+        //    IsSelected = false;
+        //});
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         IsSelected = true;
     }
     public void OnPointerExit(PointerEventData eventData)
+    {
+        IsSelected = false;
+    }
+
+    private void OnDisable()
     {
         IsSelected = false;
     }
