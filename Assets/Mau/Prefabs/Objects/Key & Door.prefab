@@ -413,6 +413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2481838366471613008}
+  - component: {fileID: 8502464224589167921}
   m_Layer: 13
   m_Name: Key & Door
   m_TagString: Untagged
@@ -437,3 +438,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8502464224589167921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481838366471613009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56dc60c4ea09aca4f88f2454e0f3cc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_childA: {fileID: 2481838365409504741}
+  m_childB: {fileID: 2481838365840898302}

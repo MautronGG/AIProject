@@ -145,6 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_follow: 1
   m_isParent: 0
+  m_gridManager: {fileID: 0}
+  m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-4689562730594803716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,11 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 8
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
   m_canDelete: 1
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1

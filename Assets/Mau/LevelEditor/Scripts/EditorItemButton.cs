@@ -11,6 +11,7 @@ public class EditorItemButton : MonoBehaviour
     public EditorManager m_editor;
     GameObject m_obj;
     EditorSpriteFollow m_spriteFollow;
+    GameObject m_parent;
 
     //[Dropdown("m_editor.m_objectsList")]
     //public string m_name;
@@ -29,6 +30,7 @@ public class EditorItemButton : MonoBehaviour
 
     void Start()
     {
+        m_parent = GameObject.FindGameObjectWithTag("LevelEditorManager");
         m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
         m_spriteFollow = GetComponent<EditorSpriteFollow>();
     }
@@ -37,7 +39,7 @@ public class EditorItemButton : MonoBehaviour
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         m_isClicked = true;
-        m_obj = Instantiate(m_editor.m_editorItemPrefabs[(int)m_objectID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
+        m_obj = Instantiate(m_editor.m_editorItemPrefabs[(int)m_objectID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity, m_parent.transform);
         //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
         //m_editor.m_currentButtonID = (int)m_ID;
         m_editor.m_HUDCanvas.SetActive(false);

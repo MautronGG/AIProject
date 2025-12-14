@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EditorItem : MonoBehaviour
 {
+    [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
+    public string id;
     //public int m_ID;
     //public int m_colorID = 7;
     //public GameObject m_optionsCanvas;
@@ -102,6 +104,10 @@ public class EditorItem : MonoBehaviour
                 m_editor.m_item = this;
                 PickUp();
                 //m_editor.m_optionsCanvas.SetActive(true);
+            }
+            if (Input.GetMouseButtonDown(1) && m_canDelete && m_checks)
+            {
+                DeleteItem(this.gameObject);
             }
         }
     }

@@ -240,6 +240,7 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2456117414507118433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,13 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 10.1
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
   m_canDelete: 1
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1
 --- !u!1 &2481838365840898302
 GameObject:
@@ -390,6 +389,7 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &606512215787830073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,13 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 10.2
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
   m_canDelete: 1
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1
 --- !u!1 &2481838366471613009
 GameObject:
@@ -421,6 +419,7 @@ GameObject:
   - component: {fileID: 2481838366471613008}
   - component: {fileID: 7819733423819043141}
   - component: {fileID: 5011058168503135718}
+  - component: {fileID: 1001103388548292003}
   m_Layer: 13
   m_Name: Key & Door
   m_TagString: Untagged
@@ -461,6 +460,7 @@ MonoBehaviour:
   m_isParent: 1
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5011058168503135718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,11 +473,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 10
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 0
   m_canDelete: 0
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 0
+--- !u!114 &1001103388548292003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481838366471613009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760088bdcfc6bad4dbf808f227988586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_childA: {fileID: 2481838365409504741}
+  m_childB: {fileID: 2481838365840898302}

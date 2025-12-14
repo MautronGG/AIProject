@@ -192,4 +192,9 @@ public class EditorManager : MonoBehaviour
             undoStack.Push(action);
         }
     }
+
+    //public void SaveLevel()
+    //{
+    //    SaveLoadManager.SaveLevel(levelData, "Level01");
+    //}
 }

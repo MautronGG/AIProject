@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2582569985605152322}
   - component: {fileID: 5485074241471356144}
   - component: {fileID: 6893659310546888302}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: laser cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2c1d00b3853c4a41a6f4565da0c2c1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af2b8d7bbc578fd4498c50efab072118, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5485074241471356144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,13 +117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 13
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
   m_canDelete: 1
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1
 --- !u!61 &6893659310546888302
 BoxCollider2D:

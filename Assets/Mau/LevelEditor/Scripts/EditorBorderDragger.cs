@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EditorBorderDragger : MonoBehaviour
 {
+    [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
+    public string id;
+
     public enum Axis { Horizontal, Vertical }
     public Axis m_movementAxis;
 
