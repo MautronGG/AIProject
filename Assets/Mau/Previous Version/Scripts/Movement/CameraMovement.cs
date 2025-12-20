@@ -22,6 +22,7 @@ public class CameraMovement : MonoBehaviour
     float m_minSizeValue = 2.5f;
 
     public GameObject m_viggenette;
+    public bool m_canQEZoom = true;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class CameraMovement : MonoBehaviour
         m_defaultPosition = transform.position;
         m_borders = FindFirstObjectByType<EditorBorderManager>();
         m_camera = GetComponent<Camera>();
+        m_minion = FindWithTagAndLayer("Player", 8);
         //m_xValue *= 1.2f;
         //m_yValue *= 1.2f;
     }
@@ -85,13 +87,15 @@ public class CameraMovement : MonoBehaviour
 
             if (m_camera.orthographicSize < m_maxSizeValue)
             {
-                if (Input.GetKey(KeyCode.Q))
+                if (Input.GetKey(KeyCode.Q) && m_canQEZoom)
                 {
                     m_camera.orthographicSize += 1 * Time.deltaTime * m_speed;
+                    m_viggenette.transform.localScale += new Vector3(1f, 1f, 0f) * Time.deltaTime * m_speed;
                 }
                 else if (Input.GetAxis("Mouse ScrollWheel") < 0)
                 {
                     m_camera.orthographicSize += 2 * Time.deltaTime * m_speed;
+                    m_viggenette.transform.localScale += new Vector3(2f, 2f, 0f) * Time.deltaTime * m_speed;
                 }
 
                 if (m_camera.orthographicSize >= m_maxSizeValue)
@@ -102,13 +106,15 @@ public class CameraMovement : MonoBehaviour
 
             if (m_camera.orthographicSize > m_minSizeValue)
             {
-                if (Input.GetKey(KeyCode.E) && m_camera.orthographicSize > m_minSizeValue)
+                if (Input.GetKey(KeyCode.E) && m_canQEZoom)
                 {
                     m_camera.orthographicSize -= 1 * Time.deltaTime * m_speed;
+                    m_viggenette.transform.localScale -= new Vector3(1f, 1f, 0f) * Time.deltaTime * m_speed;
                 }
-                else if (Input.GetAxis("Mouse ScrollWheel") > 0 && m_camera.orthographicSize > m_minSizeValue)
+                else if (Input.GetAxis("Mouse ScrollWheel") > 0)
                 {
                     m_camera.orthographicSize -= 2 * Time.deltaTime * m_speed;
+                    m_viggenette.transform.localScale -= new Vector3(2f, 2f, 0f) * Time.deltaTime * m_speed;
                 }
 
                 if (m_camera.orthographicSize <= m_minSizeValue)
@@ -139,7 +145,6 @@ public class CameraMovement : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
             }
-
         }
     }
     public void AutomaticMovement(bool Bool)
@@ -154,5 +159,18 @@ public class CameraMovement : MonoBehaviour
     public void ResetTransform()
     {
         transform.position = m_defaultPosition;
+    }
+
+    GameObject FindWithTagAndLayer(string tag, int layer)
+    {
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
+
+        foreach (var obj in taggedObjects)
+        {
+            if (obj.layer == layer)
+                return obj;
+        }
+
+        return null;
     }
 }

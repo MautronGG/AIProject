@@ -6,8 +6,10 @@ public class rotateObject : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField]
     private float rotationDegrees = 5.0f;
+    [SerializeField] 
+    private float secondsPerRotation = 0.1f;
+    private float holdTimer = 0f;
     [SerializeField]
     private float limitRotationDegrees = 45.0f;
     private float rotationActual = 0.0f;
@@ -41,28 +43,65 @@ public class rotateObject : MonoBehaviour
             ChangeScale();
         }
     }
+    //public void ChangeRotation()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        if (rotationActual < limitRotationDegrees)
+    //        {
+    //            transform.Rotate(0, 0, rotationDegrees);
+    //            rotationActual += rotationDegrees;
+    //        }
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        if (rotationActual > -limitRotationDegrees)
+    //        {
+    //            transform.Rotate(0, 0, -rotationDegrees);
+    //            rotationActual -= rotationDegrees;
+    //        }
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        transform.Rotate(0, 0, -rotationActual);
+    //        rotationActual = 0.0f;
+    //    }
+    //}
     public void ChangeRotation()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
         {
-            if (rotationActual < limitRotationDegrees)
+            holdTimer += Time.deltaTime;
+
+            if (holdTimer >= secondsPerRotation && rotationActual < limitRotationDegrees)
             {
                 transform.Rotate(0, 0, rotationDegrees);
                 rotationActual += rotationDegrees;
+                holdTimer = 0f;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKey(KeyCode.E))
         {
-            if (rotationActual > -limitRotationDegrees)
+            holdTimer += Time.deltaTime;
+
+            if (holdTimer >= secondsPerRotation && rotationActual > -limitRotationDegrees)
             {
                 transform.Rotate(0, 0, -rotationDegrees);
                 rotationActual -= rotationDegrees;
+                holdTimer = 0f;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else
+        {
+            // reset timer if no rotation key is held
+            holdTimer = 0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
             transform.Rotate(0, 0, -rotationActual);
-            rotationActual = 0.0f;
+            rotationActual = 0f;
+            holdTimer = 0f;
         }
     }
     public void ChangeScale()

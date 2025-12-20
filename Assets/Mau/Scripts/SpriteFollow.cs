@@ -33,6 +33,7 @@ public class SpriteFollow : MonoBehaviour
         m_follow = true;
         m_levelManager.m_HUDBuildCanvas.SetActive(false);
         m_levelManager.m_isEditing = true;
+        Camera.main.gameObject.GetComponent<CameraMovement>().m_canQEZoom = false;
         m_layer = LayerMask.LayerToName(m_item.gameObject.layer);
         m_item.gameObject.layer = LayerMask.NameToLayer("nocol");
     }

@@ -37,7 +37,8 @@ public class Object_Bridge : Object_Parent
                 m_levelManager.m_spriteFollow = m_spriteFollow;
                 m_levelManager.m_item = this;
                 m_levelManager.m_item.m_canClick = false;
-                m_levelManager.m_optionsCanvas.SetActive(true);
+                //m_levelManager.m_optionsCanvas.SetActive(true);
+                PickUp();
                 m_levelManager.m_currentStateCanvas.SetActive(false);
             }
         }
@@ -57,6 +58,7 @@ public class Object_Bridge : Object_Parent
         m_spriteFollow.m_follow = false;
         gameObject.layer = LayerMask.NameToLayer(m_spriteFollow.m_layer);
         m_levelManager.m_isEditing = false;
+        Camera.main.GetComponent<CameraMovement>().m_canQEZoom = true;
         m_levelManager.m_HUDBuildCanvas.SetActive(true);
         m_levelManager.m_controlCanvas.SetActive(false);
         m_levelManager.CheckColors();
@@ -67,5 +69,12 @@ public class Object_Bridge : Object_Parent
         m_fixColorManager.getSprite(7, m_object, actualColor);
         actualColor = m_fixColorManager.getLastColor(m_object);
         Destroy(gameObject);
+    }
+    public void PickUp()
+    {
+        //m_editor.m_itemID = this.gameObject;
+        //m_editor.m_optionsCanvas.SetActive(true);
+        m_spriteFollow.StartFollow();
+        m_canClick = false;
     }
 }

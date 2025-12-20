@@ -203,10 +203,22 @@ public class LevelSceneCreator : MonoBehaviour
     void BuildLevelFromData(Scene scene, LevelData levelData)
     {
         m_levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager");
+        var sceneObjects = scene.GetRootGameObjects();
+        EditorBorderManager voids = null;
+        foreach (var sceneObject in sceneObjects)
+        {
+            voids = sceneObject.GetComponent<EditorBorderManager>();
+            if (voids != null)
+            {
+                break;
+            }
+        }
+
+        int voidsIndex = 0;
 
         foreach (var data in levelData.objects)
         {
-            int prefabIndex;
+            int prefabIndex = 0;
             if (!int.TryParse(data.id, out prefabIndex) ||
                 prefabIndex < 0 ||
                 prefabIndex >= levelPrefabList.Count)
@@ -215,9 +227,39 @@ public class LevelSceneCreator : MonoBehaviour
                 continue;
             }
 
+
+
             GameObject prefab = levelPrefabList[prefabIndex];
             if (prefab == null)
                 continue;
+
+            if (prefab.CompareTag("Void"))
+            {
+                if (voidsIndex == 0)
+                {
+                    Transformdata(voids.m_leftBorder, data);
+                    voidsIndex++;
+                    continue;
+                }
+                else if (voidsIndex == 1)
+                {
+                    Transformdata(voids.m_rightBorder, data);
+                    voidsIndex++;
+                    continue;
+                }
+                else if (voidsIndex == 2)
+                {
+                    Transformdata(voids.m_topBorder, data);
+                    voidsIndex++;
+                    continue;
+                }
+                else if (voidsIndex == 3)
+                {
+                    Transformdata(voids.m_bottomBorder, data);
+                    continue;
+                }
+            }
+
 
             GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
 
@@ -225,9 +267,7 @@ public class LevelSceneCreator : MonoBehaviour
                 instance.transform.SetParent(m_levelParent.transform, false);
 
             // Root transform
-            instance.transform.position = data.position.ToVector3();
-            instance.transform.rotation = data.rotation.ToQuaternion();
-            instance.transform.localScale = data.scale.ToVector3();
+            Transformdata(instance.transform, data);
 
             // Paired object support
             LevelPairedObject paired = instance.GetComponent<LevelPairedObject>();
@@ -248,6 +288,13 @@ public class LevelSceneCreator : MonoBehaviour
         child.localPosition = data.position.ToVector3();
         child.localRotation = data.rotation.ToQuaternion();
         child.localScale = data.scale.ToVector3();
+    }
+
+    void Transformdata(Transform newData, LevelObjectData olddata)
+    {
+        newData.position = olddata.position.ToVector3();
+        newData.rotation = olddata.rotation.ToQuaternion();
+        newData.localScale = olddata.scale.ToVector3();
     }
 }
 #endif
