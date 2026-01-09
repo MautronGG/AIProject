@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Mau/Scenes/MainMenu.unity
+    path: Assets/Mau/Scenes/Final/MainMenu.unity
     guid: 171c1e32d1ee9e249bff464d86c290cd
   - enabled: 1
     path: Assets/Mau/Scenes/Level_Default.unity
     guid: 1453430249ec913448b595bf4d30031b
   - enabled: 1
-    path: Assets/Mau/Scenes/Level_1_Portals.unity
+    path: Assets/Mau/Scenes/Discarded/Level_1_Portals.unity
     guid: 2d252bd880b7bec4daec6ba42e6d58d3
   - enabled: 1
-    path: Assets/Mau/Scenes/Level_2_Key.unity
+    path: Assets/Mau/Scenes/Discarded/Level_2_Key.unity
     guid: 528358b561f2a3049ba8a96ae71b9af1
   - enabled: 1
-    path: Assets/Mau/Scenes/Level_3_Springs.unity
+    path: Assets/Mau/Scenes/Discarded/Level_3_Springs.unity
     guid: 755c333741f2a45449ba69516c4be15c
   - enabled: 1
-    path: Assets/Mau/Scenes/Level_4_ProveUrSelf.unity
+    path: Assets/Mau/Scenes/Discarded/Level_4_ProveUrSelf.unity
     guid: 24291e9d5f54ddb4ab24eaf479810c45
   m_configObjects: {}

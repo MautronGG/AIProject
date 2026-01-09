@@ -17,6 +17,7 @@ public class LevelEditorController : MonoBehaviour
         var level = new LevelData();
         level.levelName = filenameWithoutExt;
         level.version = 1;
+        level.bridges = FindAnyObjectByType<ButtonScript>()?.m_numBridges ?? 0;
 
         var parent = placedObjectsParent ? placedObjectsParent : transform;
 

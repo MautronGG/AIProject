@@ -203,6 +203,15 @@ public class LevelSceneCreator : MonoBehaviour
     void BuildLevelFromData(Scene scene, LevelData levelData)
     {
         m_levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager");
+
+        var bridgesButton = FindObjectOfType<ButtonScript>();
+        if (bridgesButton != null)
+        {
+            bridgesButton.m_numBridges = levelData.bridges;
+            EditorUtility.SetDirty(bridgesButton);
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        }
+
         var sceneObjects = scene.GetRootGameObjects();
         EditorBorderManager voids = null;
         foreach (var sceneObject in sceneObjects)

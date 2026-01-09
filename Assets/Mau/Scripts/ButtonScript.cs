@@ -10,7 +10,7 @@ public class ButtonScript : MonoBehaviour
     public LevelManager m_levelManager;
     GameObject m_obj;
     SpriteFollow m_spriteFollow;
-    [SerializeField] int m_numBridges = 4;
+    public int m_numBridges;
     [SerializeField] TextMeshProUGUI m_text;
 
     GameObject m_parent;
@@ -60,7 +60,7 @@ public class ButtonScript : MonoBehaviour
         {
             m_numBridges++;
         }
-        else
+        else if (!positive && m_numBridges > 0)
         {
             m_numBridges--;
         }

@@ -7,6 +7,7 @@ public class LevelData
 {
     public string levelName;
     public int version = 1;
+    public int bridges = 0;
     public List<LevelObjectData> objects = new List<LevelObjectData>();
 }
 
