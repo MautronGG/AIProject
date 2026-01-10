@@ -6,7 +6,7 @@ public class BuildState : State
 {
     private void Awake()
     {
-        m_levelManager = FindObjectOfType<LevelManager>();
+        m_levelManager = GetComponent<LevelManager>();
     }
     public override void onEnter()
     {

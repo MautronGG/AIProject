@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
         m_defaultPosition = transform.position;
         m_borders = FindFirstObjectByType<EditorBorderManager>();
         m_camera = GetComponent<Camera>();
-        m_minion = FindWithTagAndLayer("Player", 8);
+        ChangeMinion();
         transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, transform.position.z);
         //m_xValue *= 1.2f;
         //m_yValue *= 1.2f;
@@ -209,6 +209,11 @@ public class CameraMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
         }
 
+    }
+
+    public void ChangeMinion()
+    {
+        m_minion = FindWithTagAndLayer("Player", 8);
     }
 
     GameObject FindWithTagAndLayer(string tag, int layer)

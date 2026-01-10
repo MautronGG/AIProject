@@ -8,6 +8,11 @@ using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
+public enum EditorMode
+{
+    Edit,
+    Verify
+}
 
 public interface IEditorAction
 {
@@ -17,85 +22,73 @@ public interface IEditorAction
 
 public class MoveAction : IEditorAction
 {
-    private GameObject obj;
+    private LevelObjectData data;
     private Vector3 oldPos;
     private Vector3 newPos;
 
-    public MoveAction(GameObject obj, Vector3 oldPos, Vector3 newPos)
+    public MoveAction(LevelObjectData data, Vector3 oldPos, Vector3 newPos)
     {
-        this.obj = obj;
+        this.data = data;
         this.oldPos = oldPos;
         this.newPos = newPos;
     }
 
     public void Undo()
     {
-        if (obj != null) obj.transform.position = oldPos;
+        data.position = SerializableVector3.From(oldPos);
+        if (data.editorInstance)
+            data.editorInstance.transform.position = oldPos;
     }
 
     public void Redo()
     {
-        if (obj != null) obj.transform.position = newPos;
+        data.position = SerializableVector3.From(newPos);
+        if (data.editorInstance)
+            data.editorInstance.transform.position = newPos;
     }
 }
 
 public class DeleteAction : IEditorAction
 {
-    private GameObject obj;
-    private Vector3 position;
-    private Quaternion rotation;
-    private Transform parent;
+    private LevelObjectData data;
 
-    public DeleteAction(GameObject obj)
+    public DeleteAction(LevelObjectData data)
     {
-        this.obj = obj;
-        this.position = obj.transform.position;
-        this.rotation = obj.transform.rotation;
-        this.parent = obj.transform.parent;
+        this.data = data;
     }
 
     public void Undo()
     {
-        if (obj != null) obj.SetActive(true);
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
-        obj.transform.parent = parent;
+        if (data.editorInstance)
+            data.editorInstance.SetActive(true);
     }
 
     public void Redo()
     {
-        if (obj != null) obj.SetActive(false);
+        if (data.editorInstance)
+            data.editorInstance.SetActive(false);
     }
 }
 
 public class CreateObjectAction : IEditorAction
 {
-    private Vector3 position;
-    private Quaternion rotation;
-    private GameObject createdInstance;
+    private LevelObjectData data;
 
-    public CreateObjectAction(Vector3 position, Quaternion rotation, GameObject instance)
+    public CreateObjectAction(LevelObjectData data)
     {
-        this.position = position;
-        this.rotation = rotation;
-        this.createdInstance = instance;
+        this.data = data;
     }
 
     public void Undo()
     {
-        if (createdInstance != null)
-        {
-            //GameObject.Destroy(createdInstance);
-            createdInstance.SetActive(false);
-        }
+        if (data.editorInstance != null)
+            data.editorInstance.SetActive(false);
     }
 
     public void Redo()
     {
-        if (!createdInstance.activeInHierarchy) // If deleted in Undo
-        {
-            createdInstance.SetActive(true);
-        }
+        if (data.editorInstance != null)
+            data.editorInstance.SetActive(true);
     }
 }
 
@@ -120,52 +113,47 @@ public class EditorManager : MonoBehaviour
     public EditorSpriteFollow m_spriteFollow;
 
     public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
-    private Stack<IEditorAction> undoStack = new Stack<IEditorAction>();
-    private Stack<IEditorAction> redoStack = new Stack<IEditorAction>();
+    public List<GameObject> m_levelItemPrefabs = new List<GameObject>();
 
+    public static EditorManager Instance;
+
+    [Header("Roots")]
+    public Transform editorRoot;
+    public Transform playableRoot;
+
+    [Header("Prefabs")]
+    public List<ObjectPrefabEntry> objectPrefabs;
+
+    public LevelData currentLevel = new();
+
+    private Dictionary<string, ObjectPrefabEntry> prefabLookup;
+
+    private Stack<IEditorAction> undoStack = new();
+    private Stack<IEditorAction> redoStack = new();
+
+    public EditorMode currentMode = EditorMode.Edit;
 
     private void Awake()
     {
-        Time.timeScale = 1.0f;
-        m_buttonSelectionTrackers = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>();  
+        Instance = this;
+
+        prefabLookup = new Dictionary<string, ObjectPrefabEntry>();
+        foreach (var entry in objectPrefabs)
+            prefabLookup[entry.id] = entry;
+
+        playableRoot.gameObject.SetActive(false);
+
     }
-   //private void Start()
-   //{
-   //    //if (m_typeButtons)
-   //    //{
-   //    //    m_typeButtons.SetActive(false);
-   //    //}
-   //    //if (m_ObjectsButtons)
-   //    //{
-   //    //    m_ObjectsButtons.SetActive(false);
-   //    //}
-   //}
-    private void Update()
+
+    private void Start()
     {
-        ///To Pause Game
-        if (Input.GetKeyDown(KeyCode.Escape) && !m_pause && !m_isEditing)
-        {
-            Time.timeScale = 0.0f;
-            m_pauseCanvas.SetActive(true);
-            m_pause = true;
-            m_HUDCanvas.SetActive(false);
-        }
-        ///To move Sprite when placing in Level
-        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
-        if (Input.GetKeyDown(KeyCode.Z)) Undo();
-        if (Input.GetKeyDown(KeyCode.Y)) Redo();
+        InitializeEditorObjects();
     }
 
-    public void UnPause()
-    {
-        Time.timeScale = 1f;
-        m_pause = false;
-        m_HUDCanvas.SetActive(true);
-        m_pauseCanvas.SetActive(false);
-    }
+    public ObjectPrefabEntry GetPrefab(string id)
+        => prefabLookup[id];
 
+    // ---------------- UNDO / REDO ----------------
     public void DoAction(IEditorAction action)
     {
         action.Redo();
@@ -175,26 +163,66 @@ public class EditorManager : MonoBehaviour
 
     public void Undo()
     {
-        if (undoStack.Count > 0)
-        {
-            IEditorAction action = undoStack.Pop();
-            action.Undo();
-            redoStack.Push(action);
-        }
+        if (undoStack.Count == 0) return;
+        var a = undoStack.Pop();
+        a.Undo();
+        redoStack.Push(a);
     }
 
     public void Redo()
     {
-        if (redoStack.Count > 0)
+        if (redoStack.Count == 0) return;
+        var a = redoStack.Pop();
+        a.Redo();
+        undoStack.Push(a);
+    }
+
+    public void InitializeEditorObjects()
+    {
+        currentLevel.objects.Clear();
+
+        var items = editorRoot.GetComponentsInChildren<EditorItem>(true);
+
+        foreach (var item in items)
         {
-            IEditorAction action = redoStack.Pop();
-            action.Redo();
-            undoStack.Push(action);
+            var data = item.data;
+
+            data.id = item.id;
+            data.position = SerializableVector3.From(item.transform.position);
+            data.rotation = SerializableQuaternion.From(item.transform.rotation);
+            data.scale = SerializableVector3.From(item.transform.localScale);
+
+            currentLevel.objects.Add(data);
         }
     }
 
-    //public void SaveLevel()
-    //{
-    //    SaveLoadManager.SaveLevel(levelData, "Level01");
-    //}
+
+    // ---------------- VERIFICATION ----------------
+    public void StartVerification()
+    {
+        editorRoot.gameObject.SetActive(false);
+        playableRoot.gameObject.SetActive(true);
+
+        foreach (Transform c in playableRoot)
+            Destroy(c.gameObject);
+
+        foreach (var data in currentLevel.objects)
+        {
+            Instantiate(
+                prefabLookup[data.id].playablePrefab,
+                data.position.ToVector3(),
+                data.rotation.ToQuaternion(),
+                playableRoot
+            );
+        }
+    }
+
+    public void StopVerification()
+    {
+        foreach (Transform c in playableRoot)
+            Destroy(c.gameObject);
+
+        playableRoot.gameObject.SetActive(false);
+        editorRoot.gameObject.SetActive(true);
+    }
 }

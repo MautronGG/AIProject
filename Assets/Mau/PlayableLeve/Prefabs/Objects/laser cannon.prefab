@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1024164564826138266}
   - component: {fileID: 2938325598001345097}
   - component: {fileID: 3943375479550070002}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: laser cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2c1d00b3853c4a41a6f4565da0c2c1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af2b8d7bbc578fd4498c50efab072118, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

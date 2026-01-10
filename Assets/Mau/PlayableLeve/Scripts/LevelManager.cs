@@ -88,6 +88,9 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = 1.0f;
         m_myFSM = GetComponent<FSM>();
+        m_Red = FindWithTagAndLayer("Player", 6).GetComponent<MinionMovement>();
+        m_Green = FindWithTagAndLayer("Player", 8).GetComponent<MinionMovement>();
+        m_Blue = FindWithTagAndLayer("Player", 10).GetComponent<MinionMovement>();
         m_objects = FindObjectsOfType<Object_Parent>();
         m_doors = FindObjectsOfType<Object_FinalDoor>();
         Initialized();
@@ -203,6 +206,7 @@ public class LevelManager : MonoBehaviour
             m_HUDBuildCanvas.SetActive(false);
             m_HUDPlayCanvas.SetActive(true);
             m_camera.ChangeMovement(false);
+            m_camera.ChangeMinion();
             m_camera.AutomaticMovement(true);
             foreach (Object_Parent obj in m_objects)
             {
@@ -363,5 +367,17 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(m_sprayAnim);
         }
+    }
+    GameObject FindWithTagAndLayer(string tag, int layer)
+    {
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
+
+        foreach (var obj in taggedObjects)
+        {
+            if (obj.layer == layer)
+                return obj;
+        }
+
+        return null;
     }
 }

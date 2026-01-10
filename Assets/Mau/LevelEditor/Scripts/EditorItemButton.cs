@@ -1,50 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EditorItemButton : MonoBehaviour
 {
-    //[SerializeField] GameObject m_object;
-    public ObjectsEnum m_objectID;
-    public bool m_isClicked = false;
-    public EditorManager m_editor;
-    GameObject m_obj;
-    EditorSpriteFollow m_spriteFollow;
-    GameObject m_parent;
+    public string objectId;
 
-    //[Dropdown("m_editor.m_objectsList")]
-    //public string m_name;
-    //public ObjectsEnum m_ID = new ObjectsEnum();
-
-    public enum ObjectsEnum
-    {
-        Floor,
-        Wall,
-        Portal,
-        Key,
-        Spring,
-        Enemy,
-        Laser,
-    };
-
-    void Start()
-    {
-        m_parent = GameObject.FindGameObjectWithTag("LevelEditorManager");
-        m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
-        m_spriteFollow = GetComponent<EditorSpriteFollow>();
-    }
     public void OnClick()
     {
-        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        m_isClicked = true;
-        m_obj = Instantiate(m_editor.m_editorItemPrefabs[(int)m_objectID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity, m_parent.transform);
-        //m_obj = Instantiate(m_editor.m_itemPrefabs[(int)m_ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity);
-        //m_editor.m_currentButtonID = (int)m_ID;
-        m_editor.m_HUDCanvas.SetActive(false);
-        m_editor.m_isEditing = true; 
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+
+        var manager = EditorManager.Instance;
+        var prefabs = manager.GetPrefab(objectId);
+
+        LevelObjectData data = new()
+        {
+            id = objectId,
+            position = SerializableVector3.From(pos),
+            rotation = SerializableQuaternion.From(Quaternion.identity),
+            scale = SerializableVector3.From(Vector3.one)
+        };
+
+        manager.currentLevel.objects.Add(data);
+
+        GameObject editorObj = Instantiate(
+            prefabs.editorPrefab,
+            pos,
+            Quaternion.identity,
+            manager.editorRoot
+        );
+
+        EditorItem item = editorObj.GetComponent<EditorItem>();
+        item.id = objectId;
+        item.data = data;
+        data.editorInstance = editorObj;
+
+        manager.DoAction(new CreateObjectAction(data));
     }
-
-
 }
