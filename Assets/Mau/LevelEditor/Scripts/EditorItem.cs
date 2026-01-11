@@ -20,8 +20,7 @@ public class EditorItem : MonoBehaviour
 
     private void Awake()
     {
-        m_editor = GameObject.FindGameObjectWithTag("EditorManager")
-            .GetComponent<EditorManager>();
+        m_editor = GameObject.FindGameObjectWithTag("EditorManager").GetComponent<EditorManager>();
 
         m_spriteFollow = GetComponent<EditorSpriteFollow>();
     }
@@ -36,14 +35,14 @@ public class EditorItem : MonoBehaviour
         m_canClick = true;
     }
 
-    private void LateUpdate()
-    {
-        if (data == null) return;
-
-        data.position = SerializableVector3.From(transform.position);
-        data.rotation = SerializableQuaternion.From(transform.rotation);
-        data.scale = SerializableVector3.From(transform.localScale);
-    }
+    //private void LateUpdate()
+    //{
+    //    if (data == null) return;
+    //
+    //    data.position = SerializableVector3.From(transform.position);
+    //    data.rotation = SerializableQuaternion.From(transform.rotation);
+    //    data.scale = SerializableVector3.From(transform.localScale);
+    //}
 
     private void OnMouseOver()
     {
@@ -65,7 +64,7 @@ public class EditorItem : MonoBehaviour
         if (m_editor.currentMode != EditorMode.Edit) return false;
         if (!m_canOpenOptions) return false;
         if (m_editor.m_isEditing) return false;
-        if (m_editor.m_optionsCanvas.activeInHierarchy) return false;
+        //if (m_editor.m_optionsCanvas.activeInHierarchy) return false;
         if (m_editor.m_pauseCanvas.activeInHierarchy) return false;
 
         foreach (var bst in m_editor.m_buttonSelectionTrackers)
@@ -74,7 +73,7 @@ public class EditorItem : MonoBehaviour
         return true;
     }
 
-    void PickUp()
+    public void PickUp()
     {
         m_editor.m_HUDCanvas.SetActive(false);
         m_spriteFollow.m_follow = true;
@@ -83,7 +82,7 @@ public class EditorItem : MonoBehaviour
         m_spriteFollow.m_lastValidPosition = transform.position;
     }
 
-    void PlaceDown()
+    public void PlaceDown()
     {
         m_spriteFollow.m_follow = false;
         m_editor.m_isEditing = false;
@@ -117,4 +116,37 @@ public class EditorItem : MonoBehaviour
         gameObject.SetActive(false);
         m_editor.DoAction(new DeleteAction(data));
     }
+
+    public void ForceSyncData()
+    {
+        //if (data == null) return;
+        //
+        //data.position = SerializableVector3.From(transform.position);
+        //data.rotation = SerializableQuaternion.From(transform.rotation);
+        //data.scale = SerializableVector3.From(transform.localScale);
+
+        if (data == null) return;
+
+        data.position = SerializableVector3.From(transform.position);
+        data.rotation = SerializableQuaternion.From(transform.rotation);
+        data.scale = SerializableVector3.From(transform.localScale);
+
+        // Paired object case
+        if (TryGetComponent(out EditorPairedObject pair))
+        {
+            if (data.children == null || data.children.Count <= 0)
+                return;
+
+            // CHILD A (WORLD SPACE)
+            data.children[0].position = SerializableVector3.From(pair.m_childA.transform.localPosition);
+            data.children[0].rotation = SerializableQuaternion.From(pair.m_childA.transform.localRotation);
+            data.children[0].scale = SerializableVector3.From(pair.m_childA.transform.localScale);
+
+            // CHILD B (WORLD SPACE)
+            data.children[1].position = SerializableVector3.From(pair.m_childB.transform.localPosition);
+            data.children[1].rotation = SerializableQuaternion.From(pair.m_childB.transform.localRotation);
+            data.children[1].scale = SerializableVector3.From(pair.m_childB.transform.localScale);
+        }
+    }
+
 }

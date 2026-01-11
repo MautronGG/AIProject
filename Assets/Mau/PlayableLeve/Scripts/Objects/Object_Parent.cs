@@ -51,6 +51,9 @@ public class Object_Parent : MonoBehaviour
     }
     public virtual void Start()
     {
+        m_levelManager = GameObject.FindObjectOfType<LevelManager>();
+        m_cursor = FindObjectOfType<CursorSet>();
+        m_fixColorManager = FindObjectOfType<FixColorManager>();
         if (otherObject == null)
         {
             otherObject = this;

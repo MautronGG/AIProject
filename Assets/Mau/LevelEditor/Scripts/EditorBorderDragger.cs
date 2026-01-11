@@ -60,10 +60,10 @@ public class EditorBorderDragger : MonoBehaviour
     private void OnMouseOver()
     {
         m_checks = true;
-        if (m_editorManager.m_optionsCanvas.activeInHierarchy)
-        {
-            m_checks = false;
-        }
+        //if (m_editorManager.m_optionsCanvas.activeInHierarchy)
+        //{
+        //    m_checks = false;
+        //}
         ////else if (!m_editor.m_colorCanvas.activeInHierarchy)
         //{
         //  m_checks = false;
@@ -84,7 +84,7 @@ public class EditorBorderDragger : MonoBehaviour
         //{
         //    m_checks = false;
         //}
-        else if (m_editorManager.m_isEditing)
+        if (m_editorManager.m_isEditing)
         {
             m_checks = false;
         }

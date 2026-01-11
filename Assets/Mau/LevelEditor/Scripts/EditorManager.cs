@@ -95,7 +95,7 @@ public class CreateObjectAction : IEditorAction
 public class EditorManager : MonoBehaviour
 {
     [Header("Canvas")]
-    public GameObject m_optionsCanvas;
+    //public GameObject m_optionsCanvas;
     public GameObject m_HUDCanvas;
     public GameObject m_pauseCanvas;
     public Button m_playButton;
@@ -148,6 +148,7 @@ public class EditorManager : MonoBehaviour
     private void Start()
     {
         InitializeEditorObjects();
+        m_buttonSelectionTrackers = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>(true);
     }
 
     public ObjectPrefabEntry GetPrefab(string id)
@@ -200,20 +201,37 @@ public class EditorManager : MonoBehaviour
     // ---------------- VERIFICATION ----------------
     public void StartVerification()
     {
-        editorRoot.gameObject.SetActive(false);
-        playableRoot.gameObject.SetActive(true);
+
+        foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>())
+            item.ForceSyncData();
+
+        DebugDumpLevelData();
 
         foreach (Transform c in playableRoot)
             Destroy(c.gameObject);
 
+        editorRoot.gameObject.SetActive(false);
+        playableRoot.gameObject.SetActive(true);
+
         foreach (var data in currentLevel.objects)
         {
-            Instantiate(
+            var obj = Instantiate(
                 prefabLookup[data.id].playablePrefab,
                 data.position.ToVector3(),
                 data.rotation.ToQuaternion(),
                 playableRoot
             );
+            
+            obj.transform.localScale = data.scale.ToVector3();
+
+            if (data.children != null && data.children.Count > 0)
+            {
+                var paired = obj.GetComponent<LevelPairedObject>();
+
+                ApplyChildData(paired.m_childA, data.children[0]);
+                ApplyChildData(paired.m_childB, data.children[1]);
+            }
+
         }
     }
 
@@ -224,5 +242,31 @@ public class EditorManager : MonoBehaviour
 
         playableRoot.gameObject.SetActive(false);
         editorRoot.gameObject.SetActive(true);
+    }
+
+    void ApplyChildData(GameObject child, LevelObjectData d)
+    {
+        child.transform.localPosition = d.position.ToVector3();
+        child.transform.localRotation = d.rotation.ToQuaternion();
+        child.transform.localScale = d.scale.ToVector3();
+    }
+
+    public void DebugDumpLevelData()
+    {
+        Debug.Log("=== LEVEL DATA DUMP ===");
+
+        foreach (var obj in currentLevel.objects)
+        {
+            Debug.Log($"PARENT {obj.id} pos={obj.position.x},{obj.position.y},{obj.position.z}");
+
+            if (obj.children != null)
+            {
+                for (int i = 0; i < obj.children.Count; i++)
+                {
+                    var c = obj.children[i];
+                    Debug.Log($"  CHILD[{i}] pos={c.position.x},{c.position.y},{c.position.z}");
+                }
+            }
+        }
     }
 }
