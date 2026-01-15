@@ -51,22 +51,28 @@ public class MoveAction : IEditorAction
 public class DeleteAction : IEditorAction
 {
     private LevelObjectData data;
+    EditorItem item;
+    EditorManager manager;
+    int index;
 
-    public DeleteAction(LevelObjectData data)
+    public DeleteAction(EditorItem item)
     {
-        this.data = data;
-    }
-
-    public void Undo()
-    {
-        if (data.editorInstance)
-            data.editorInstance.SetActive(true);
+        this.item = item;
+        this.data = item.data;
+        this.manager = EditorManager.Instance;
     }
 
     public void Redo()
     {
-        if (data.editorInstance)
-            data.editorInstance.SetActive(false);
+        index = manager.currentLevel.objects.IndexOf(data);
+        manager.currentLevel.objects.Remove(data);
+        item.gameObject.SetActive(false);
+    }
+
+    public void Undo()
+    {
+        manager.currentLevel.objects.Insert(index, data);
+        item.gameObject.SetActive(true);
     }
 }
 
@@ -96,13 +102,16 @@ public class EditorManager : MonoBehaviour
 {
     [Header("Canvas")]
     //public GameObject m_optionsCanvas;
+    public GameObject m_GlobalCanvas;
     public GameObject m_HUDCanvas;
     public GameObject m_pauseCanvas;
     public Button m_playButton;
+    public ButtonScript m_editorBridgeCounter;
+    public ButtonScript m_levelBridgeCounter;
     //public GameObject m_typeButtons;
     //public GameObject m_ObjectsButtons;
 
-    public ButtonSelectionTracker[] m_buttonSelectionTrackers;
+    public List<ButtonSelectionTracker> m_buttonSelectionTrackers;
 
     public bool m_pause = false;
 
@@ -111,6 +120,7 @@ public class EditorManager : MonoBehaviour
     public EditorGridManager m_grid;
     public EditorItem m_item;
     public EditorSpriteFollow m_spriteFollow;
+    public LevelManager m_levelManager;
 
     public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
     public List<GameObject> m_levelItemPrefabs = new List<GameObject>();
@@ -148,11 +158,16 @@ public class EditorManager : MonoBehaviour
     private void Start()
     {
         InitializeEditorObjects();
-        m_buttonSelectionTrackers = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>(true);
+        var HUD = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>();
+        foreach (ButtonSelectionTracker button in HUD)
+            m_buttonSelectionTrackers.Add(button);
+
+        var global = m_GlobalCanvas.GetComponentsInChildren<ButtonSelectionTracker>();
+        foreach (ButtonSelectionTracker button in global)
+            m_buttonSelectionTrackers.Add(button);
     }
 
-    public ObjectPrefabEntry GetPrefab(string id)
-        => prefabLookup[id];
+    public ObjectPrefabEntry GetPrefab(string id) => prefabLookup[id];
 
     // ---------------- UNDO / REDO ----------------
     public void DoAction(IEditorAction action)
@@ -197,21 +212,33 @@ public class EditorManager : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0.0f;
+        m_pauseCanvas.SetActive(true);
+        m_HUDCanvas.SetActive(false);
+        m_pause = true;
+    }
+    public void UnPause()
+    {
+        Time.timeScale = 1f;
+        m_pause = false;
+        m_pauseCanvas.SetActive(false);
+        m_HUDCanvas.SetActive(true);
+    }
+
 
     // ---------------- VERIFICATION ----------------
     public void StartVerification()
     {
-
         foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>())
             item.ForceSyncData();
 
-        DebugDumpLevelData();
+        //DebugDumpLevelData();
 
         foreach (Transform c in playableRoot)
             Destroy(c.gameObject);
 
-        editorRoot.gameObject.SetActive(false);
-        playableRoot.gameObject.SetActive(true);
 
         foreach (var data in currentLevel.objects)
         {
@@ -231,8 +258,13 @@ public class EditorManager : MonoBehaviour
                 ApplyChildData(paired.m_childA, data.children[0]);
                 ApplyChildData(paired.m_childB, data.children[1]);
             }
-
         }
+        editorRoot.gameObject.SetActive(false);
+        playableRoot.gameObject.SetActive(true);
+        m_levelManager.gameObject.SetActive(true);
+
+        m_levelBridgeCounter.m_numBridges = m_editorBridgeCounter.m_numBridges;
+        m_levelBridgeCounter.ApplyText();
     }
 
     public void StopVerification()
@@ -240,8 +272,24 @@ public class EditorManager : MonoBehaviour
         foreach (Transform c in playableRoot)
             Destroy(c.gameObject);
 
+        StopVerificationEvents();
+
         playableRoot.gameObject.SetActive(false);
+        m_levelManager.gameObject.SetActive(false);
         editorRoot.gameObject.SetActive(true);
+    }
+
+    public void StopVerificationEvents()
+    {
+        var camera = Camera.main.GetComponent<CameraMovement>();
+        camera.m_canMove = true;
+        camera.ResetTransform();
+        camera.AutomaticMovement(false);
+
+        foreach (TurnOffGameObject canvas in m_levelManager.m_canvases)
+        {
+            canvas.ResetState();
+        }
     }
 
     void ApplyChildData(GameObject child, LevelObjectData d)

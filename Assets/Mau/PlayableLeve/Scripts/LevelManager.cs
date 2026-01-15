@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class LevelManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class LevelManager : MonoBehaviour
     ////public GameObject[] m_itemSprite;
 
     [Header("Canvas")]
-    public GameObject m_optionsCanvas;
+    //public GameObject m_optionsCanvas;
     public GameObject m_HUDBuildCanvas;
     public GameObject m_HUDPlayCanvas;
     public GameObject m_pauseCanvas;
@@ -33,7 +34,7 @@ public class LevelManager : MonoBehaviour
     public Button m_playButton;
     public Button m_resetButton;
     public Button m_bridgeButton;
-    public Button m_cancelEditButton;
+    //public Button m_cancelEditButton;
     public Button m_autoMove_enabled;
     public Button m_autoMove_disabled;
     public TextMeshProUGUI m_points;
@@ -83,57 +84,33 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject m_sprayPrefab;
     float m_sprayTime = 0.0f;
 
+    public bool m_onEditorState = false;
+    public GameObject m_levelCanvasesInEditor;
+    [HideInInspector] public TurnOffGameObject[] m_canvases;
+
+    private void Awake()
+    {
+        if (m_onEditorState)
+        {
+            m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
+        }
+    }
+
     private void Start()
     {
-
-        Time.timeScale = 1.0f;
-        m_myFSM = GetComponent<FSM>();
-        m_Red = FindWithTagAndLayer("Player", 6).GetComponent<MinionMovement>();
-        m_Green = FindWithTagAndLayer("Player", 8).GetComponent<MinionMovement>();
-        m_Blue = FindWithTagAndLayer("Player", 10).GetComponent<MinionMovement>();
-        m_objects = FindObjectsOfType<Object_Parent>();
-        m_doors = FindObjectsOfType<Object_FinalDoor>();
-        Initialized();
-        foreach (Object_Parent obj in m_objects)
+        if (!m_onEditorState)
         {
-            if (obj.actualColor != ColorEnum.Black)
-            {
-                int a = ((int)obj.m_object);
-                int b = ((int)obj.actualColor);
-                if (obj.actualColor == ColorEnum.White)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeWhite = false;
-                }
-                else if (obj.actualColor == ColorEnum.Red)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeRed = false;
-                }
-                else if (obj.actualColor == ColorEnum.Yellow)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeYellow = false;
-                }
-                else if (obj.actualColor == ColorEnum.Green)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeGreen = false;
-                }
-                else if (obj.actualColor == ColorEnum.Cyan)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeCyan = false;
-                }
-                else if (obj.actualColor == ColorEnum.Blue)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeBlue = false;
-                }
-                else if (obj.actualColor == ColorEnum.Magenta)
-                {
-                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeMagenta = false;
-                }
-            }
+            Initialized();
         }
-        m_audioManager = FindObjectOfType<AudioManager>();
-        m_audioManager.PlayMusic(m_audioManager.m_music_Gameplay);
-        m_sprayPrefab = Resources.Load("Prefabs/SprayEffect") as GameObject;
-        m_camera = FindObjectOfType<CameraMovement>();
+    }
+
+    private void OnEnable()
+    {
+        if (m_onEditorState)
+        { 
+            Initialized();
+            m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
+        }
     }
 
     private void Update()
@@ -198,6 +175,14 @@ public class LevelManager : MonoBehaviour
     }
     protected void Initialized()
     {
+        Time.timeScale = 1.0f;
+        if (!m_myFSM) m_myFSM = GetComponent<FSM>();
+        m_Red = FindWithTagAndLayer("Player", 6).GetComponent<MinionMovement>();
+        m_Green = FindWithTagAndLayer("Player", 8).GetComponent<MinionMovement>();
+        m_Blue = FindWithTagAndLayer("Player", 10).GetComponent<MinionMovement>();
+        m_objects = FindObjectsOfType<Object_Parent>();
+        m_doors = FindObjectsOfType<Object_FinalDoor>();
+
         m_playEvents.AddListener(() =>
         {
             m_Red.EnableMovement(true);
@@ -238,10 +223,10 @@ public class LevelManager : MonoBehaviour
                 _object.ResetDeafualts();
             }
         }); 
-        m_cancelEditButton.onClick.AddListener(() =>
-        {
-            m_currentStateCanvas.SetActive(true);
-        });
+        //m_cancelEditButton.onClick.AddListener(() =>
+        //{
+        //    m_currentStateCanvas.SetActive(true);
+        //});
 
         m_autoMove_enabled.onClick.AddListener(() =>
         {
@@ -257,6 +242,47 @@ public class LevelManager : MonoBehaviour
             m_camera.AutomaticMovement(true);
             m_camera.ChangeMovement(false);
         });
+
+        foreach (Object_Parent obj in m_objects)
+        {
+            if (obj.actualColor != ColorEnum.Black)
+            {
+                int a = ((int)obj.m_object);
+                int b = ((int)obj.actualColor);
+                if (obj.actualColor == ColorEnum.White)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeWhite = false;
+                }
+                else if (obj.actualColor == ColorEnum.Red)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeRed = false;
+                }
+                else if (obj.actualColor == ColorEnum.Yellow)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeYellow = false;
+                }
+                else if (obj.actualColor == ColorEnum.Green)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeGreen = false;
+                }
+                else if (obj.actualColor == ColorEnum.Cyan)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeCyan = false;
+                }
+                else if (obj.actualColor == ColorEnum.Blue)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeBlue = false;
+                }
+                else if (obj.actualColor == ColorEnum.Magenta)
+                {
+                    GetComponent<FixColorManager>().m_listSpriteObjects[a].m_activeMagenta = false;
+                }
+            }
+        }
+        if (!m_audioManager) m_audioManager = FindObjectOfType<AudioManager>();
+        if (m_audioManager) m_audioManager.PlayMusic(m_audioManager.m_music_Gameplay);
+        if (!m_sprayPrefab) m_sprayPrefab = Resources.Load("Prefabs/SprayEffect") as GameObject;
+        if (!m_camera) m_camera = FindObjectOfType<CameraMovement>();
     }
 
     public void ResetDefaults()

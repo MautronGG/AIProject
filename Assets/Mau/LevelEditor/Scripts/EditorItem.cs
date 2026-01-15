@@ -67,8 +67,8 @@ public class EditorItem : MonoBehaviour
         //if (m_editor.m_optionsCanvas.activeInHierarchy) return false;
         if (m_editor.m_pauseCanvas.activeInHierarchy) return false;
 
-        foreach (var bst in m_editor.m_buttonSelectionTrackers)
-            if (bst.IsSelected) return false;
+        foreach (var button in m_editor.m_buttonSelectionTrackers)
+            if (button.IsSelected) return false;
 
         return true;
     }
@@ -113,8 +113,8 @@ public class EditorItem : MonoBehaviour
 
     public void DeleteItem()
     {
-        gameObject.SetActive(false);
-        m_editor.DoAction(new DeleteAction(data));
+        //gameObject.SetActive(false);
+        m_editor.DoAction(new DeleteAction(this));
     }
 
     public void ForceSyncData()

@@ -67,6 +67,7 @@ public class CursorSet : MonoBehaviour
     public void ChangeColor(int newColor)
     {
         color = newColor;
+        ChangeCursor();
     }
 }
 

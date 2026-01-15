@@ -34,8 +34,8 @@ public class ButtonScript : MonoBehaviour
     {
         m_levelManager = GameObject.FindObjectOfType<LevelManager>();
         m_parent = GameObject.FindGameObjectWithTag("LevelEditorManager");
+        ApplyText();
 
-        m_text.text = m_numBridges.ToString();
     }
     public void OnClick()
     {
@@ -64,6 +64,11 @@ public class ButtonScript : MonoBehaviour
         {
             m_numBridges--;
         }
+        ApplyText();
+    }
+
+    public void ApplyText()
+    {
         m_text.text = m_numBridges.ToString();
     }
 }

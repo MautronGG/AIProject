@@ -8,7 +8,7 @@ public class rotateObject : MonoBehaviour
 
     private float rotationDegrees = 5.0f;
     [SerializeField] 
-    private float secondsPerRotation = 0.1f;
+    private float secondsPerRotation = 0.05f;
     private float holdTimer = 0f;
     [SerializeField]
     private float limitRotationDegrees = 45.0f;
@@ -69,6 +69,25 @@ public class rotateObject : MonoBehaviour
     //}
     public void ChangeRotation()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (rotationActual < limitRotationDegrees)
+            {
+                transform.Rotate(0, 0, rotationDegrees);
+                rotationActual += rotationDegrees;
+            }
+        }
+
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (rotationActual > -limitRotationDegrees)
+            {
+                transform.Rotate(0, 0, -rotationDegrees);
+                rotationActual -= rotationDegrees;
+            }
+        }
+
+
         if (Input.GetKey(KeyCode.Q))
         {
             holdTimer += Time.deltaTime;
@@ -80,6 +99,7 @@ public class rotateObject : MonoBehaviour
                 holdTimer = 0f;
             }
         }
+
         else if (Input.GetKey(KeyCode.E))
         {
             holdTimer += Time.deltaTime;

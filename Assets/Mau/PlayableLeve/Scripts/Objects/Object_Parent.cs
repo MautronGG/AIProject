@@ -67,11 +67,11 @@ public class Object_Parent : MonoBehaviour
     {
         int theColor = m_cursor.color;
         m_checks = true;
-        if (m_levelManager.m_optionsCanvas.activeInHierarchy)
-        {
-            m_checks = false;
-        }
-        else if (m_levelManager.m_colorCanvas.activeInHierarchy)
+        //if (m_levelManager.m_optionsCanvas.activeInHierarchy)
+        //{
+        //    m_checks = false;
+        //}
+        if (m_levelManager.m_colorCanvas.activeInHierarchy)
         {
             m_checks = false;
         }
