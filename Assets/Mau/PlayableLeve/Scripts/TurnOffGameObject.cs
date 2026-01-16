@@ -13,6 +13,7 @@ public class TurnOffGameObject : MonoBehaviour
     {
         m_currentState = m_startingState;
         m_firstFrame = false;
+        Debug.Log(this + "Canvas Started");
         gameObject.SetActive(m_currentState);
     }
 
@@ -27,7 +28,7 @@ public class TurnOffGameObject : MonoBehaviour
         if (!m_firstFrame || m_onEditorState)
         {
             m_currentState = false;
-            Debug.Log(this + "OFF" + " , " + m_firstFrame + " , " + m_onEditorState);
+            //Debug.Log(this + "OFF" + " , " + m_firstFrame + " , " + m_onEditorState);
         }
     }
 
@@ -36,7 +37,7 @@ public class TurnOffGameObject : MonoBehaviour
         if (!m_firstFrame || m_onEditorState)
         {
             m_currentState = true;
-            Debug.Log(this + "ON" + " , " + m_firstFrame + " , " + m_onEditorState);
+            //Debug.Log(this + "ON" + " , " + m_firstFrame + " , " + m_onEditorState);
         }
     }
 

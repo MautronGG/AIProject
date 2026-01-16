@@ -4,7 +4,6 @@ public class EditorItem : MonoBehaviour
 {
     [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
     public string id;
-
     [HideInInspector] public LevelObjectData data;
 
     public EditorManager m_editor;

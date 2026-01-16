@@ -7,6 +7,7 @@ public class EditorBorderDragger : MonoBehaviour
 {
     [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
     public string id;
+    [HideInInspector] public LevelObjectData data;
 
     public enum Axis { Horizontal, Vertical }
     public Axis m_movementAxis;
@@ -120,6 +121,21 @@ public class EditorBorderDragger : MonoBehaviour
 
             m_editorManager.m_isEditing = true;
         }
+    }
+
+    public void ForceSyncData()
+    {
+        //if (data == null) return;
+        //
+        //data.position = SerializableVector3.From(transform.position);
+        //data.rotation = SerializableQuaternion.From(transform.rotation);
+        //data.scale = SerializableVector3.From(transform.localScale);
+
+        if (data == null) return;
+
+        data.position = SerializableVector3.From(transform.position);
+        data.rotation = SerializableQuaternion.From(transform.rotation);
+        data.scale = SerializableVector3.From(transform.localScale);
     }
 
 

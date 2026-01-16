@@ -102,7 +102,7 @@ public class EditorManager : MonoBehaviour
 {
     [Header("Canvas")]
     //public GameObject m_optionsCanvas;
-    public GameObject m_GlobalCanvas;
+    public GameObject m_globalVerification;
     public GameObject m_HUDCanvas;
     public GameObject m_pauseCanvas;
     public Button m_playButton;
@@ -122,8 +122,8 @@ public class EditorManager : MonoBehaviour
     public EditorSpriteFollow m_spriteFollow;
     public LevelManager m_levelManager;
 
-    public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
-    public List<GameObject> m_levelItemPrefabs = new List<GameObject>();
+    //public List<GameObject> m_editorItemPrefabs = new List<GameObject>();
+    //public List<GameObject> m_levelItemPrefabs = new List<GameObject>();
 
     public static EditorManager Instance;
 
@@ -162,7 +162,7 @@ public class EditorManager : MonoBehaviour
         foreach (ButtonSelectionTracker button in HUD)
             m_buttonSelectionTrackers.Add(button);
 
-        var global = m_GlobalCanvas.GetComponentsInChildren<ButtonSelectionTracker>();
+        var global = m_globalVerification.GetComponentsInChildren<ButtonSelectionTracker>();
         foreach (ButtonSelectionTracker button in global)
             m_buttonSelectionTrackers.Add(button);
     }
@@ -198,6 +198,7 @@ public class EditorManager : MonoBehaviour
         currentLevel.objects.Clear();
 
         var items = editorRoot.GetComponentsInChildren<EditorItem>(true);
+        var borders = editorRoot.GetComponentsInChildren<EditorBorderDragger>(true);
 
         foreach (var item in items)
         {
@@ -207,6 +208,18 @@ public class EditorManager : MonoBehaviour
             data.position = SerializableVector3.From(item.transform.position);
             data.rotation = SerializableQuaternion.From(item.transform.rotation);
             data.scale = SerializableVector3.From(item.transform.localScale);
+
+            currentLevel.objects.Add(data);
+        }
+
+        foreach (var border in borders)
+        {
+            var data = border.data;
+
+            data.id = border.id;
+            data.position = SerializableVector3.From(border.transform.position);
+            data.rotation = SerializableQuaternion.From(border.transform.rotation);
+            data.scale = SerializableVector3.From(border.transform.localScale);
 
             currentLevel.objects.Add(data);
         }
@@ -282,14 +295,16 @@ public class EditorManager : MonoBehaviour
     public void StopVerificationEvents()
     {
         var camera = Camera.main.GetComponent<CameraMovement>();
-        camera.m_canMove = true;
+        camera.ChangeMovement(true);
         camera.ResetTransform();
         camera.AutomaticMovement(false);
+        m_globalVerification.SetActive(true);
 
         foreach (TurnOffGameObject canvas in m_levelManager.m_canvases)
         {
             canvas.ResetState();
         }
+        m_levelManager.ResetDefaults();
     }
 
     void ApplyChildData(GameObject child, LevelObjectData d)

@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
 
     [Header("Canvas")]
     //public GameObject m_optionsCanvas;
+    public GameObject m_globalPause;
+    public GameObject m_globalVerification;
     public GameObject m_HUDBuildCanvas;
     public GameObject m_HUDPlayCanvas;
     public GameObject m_pauseCanvas;
@@ -86,13 +88,14 @@ public class LevelManager : MonoBehaviour
 
     public bool m_onEditorState = false;
     public GameObject m_levelCanvasesInEditor;
-    [HideInInspector] public TurnOffGameObject[] m_canvases;
+    public TurnOffGameObject[] m_canvases;
 
     private void Awake()
     {
         if (m_onEditorState)
         {
             m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
+            Debug.Log("Canvases Set");
         }
     }
 
@@ -109,7 +112,7 @@ public class LevelManager : MonoBehaviour
         if (m_onEditorState)
         { 
             Initialized();
-            m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
+            //m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
         }
     }
 
@@ -128,6 +131,9 @@ public class LevelManager : MonoBehaviour
         {
             m_currentStateCanvas.SetActive(false);
             m_camera.ChangeMovement(false);
+            m_globalVerification.SetActive(false);
+            m_globalPause.SetActive(false);
+
             if (m_reachedGoals > 0)
             {
                 m_audioManager.PlaySFX(m_audioManager.m_sfx_Win);
