@@ -10,8 +10,8 @@ public class BuildState : State
     }
     public override void onEnter()
     {
-        m_levelManager.m_restartEvents.Invoke();
         m_levelManager.m_currentStateCanvas = m_levelManager.m_HUDBuildCanvas;
+        m_levelManager.m_restartEvents.Invoke();
     }
 
     public override void onExit()

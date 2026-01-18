@@ -32,6 +32,8 @@ public class EditorItemButton : MonoBehaviour
             scale = SerializableVector3.From(editorObj.transform.localScale)
         };
 
+        //data.editorInstance = editorObj;
+
         // --- HANDLE PAIRED OBJECTS HERE ---
         if (editorObj.TryGetComponent(out EditorPairedObject paired))
         {

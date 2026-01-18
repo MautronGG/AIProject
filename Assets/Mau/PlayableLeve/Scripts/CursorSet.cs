@@ -40,6 +40,44 @@ public class CursorSet : MonoBehaviour
                 ChangeCursor();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            ChangeColor(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeColor(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeColor(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeColor(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ChangeColor(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ChangeColor(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ChangeColor(6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ChangeColor(7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            ChangeColor(8);
+        }
+
     }
     public void ChangeCursor()
     {

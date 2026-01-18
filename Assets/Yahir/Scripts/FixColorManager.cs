@@ -300,4 +300,18 @@ public class FixColorManager : MonoBehaviour
         }
         return ColorEnum.Null;
     }
+    public void ResetColors()
+    {
+        for (int i = 0; i < m_listSpriteObjects.Count; i++)
+        {
+            m_listSpriteObjects[i].m_activeWhite = true;
+            m_listSpriteObjects[i].m_activeRed = true;
+            m_listSpriteObjects[i].m_activeYellow = true;
+            m_listSpriteObjects[i].m_activeGreen = true;
+            m_listSpriteObjects[i].m_activeCyan = true;
+            m_listSpriteObjects[i].m_activeBlue = true;
+            m_listSpriteObjects[i].m_activeMagenta = true;
+            m_listSpriteObjects[i].m_activeBlack = true;
+        }
+    }
 }

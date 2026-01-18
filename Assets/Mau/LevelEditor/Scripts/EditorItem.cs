@@ -113,7 +113,12 @@ public class EditorItem : MonoBehaviour
     public void DeleteItem()
     {
         //gameObject.SetActive(false);
-        m_editor.DoAction(new DeleteAction(this));
+        var parent = transform.parent.GetComponent<EditorPairedObject>();
+        if (parent)
+            m_editor.DoAction(new DeleteAction(parent.GetComponent<EditorItem>()));
+
+        else
+            m_editor.DoAction(new DeleteAction(this));
     }
 
     public void ForceSyncData()

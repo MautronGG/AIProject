@@ -247,6 +247,9 @@ public class EditorManager : MonoBehaviour
         foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>())
             item.ForceSyncData();
 
+        foreach (var border in editorRoot.GetComponentsInChildren<EditorBorderDragger>())
+            border.ForceSyncData();
+
         //DebugDumpLevelData();
 
         foreach (Transform c in playableRoot)

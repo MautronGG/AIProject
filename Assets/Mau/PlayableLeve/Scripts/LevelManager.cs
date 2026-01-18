@@ -90,6 +90,8 @@ public class LevelManager : MonoBehaviour
     public GameObject m_levelCanvasesInEditor;
     public TurnOffGameObject[] m_canvases;
 
+    public FixColorManager m_fixColorManager;
+
     private void Awake()
     {
         if (m_onEditorState)
@@ -97,6 +99,7 @@ public class LevelManager : MonoBehaviour
             m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
             Debug.Log("Canvases Set");
         }
+        m_fixColorManager = GetComponent<FixColorManager>();
     }
 
     private void Start()
@@ -104,7 +107,9 @@ public class LevelManager : MonoBehaviour
         if (!m_onEditorState)
         {
             Initialized();
+            CheckColors();
         }
+        m_fixColorManager = GetComponent<FixColorManager>();
     }
 
     private void OnEnable()
@@ -112,6 +117,7 @@ public class LevelManager : MonoBehaviour
         if (m_onEditorState)
         { 
             Initialized();
+            CheckColors();
             //m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
         }
     }
@@ -131,8 +137,11 @@ public class LevelManager : MonoBehaviour
         {
             m_currentStateCanvas.SetActive(false);
             m_camera.ChangeMovement(false);
-            m_globalVerification.SetActive(false);
-            m_globalPause.SetActive(false);
+            if (m_onEditorState)
+            {
+                m_globalVerification.SetActive(false);
+                m_globalPause.SetActive(false);
+            }
 
             if (m_reachedGoals > 0)
             {
@@ -189,6 +198,8 @@ public class LevelManager : MonoBehaviour
         m_objects = FindObjectsOfType<Object_Parent>();
         m_doors = FindObjectsOfType<Object_FinalDoor>();
 
+
+
         m_playEvents.AddListener(() =>
         {
             m_Red.EnableMovement(true);
@@ -211,7 +222,7 @@ public class LevelManager : MonoBehaviour
 
         m_resetButton.onClick.AddListener(() =>
         {
-            m_myFSM.SetState(m_myFSM.m_onEditorState);
+            m_myFSM.SetState(m_myFSM.m_onBuildState);
         });
         m_restartEvents.AddListener(() =>
         {
@@ -296,6 +307,9 @@ public class LevelManager : MonoBehaviour
         m_reachedGoals = 0;
         m_playerEnded = 0;
         m_canPlay = false;
+        if (m_onEditorState)
+            m_fixColorManager.ResetColors();
+
     }
 
     public void CantChangeColor()

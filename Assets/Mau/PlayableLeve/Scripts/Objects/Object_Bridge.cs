@@ -41,6 +41,10 @@ public class Object_Bridge : Object_Parent
                 PickUp();
                 m_levelManager.m_currentStateCanvas.SetActive(false);
             }
+            if (Input.GetMouseButtonDown(1) && m_checks)
+            {
+                Delete();
+            }
         }
         
     }
@@ -66,8 +70,8 @@ public class Object_Bridge : Object_Parent
     public void Delete()
     {
         m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_RemoveBridge);
-        m_fixColorManager.getSprite(7, m_object, actualColor);
-        actualColor = m_fixColorManager.getLastColor(m_object);
+        m_levelManager.m_fixColorManager.getSprite(7, m_object, actualColor);
+        actualColor = m_levelManager.m_fixColorManager.getLastColor(m_object);
         Destroy(gameObject);
     }
     public void PickUp()

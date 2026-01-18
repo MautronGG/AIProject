@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class FSM : MonoBehaviour
 {
-  public State m_onEditorState;
+  public State m_onBuildState;
   public State m_onPlayState;
   public State m_currentState;
 
   // Start is called before the first frame update
   void Start()
   {
-    m_onEditorState = gameObject.AddComponent<BuildState>();
+    m_onBuildState = gameObject.AddComponent<BuildState>();
     m_onPlayState = gameObject.AddComponent<PlayState>();
-    m_onEditorState.SetFSM(this);
+    m_onBuildState.SetFSM(this);
     m_onPlayState.SetFSM(this);
-    m_currentState = m_onEditorState;
+    m_currentState = m_onBuildState;
     m_currentState.onEnter();
   }
 

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_canClick: 1
   m_fixColorManager: {fileID: 0}
   m_cursor: {fileID: 0}
-  m_object: 0
+  m_object: 6
   otherObject: {fileID: 0}
   doubleSprites: []
   actualColor: 7
