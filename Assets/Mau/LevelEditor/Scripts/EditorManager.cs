@@ -79,24 +79,32 @@ public class DeleteAction : IEditorAction
 public class CreateObjectAction : IEditorAction
 {
     private LevelObjectData data;
+    private EditorManager manager;
 
     public CreateObjectAction(LevelObjectData data)
     {
         this.data = data;
+        this.manager = EditorManager.Instance;
     }
 
     public void Undo()
     {
+        manager.currentLevel.objects.Remove(data);
+
         if (data.editorInstance != null)
             data.editorInstance.SetActive(false);
     }
 
     public void Redo()
     {
+        if (!manager.currentLevel.objects.Contains(data))
+            manager.currentLevel.objects.Add(data);
+
         if (data.editorInstance != null)
             data.editorInstance.SetActive(true);
     }
 }
+
 
 public class EditorManager : MonoBehaviour
 {

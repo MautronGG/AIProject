@@ -32,7 +32,7 @@ public class EditorItemButton : MonoBehaviour
             scale = SerializableVector3.From(editorObj.transform.localScale)
         };
 
-        //data.editorInstance = editorObj;
+        data.editorInstance = editorObj;
 
         // --- HANDLE PAIRED OBJECTS HERE ---
         if (editorObj.TryGetComponent(out EditorPairedObject paired))
@@ -64,7 +64,7 @@ public class EditorItemButton : MonoBehaviour
         item.id = objectId;
         item.data = data;
 
-        manager.currentLevel.objects.Add(data);
+        //manager.currentLevel.objects.Add(data);
 
         // --- Start dragging ---
         item.PickUp();
