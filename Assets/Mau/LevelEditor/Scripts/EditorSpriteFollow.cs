@@ -16,7 +16,8 @@ public class EditorSpriteFollow : MonoBehaviour
 
     private Vector3 m_colliderOffset;
 
-    public Vector3 m_lastValidPosition;
+    public Vector3 m_lastValidWorldPosition;
+    public Vector3 m_lastValidLocalPosition;
     //public GameObject m_child;
 
     private void Awake()

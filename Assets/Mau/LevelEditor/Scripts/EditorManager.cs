@@ -23,28 +23,52 @@ public interface IEditorAction
 public class MoveAction : IEditorAction
 {
     private LevelObjectData data;
+
+    Transform targetTransform;
+
     private Vector3 oldPos;
     private Vector3 newPos;
 
-    public MoveAction(LevelObjectData data, Vector3 oldPos, Vector3 newPos)
+    bool useLocalSpace;
+
+    public MoveAction(LevelObjectData data, Transform targetTransform, Vector3 oldPos, Vector3 newPos, bool useLocalSpace)
     {
         this.data = data;
+        this.targetTransform = targetTransform;
         this.oldPos = oldPos;
         this.newPos = newPos;
+        this.useLocalSpace = useLocalSpace;
     }
 
     public void Undo()
     {
-        data.position = SerializableVector3.From(oldPos);
-        if (data.editorInstance)
-            data.editorInstance.transform.position = oldPos;
+        //data.position = SerializableVector3.From(oldPos);
+        //if (data.editorInstance)
+        //    data.editorInstance.transform.position = oldPos;
+
+        Apply(oldPos);
     }
 
     public void Redo()
     {
-        data.position = SerializableVector3.From(newPos);
-        if (data.editorInstance)
-            data.editorInstance.transform.position = newPos;
+        //data.position = SerializableVector3.From(newPos);
+        //if (data.editorInstance)
+        //    data.editorInstance.transform.position = newPos;
+
+        Apply(newPos);
+    }
+
+    private void Apply(Vector3 pos)
+    {
+        data.position = SerializableVector3.From(pos);
+
+        if (targetTransform == null)
+            return;
+
+        if (useLocalSpace)
+            targetTransform.localPosition = pos;
+        else
+            targetTransform.position = pos;
     }
 }
 
@@ -169,13 +193,13 @@ public class EditorManager : MonoBehaviour
     private void Start()
     {
         InitializeEditorObjects();
-        var HUD = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>();
-        foreach (ButtonSelectionTracker button in HUD)
-            m_buttonSelectionTrackers.Add(button);
+        //var HUD = m_HUDCanvas.GetComponentsInChildren<ButtonSelectionTracker>();
+        //foreach (ButtonSelectionTracker button in HUD)
+        //    m_buttonSelectionTrackers.Add(button);
 
-        var global = m_globalVerification.GetComponentsInChildren<ButtonSelectionTracker>();
-        foreach (ButtonSelectionTracker button in global)
-            m_buttonSelectionTrackers.Add(button);
+        //var global = m_globalVerification.GetComponentsInChildren<ButtonSelectionTracker>();
+        //foreach (ButtonSelectionTracker button in global)
+        //    m_buttonSelectionTrackers.Add(button);
     }
 
     public ObjectPrefabEntry GetPrefab(string id) => prefabLookup[id];

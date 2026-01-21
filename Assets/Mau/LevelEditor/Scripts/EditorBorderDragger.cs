@@ -138,6 +138,20 @@ public class EditorBorderDragger : MonoBehaviour
         data.scale = SerializableVector3.From(transform.localScale);
     }
 
+    bool CanInteract()
+    {
+        if (m_editorManager.currentMode != EditorMode.Edit) return false;
+        if (m_editorManager.m_isEditing) return false;
+        //if (m_editor.m_optionsCanvas.activeInHierarchy) return false;
+        if (m_editorManager.m_pauseCanvas.activeInHierarchy) return false;
+
+        foreach (var button in m_editorManager.m_buttonSelectionTrackers)
+            if (button.IsSelected) return false;
+
+        return true;
+    }
+
+
 
 
     //private void Update()
