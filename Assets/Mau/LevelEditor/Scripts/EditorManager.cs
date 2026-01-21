@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -81,6 +81,7 @@ public class CreateObjectAction : IEditorAction
     private LevelObjectData data;
     private EditorManager manager;
 
+
     public CreateObjectAction(LevelObjectData data)
     {
         this.data = data;
@@ -151,6 +152,8 @@ public class EditorManager : MonoBehaviour
 
     public EditorMode currentMode = EditorMode.Edit;
 
+    public AudioManager m_audioManager;
+
     private void Awake()
     {
         Instance = this;
@@ -183,6 +186,8 @@ public class EditorManager : MonoBehaviour
         action.Redo();
         undoStack.Push(action);
         redoStack.Clear();
+
+        PrintUndoStack();
     }
 
     public void Undo()
@@ -208,20 +213,11 @@ public class EditorManager : MonoBehaviour
         var items = editorRoot.GetComponentsInChildren<EditorItem>(true);
         var borders = editorRoot.GetComponentsInChildren<EditorBorderDragger>(true);
 
-        foreach (var item in items)
-        {
-            var data = item.data;
-
-            data.id = item.id;
-            data.position = SerializableVector3.From(item.transform.position);
-            data.rotation = SerializableQuaternion.From(item.transform.rotation);
-            data.scale = SerializableVector3.From(item.transform.localScale);
-
-            currentLevel.objects.Add(data);
-        }
-
         foreach (var border in borders)
         {
+            if(border.data == null)
+                border.data = new LevelObjectData();
+
             var data = border.data;
 
             data.id = border.id;
@@ -229,8 +225,28 @@ public class EditorManager : MonoBehaviour
             data.rotation = SerializableQuaternion.From(border.transform.rotation);
             data.scale = SerializableVector3.From(border.transform.localScale);
 
+            data.editorInstance = border.gameObject;
+
             currentLevel.objects.Add(data);
         }
+
+        foreach (var item in items)
+        {
+            if (item.data == null)
+                item.data = new LevelObjectData();
+
+            var data = item.data;
+
+            data.id = item.id;
+            data.position = SerializableVector3.From(item.transform.position);
+            data.rotation = SerializableQuaternion.From(item.transform.rotation);
+            data.scale = SerializableVector3.From(item.transform.localScale);
+
+            data.editorInstance = item.gameObject;
+
+            currentLevel.objects.Add(data);
+        }
+
     }
 
     public void Pause()
@@ -275,6 +291,12 @@ public class EditorManager : MonoBehaviour
             
             obj.transform.localScale = data.scale.ToVector3();
 
+            if (obj.TryGetComponent(out MinionMovement minion))
+            {
+                minion.CaptureSpawnPosition();
+                minion.m_defaultPositionedInitialized = true;
+            }
+
             if (data.children != null && data.children.Count > 0)
             {
                 var paired = obj.GetComponent<LevelPairedObject>();
@@ -289,6 +311,8 @@ public class EditorManager : MonoBehaviour
 
         m_levelBridgeCounter.m_numBridges = m_editorBridgeCounter.m_numBridges;
         m_levelBridgeCounter.ApplyText();
+
+        m_levelManager.Initialized();
     }
 
     public void StopVerification()
@@ -343,4 +367,32 @@ public class EditorManager : MonoBehaviour
             }
         }
     }
+
+    string ActionToString(IEditorAction action)
+    {
+        if (action is CreateObjectAction) return "CreateObjectAction";
+        if (action is MoveAction) return "MoveAction";
+        if (action is DeleteAction) return "DeleteAction";
+
+        return action.GetType().Name;
+    }
+
+    void PrintUndoStack()
+    {
+        Debug.Log("=== UNDO STACK (top → bottom) ===");
+
+        if (undoStack.Count == 0)
+        {
+            Debug.Log("(empty)");
+            return;
+        }
+
+        int i = 0;
+        foreach (var action in undoStack)
+        {
+            Debug.Log($"[{i}] {ActionToString(action)}");
+            i++;
+        }
+    }
+
 }

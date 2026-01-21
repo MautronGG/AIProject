@@ -35,7 +35,7 @@ public class CameraMovement : MonoBehaviour
         m_borders = FindFirstObjectByType<EditorBorderManager>();
         m_camera = GetComponent<Camera>();
         ChangeMinion();
-        transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, transform.position.z);
+        transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
         //m_xValue *= 1.2f;
         //m_yValue *= 1.2f;
     }

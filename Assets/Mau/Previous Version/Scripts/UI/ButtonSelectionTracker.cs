@@ -59,7 +59,11 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
             if (IsSelected && Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Button Clicked: " + gameObject.name);
-                m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_ButtonClick);
+                if (m_levelManager)
+                    m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_ButtonClick);
+
+                else if (m_editorManager)
+                    m_editorManager.m_audioManager.PlaySFX(m_editorManager.m_audioManager.m_sfx_ButtonClick);
             }
         }
         else

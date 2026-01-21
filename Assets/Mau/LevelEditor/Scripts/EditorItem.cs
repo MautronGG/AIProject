@@ -4,7 +4,10 @@ public class EditorItem : MonoBehaviour
 {
     [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
     public string id;
+
     [HideInInspector] public LevelObjectData data;
+
+    public bool m_isNewlyCreated = true;
 
     public EditorManager m_editor;
 
@@ -13,7 +16,6 @@ public class EditorItem : MonoBehaviour
     public bool m_canDelete = true;
 
     public bool m_canClick = true;
-    public bool m_created = true;
 
     EditorSpriteFollow m_spriteFollow;
 
@@ -90,14 +92,7 @@ public class EditorItem : MonoBehaviour
         Vector3 oldPos = m_spriteFollow.m_lastValidPosition;
         Vector3 newPos = transform.position;
 
-        if (m_created)
-        {
-            m_editor.DoAction(new CreateObjectAction(data));
-            m_created = false;
-            return;
-        }
-
-        if (oldPos != newPos)
+        if (oldPos != newPos && !m_isNewlyCreated)
         {
             m_editor.DoAction(
                 new MoveAction(
@@ -107,6 +102,19 @@ public class EditorItem : MonoBehaviour
                     newPos
                 )
             );
+        }
+
+        if (m_isNewlyCreated)
+        {
+            m_isNewlyCreated = false;
+            if (TryGetComponent(out EditorPairedObject paired))
+            {
+                if (paired.m_childA.TryGetComponent(out EditorItem childA))
+                    childA.m_isNewlyCreated = false;
+
+                if (paired.m_childB.TryGetComponent(out EditorItem childB))
+                    childB.m_isNewlyCreated = false;
+            }
         }
     }
 

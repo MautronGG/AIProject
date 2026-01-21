@@ -107,20 +107,18 @@ public class LevelManager : MonoBehaviour
         if (!m_onEditorState)
         {
             Initialized();
-            CheckColors();
         }
         m_fixColorManager = GetComponent<FixColorManager>();
     }
 
-    private void OnEnable()
-    {
-        if (m_onEditorState)
-        { 
-            Initialized();
-            CheckColors();
-            //m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
-        }
-    }
+    //private void OnEnable()
+    //{
+    //    if (m_onEditorState)
+    //    { 
+    //        Initialized();
+    //        //m_canvases = m_levelCanvasesInEditor.GetComponentsInChildren<TurnOffGameObject>();
+    //    }
+    //}
 
     private void Update()
     {
@@ -188,7 +186,7 @@ public class LevelManager : MonoBehaviour
         m_currentStateCanvas.SetActive(true);
         m_pauseCanvas.SetActive(false);
     }
-    protected void Initialized()
+    public void Initialized()
     {
         Time.timeScale = 1.0f;
         if (!m_myFSM) m_myFSM = GetComponent<FSM>();
@@ -197,8 +195,6 @@ public class LevelManager : MonoBehaviour
         m_Blue = FindWithTagAndLayer("Player", 10).GetComponent<MinionMovement>();
         m_objects = FindObjectsOfType<Object_Parent>();
         m_doors = FindObjectsOfType<Object_FinalDoor>();
-
-
 
         m_playEvents.AddListener(() =>
         {
@@ -300,6 +296,9 @@ public class LevelManager : MonoBehaviour
         if (m_audioManager) m_audioManager.PlayMusic(m_audioManager.m_music_Gameplay);
         if (!m_sprayPrefab) m_sprayPrefab = Resources.Load("Prefabs/SprayEffect") as GameObject;
         if (!m_camera) m_camera = FindObjectOfType<CameraMovement>();
+
+        CheckColors();
+        m_myFSM.StartFSM();
     }
 
     public void ResetDefaults()

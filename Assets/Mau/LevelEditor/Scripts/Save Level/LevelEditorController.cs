@@ -13,6 +13,7 @@ public class LevelEditorController : MonoBehaviour
     public void SaveCurrentLevel(string filename)
     {
         var level = EditorManager.Instance.currentLevel;
+        level.bridges = EditorManager.Instance.m_editorBridgeCounter.m_numBridges;
         level.levelName = filename;
         SaveLoadManager.SaveLevel(level, filename);
     }

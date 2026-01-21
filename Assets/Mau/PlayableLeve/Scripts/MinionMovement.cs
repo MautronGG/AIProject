@@ -5,6 +5,7 @@ using UnityEngine;
 public class MinionMovement : MonoBehaviour
 {
     public Vector3 m_defaultPosition;
+    public bool m_defaultPositionedInitialized = false;
 
     [HideInInspector] public bool m_portaled = false;
     [HideInInspector] public float m_portalTime = 0f;
@@ -58,7 +59,9 @@ public class MinionMovement : MonoBehaviour
         m_collider = GetComponent<CircleCollider2D>();
         m_fallTimeoutDelta = m_fallTimeout;
         m_levelManager = FindObjectOfType<LevelManager>();
-        m_defaultPosition = transform.position;
+
+        if (!m_defaultPositionedInitialized)
+            m_defaultPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -375,7 +378,6 @@ public class MinionMovement : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-
         if (list.Contains(collision.gameObject))
         {
             int index = list.IndexOf(collision.gameObject);
@@ -507,6 +509,11 @@ public class MinionMovement : MonoBehaviour
         m_colliders.Add(collision);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision, true);
         StartCoroutine(DeathCountdown(this.gameObject));
+    }
+
+    public void CaptureSpawnPosition()
+    {
+        m_defaultPosition = transform.position;
     }
     //private void OnDrawGizmosSelected()
     //{

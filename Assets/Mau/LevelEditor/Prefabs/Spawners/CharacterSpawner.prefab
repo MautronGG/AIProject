@@ -32,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7255074872463153652}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,6 +134,7 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &7929015060761494100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,42 +147,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
+  data:
+    id: 
+    position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+    children: []
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
   m_canDelete: 0
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
   m_canClick: 1
---- !u!1 &3117256538974526905
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7255074872463153652}
-  m_Layer: 6
-  m_Name: CarryPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7255074872463153652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3117256538974526905}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9172156548873756209}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_created: 1

@@ -4158,7 +4158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036695851941947190, guid: 18c556e9df101f64e921b1a6ede53a36, type: 3}
       propertyPath: m_numBridges
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4036695851941947211, guid: 18c556e9df101f64e921b1a6ede53a36, type: 3}
       propertyPath: m_Sprite
