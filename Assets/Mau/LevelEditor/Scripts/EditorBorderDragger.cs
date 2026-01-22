@@ -60,60 +60,60 @@ public class EditorBorderDragger : MonoBehaviour
 
     private void OnMouseOver()
     {
-        m_checks = true;
-        //if (m_editorManager.m_optionsCanvas.activeInHierarchy)
+        //m_checks = true;
+        ////if (m_editorManager.m_optionsCanvas.activeInHierarchy)
+        ////{
+        ////    m_checks = false;
+        ////}
+        //////else if (!m_editor.m_colorCanvas.activeInHierarchy)
+        ////{
+        ////  m_checks = false;
+        ////}
+        //////else if (!m_editor.m_winCanvas.activeInHierarchy)
+        ////{
+        ////  m_checks = false;
+        ////}
+        //////else if (!m_editor.m_gameOverCanvas.activeInHierarchy)
+        ////{
+        ////  m_checks = false;
+        ////}
+        //////else if (!m_editor.m_controlCanvas.activeInHierarchy)
+        ////{
+        ////  m_checks = false;
+        ////}
+        ////else if (!m_canOpenOptions)
+        ////{
+        ////    m_checks = false;
+        ////}
+        //if (m_editorManager.m_isEditing)
         //{
         //    m_checks = false;
         //}
-        ////else if (!m_editor.m_colorCanvas.activeInHierarchy)
-        //{
-        //  m_checks = false;
-        //}
-        ////else if (!m_editor.m_winCanvas.activeInHierarchy)
-        //{
-        //  m_checks = false;
-        //}
-        ////else if (!m_editor.m_gameOverCanvas.activeInHierarchy)
-        //{
-        //  m_checks = false;
-        //}
-        ////else if (!m_editor.m_controlCanvas.activeInHierarchy)
-        //{
-        //  m_checks = false;
-        //}
-        //else if (!m_canOpenOptions)
+        //else if (m_editorManager.m_playButton.GetComponent<ButtonSelectionTracker>().IsSelected)
         //{
         //    m_checks = false;
         //}
-        if (m_editorManager.m_isEditing)
-        {
-            m_checks = false;
-        }
-        else if (m_editorManager.m_playButton.GetComponent<ButtonSelectionTracker>().IsSelected)
-        {
-            m_checks = false;
-        }
-        ////else if (!m_editor.m_bridgeButton.GetComponent<ButtonSelectionTracker>().IsSelected)
+        //////else if (!m_editor.m_bridgeButton.GetComponent<ButtonSelectionTracker>().IsSelected)
+        ////{
+        ////  m_checks = false;
+        ////}
+        //else if (m_editorManager.m_pauseCanvas.activeInHierarchy)
         //{
-        //  m_checks = false;
+        //    m_checks = false;
         //}
-        else if (m_editorManager.m_pauseCanvas.activeInHierarchy)
-        {
-            m_checks = false;
-        }
-        if (m_checks)
-        {
-            foreach (ButtonSelectionTracker bst in m_editorManager.m_buttonSelectionTrackers)
-            {
-                if (bst.IsSelected)
-                {
-                    m_checks = false;
-                    break;
-                }
-            }
-        }
+        //if (m_checks)
+        //{
+        //    foreach (ButtonSelectionTracker bst in m_editorManager.m_buttonSelectionTrackers)
+        //    {
+        //        if (bst.IsSelected)
+        //        {
+        //            m_checks = false;
+        //            break;
+        //        }
+        //    }
+        //}
 
-        if (Input.GetMouseButtonDown(0) && m_checks && !m_isDragging)
+        if (Input.GetMouseButtonDown(0) && CanInteract() && !m_isDragging)
         {
             m_lastMouseWorld = GetMouseWorld();
 

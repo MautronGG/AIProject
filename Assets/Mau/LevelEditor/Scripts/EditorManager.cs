@@ -11,7 +11,8 @@ using Unity.VisualScripting;
 public enum EditorMode
 {
     Edit,
-    Verify
+    Verify,
+    Publishing
 }
 
 public interface IEditorAction
@@ -141,6 +142,7 @@ public class EditorManager : MonoBehaviour
     public Button m_playButton;
     public ButtonScript m_editorBridgeCounter;
     public ButtonScript m_levelBridgeCounter;
+    public GameObject m_publishingCanvas;
     //public GameObject m_typeButtons;
     //public GameObject m_ObjectsButtons;
 
@@ -329,6 +331,9 @@ public class EditorManager : MonoBehaviour
                 ApplyChildData(paired.m_childB, data.children[1]);
             }
         }
+
+        currentMode = EditorMode.Verify;
+
         editorRoot.gameObject.SetActive(false);
         playableRoot.gameObject.SetActive(true);
         m_levelManager.gameObject.SetActive(true);
@@ -345,6 +350,8 @@ public class EditorManager : MonoBehaviour
             Destroy(c.gameObject);
 
         StopVerificationEvents();
+
+        currentMode = EditorMode.Edit;
 
         playableRoot.gameObject.SetActive(false);
         m_levelManager.gameObject.SetActive(false);

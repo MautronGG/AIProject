@@ -13,6 +13,8 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
     EditorManager m_editorManager;
     Button button;
 
+    public bool m_interactable = true;
+
     bool m_onLevel = true;
     private void Start()
     {
@@ -49,6 +51,16 @@ public class ButtonSelectionTracker : MonoBehaviour, IPointerEnterHandler, IPoin
         //{
         //    IsSelected = false;
         //}
+
+        if (m_interactable != button.interactable)
+        {
+            button.interactable = m_interactable;
+            if (!m_interactable)
+            {
+                IsSelected = false;
+            }
+        }
+
         if (m_onLevel)
         {
 
