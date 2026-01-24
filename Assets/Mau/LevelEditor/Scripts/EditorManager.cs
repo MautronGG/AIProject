@@ -171,7 +171,7 @@ public class EditorManager : MonoBehaviour
 
     public LevelData currentLevel = new();
 
-    private Dictionary<string, ObjectPrefabEntry> prefabLookup;
+    public Dictionary<string, ObjectPrefabEntry> prefabLookup;
 
     private Stack<IEditorAction> undoStack = new();
     private Stack<IEditorAction> redoStack = new();

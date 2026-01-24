@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class LevelEditorController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class LevelEditorController : MonoBehaviour
         }
 
         // Step 5: Press K → save
-        if (isWaitingForName && (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Return)))
+        if (isWaitingForName && Input.GetKeyDown(KeyCode.Return))
         {
             ConfirmSave();
         }
@@ -52,7 +53,7 @@ public class LevelEditorController : MonoBehaviour
         SaveLoadManager.SaveLevel(level, filename);
     }
 
-    void OpenSaveInput()
+    public void OpenSaveInput()
     {
         Camera.main.GetComponent<CameraMovement>().m_canMove = false;
         m_editorManager.currentMode = EditorMode.Publishing;
@@ -69,10 +70,10 @@ public class LevelEditorController : MonoBehaviour
         m_editorManager.m_isEditing = true;
 
         m_editorManager.m_HUDCanvas.SetActive(false);
-        m_editorManager.m_globalVerification.SetActive(false);
+        m_editorManager.m_globalVerification.SetActive(false); 
     }
 
-    void ConfirmSave()
+    public void ConfirmSave()
     {
         string filename = levelNameInput.text.Trim();
 
@@ -84,10 +85,10 @@ public class LevelEditorController : MonoBehaviour
 
         SaveCurrentLevel(filename);
 
-        CloseSaveInput();
+        CloseSaveInput(); 
     }
 
-    void CloseSaveInput()
+    public void CloseSaveInput()
     {
         isWaitingForName = false;
 
@@ -98,6 +99,8 @@ public class LevelEditorController : MonoBehaviour
 
         m_editorManager.m_HUDCanvas.SetActive(true);
         m_editorManager.m_globalVerification.SetActive(true);
-    }
 
+        levelNameInput.text = "NewLevel";
+        levelNameInput.MoveTextEnd(false);
+    }
 }
