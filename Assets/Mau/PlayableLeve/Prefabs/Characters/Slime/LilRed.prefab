@@ -128,7 +128,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 4029010001505518036}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b7f8c812ba98ca449be6e5af28d076a5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_defaultPositionedInitialized: 0
   m_portaled: 0
   m_portalTime: 0
   m_carryPos: {fileID: 1939428257218609159}

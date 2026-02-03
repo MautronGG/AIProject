@@ -11,6 +11,16 @@ public class CameraMovement : MonoBehaviour
     public bool m_autoMove = false;
     public bool m_restrictedMove = true;
 
+    [SerializeField] bool m_restrictedRight = false;
+    [SerializeField] bool m_restrictedLeft = false;
+    [SerializeField] bool m_restrictedTop = false;
+    [SerializeField] bool m_restrictedBottom = false;
+
+    //[SerializeField] bool m_overBorderRight = false;
+    //[SerializeField] bool m_overBorderLeft = false;
+    //[SerializeField] bool m_overBorderTop = false;
+    //[SerializeField] bool m_overBorderBottom = false;
+
     [SerializeField] float m_panSpeed = 0.5f;
     Vector3 m_panOrigin;
 
@@ -27,24 +37,28 @@ public class CameraMovement : MonoBehaviour
     public GameObject m_viggenette;
     public bool m_canQEZoom = true;
 
+    Vector3 desiredPosition;
+
+
     private void Start()
     {
+        m_camera = GetComponent<Camera>();
+        m_borders = FindFirstObjectByType<EditorBorderManager>();
         m_panSpeed = 0.5f;
         m_speed = m_defaultSpeed;
         m_defaultPosition = transform.position;
-        m_borders = FindFirstObjectByType<EditorBorderManager>();
-        m_camera = GetComponent<Camera>();
         ChangeMinion();
         if (m_minion)
-            transform.position = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
+            desiredPosition = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
 
-        //m_xValue *= 1.2f;
-        //m_yValue *= 1.2f;
+        transform.position = desiredPosition;
     }
     // Update is called once per frame
     void Update()
     {
-        if (m_canMove)
+        desiredPosition = transform.position;
+
+        if (m_canMove && !m_autoMove)
         {
             m_speed = m_defaultSpeed;
 
@@ -59,37 +73,24 @@ public class CameraMovement : MonoBehaviour
 
             m_speed += (m_camera.orthographicSize);
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) && !m_restrictedRight)
             {
                 transform.position += new Vector3(1f, 0f, 0f) * Time.deltaTime * m_speed ;
-                //if (m_restrictedMove && transform.position.x >= m_borders.m_rightBorder.transform.position.x - m_xValue)
-                //{
-                //    transform.position = new Vector3(m_borders.m_rightBorder.transform.position.x - m_xValue, transform.position.y, transform.position.z);
-                //}
+
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && !m_restrictedLeft)
             {
                 transform.position += new Vector3(-1f, 0f, 0f) * Time.deltaTime * m_speed;
-                //if (m_restrictedMove && transform.position.x <= m_borders.m_leftBorder.transform.position.x + m_xValue)
-                //{
-                //    transform.position = new Vector3(m_borders.m_leftBorder.transform.position.x + m_xValue, transform.position.y, transform.position.z);
-                //}
+
             }
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) && !m_restrictedTop)
             {
                 transform.position += new Vector3(0f, 1f, 0f) * Time.deltaTime * m_speed;
-                //if (m_restrictedMove && transform.position.y >= m_borders.m_topBorder.transform.position.y - m_yValue)
-                //{
-                //    transform.position = new Vector3(transform.position.x, m_borders.m_topBorder.transform.position.y - m_yValue, transform.position.z);
-                //}
+
             }   
-            if (Input.GetKey(KeyCode.S))    
+            if (Input.GetKey(KeyCode.S) && !m_restrictedBottom)    
             {
                 transform.position += new Vector3(0f, -1f, 0f) * Time.deltaTime * m_speed;
-                //if (m_restrictedMove && transform.position.y <= m_borders.m_bottomBorder.transform.position.y + m_yValue)
-                //{
-                //    transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
-                //}
             }
 
             if (Input.GetMouseButtonDown(2))
@@ -191,26 +192,55 @@ public class CameraMovement : MonoBehaviour
     }
     public void ClampPosition()
     {
-
         if (!m_restrictedMove) return;
 
         if (transform.position.x >= m_borders.m_rightBorder.transform.position.x - m_xValue)
         {
-            transform.position = new Vector3(m_borders.m_rightBorder.transform.position.x - m_xValue, transform.position.y, transform.position.z);
+            //transform.position = new Vector3(m_borders.m_rightBorder.transform.position.x - m_xValue, transform.position.y, transform.position.z);
+            m_restrictedRight = true;
+            //m_overBorderRight = true;
         }
-        if (transform.position.x <= m_borders.m_leftBorder.transform.position.x + m_xValue)
+        else
         {
-            transform.position = new Vector3(m_borders.m_leftBorder.transform.position.x + m_xValue, transform.position.y, transform.position.z);
-        }
-        if (transform.position.y >= m_borders.m_topBorder.transform.position.y - m_yValue)
-        {
-            transform.position = new Vector3(transform.position.x, m_borders.m_topBorder.transform.position.y - m_yValue, transform.position.z);
-        }
-        if (transform.position.y <= m_borders.m_bottomBorder.transform.position.y + m_yValue)
-        {
-            transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
+            m_restrictedRight = false;
+            //m_overBorderRight = false;
         }
 
+        if (transform.position.x <= m_borders.m_leftBorder.transform.position.x + m_xValue)
+        {
+            //transform.position = new Vector3(m_borders.m_leftBorder.transform.position.x + m_xValue, transform.position.y, transform.position.z);
+            m_restrictedLeft = true;
+            //m_overBorderLeft = true;
+        }
+        else
+        {
+            m_restrictedLeft = false;
+            //m_overBorderLeft = false;
+        }
+
+        if (transform.position.y >= m_borders.m_topBorder.transform.position.y - m_yValue)
+        {
+            //transform.position = new Vector3(transform.position.x, m_borders.m_topBorder.transform.position.y - m_yValue, transform.position.z);
+            m_restrictedTop = true;
+            //m_overBorderTop = true;
+        }
+        else
+        {
+            m_restrictedTop = false;
+            //m_overBorderTop = false;
+        }
+
+        if (transform.position.y <= m_borders.m_bottomBorder.transform.position.y + m_yValue)
+        {
+            //transform.position = new Vector3(transform.position.x, m_borders.m_bottomBorder.transform.position.y + m_yValue, transform.position.z);
+            m_restrictedBottom = true;
+            //m_overBorderBottom = true;
+        }
+        else
+        {
+            m_restrictedBottom = false;
+            //m_overBorderBottom = false;
+        }
     }
 
     public void ChangeMinion()
