@@ -229,6 +229,11 @@ public class LoadLevelInEditor : MonoBehaviour
     [Header("Button Settings")]
     [SerializeField] LoadTarget defaultButtonTarget = LoadTarget.Editor;
 
+    [Header("Editor Manager")]
+    [SerializeField] GameObject editorManagerObj;
+    [SerializeField] EditorManager editorManager;
+    [SerializeField] EditorBorderManager editorBorderManager;
+
     void Start()
     {
         editorSceneName = "Editor_Default";
@@ -264,13 +269,14 @@ public class LoadLevelInEditor : MonoBehaviour
         editorParent = GameObject.FindGameObjectWithTag("EditorParent")?.transform;
         levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager")?.transform;
 
-        GameObject editorManagerObj = GameObject.FindGameObjectWithTag("EditorManager");
+        editorManagerObj = GameObject.FindGameObjectWithTag("EditorManager");
         if (editorManagerObj != null)
         {
-            EditorManager em = editorManagerObj.GetComponent<EditorManager>();
-            if (em != null && em.objectPrefabs != null)
+            editorManager = editorManagerObj.GetComponent<EditorManager>();
+            editorBorderManager = editorManagerObj.GetComponent<EditorBorderManager>();
+            if (editorManager != null && editorManager.objectPrefabs != null)
             {
-                prefabEntries = em.objectPrefabs;
+                prefabEntries = editorManager.objectPrefabs;
                 BuildPrefabLookup();
             }
         }
@@ -347,6 +353,19 @@ public class LoadLevelInEditor : MonoBehaviour
                 ApplyChildTransform(paired.m_childB.transform, data.children[1]);
             }
         }
+
+        foreach (var data in levelData.voids)
+        {
+            if (!prefabLookup.TryGetValue(data.id, out var entry))
+                continue;
+
+            GameObject prefab = entry.playablePrefab;
+            if (prefab == null)
+                continue;
+
+            GameObject instance = Instantiate(prefab, levelParent);
+            ApplyVoidTransform(instance.transform, data);
+        }
     }
 
     // ─────────────────────────────────────────────
@@ -380,6 +399,42 @@ public class LoadLevelInEditor : MonoBehaviour
                 ApplyChildTransform(paired.m_childB.transform, data.children[1]);
             }
         }
+
+        foreach (var data in levelData.voids)
+        {
+            if (!prefabLookup.TryGetValue(data.id, out var entry))
+                continue;
+
+            GameObject prefab = entry.editorPrefab;
+            if (prefab == null)
+                continue;
+
+            GameObject instance = Instantiate(prefab, editorParent);
+            ApplyVoidTransform(instance.transform, data);
+
+            EditorBorderDragger dragger = instance.GetComponent<EditorBorderDragger>();
+            if (dragger != null)
+            {
+                dragger.id = data.id;
+                dragger.data = data;
+                dragger.m_maxCells = data.maxCells;
+                dragger.m_cellsRemainingToMax = data.cellsRemainingToMax;
+                dragger.m_cellsRemainingToMin = data.cellsRemainingToMin;
+                dragger.m_type = data.type;
+
+                if (editorBorderManager != null)
+                {
+                    if (dragger.m_type == EditorBorderDragger.Type.LeftBorder)
+                        editorBorderManager.m_leftBorder = dragger.transform;
+                    else if (dragger.m_type == EditorBorderDragger.Type.RightBorder)
+                        editorBorderManager.m_rightBorder = dragger.transform;
+                    else if (dragger.m_type == EditorBorderDragger.Type.TopBorder)
+                        editorBorderManager.m_topBorder = dragger.transform;
+                    else if (dragger.m_type == EditorBorderDragger.Type.BottomBorder)
+                        editorBorderManager.m_bottomBorder = dragger.transform;
+                }
+            }
+        }
     }
 
     // ─────────────────────────────────────────────
@@ -395,8 +450,7 @@ public class LoadLevelInEditor : MonoBehaviour
         foreach (Transform child in editorParent)
         {
             if (!child.CompareTag("Player") &&
-                !child.CompareTag("Destiny") &&
-                !child.CompareTag("Void"))
+                !child.CompareTag("Destiny"))
             {
                 toDelete.Add(child.gameObject);
             }
@@ -410,6 +464,13 @@ public class LoadLevelInEditor : MonoBehaviour
     // TRANSFORMS
     // ─────────────────────────────────────────────
     void ApplyTransform(Transform target, LevelObjectData data)
+    {
+        target.position = data.position.ToVector3();
+        target.rotation = data.rotation.ToQuaternion();
+        target.localScale = data.scale.ToVector3();
+    }
+
+    void ApplyVoidTransform(Transform target, LevelVoidData data)
     {
         target.position = data.position.ToVector3();
         target.rotation = data.rotation.ToQuaternion();

@@ -9,6 +9,7 @@ public class LevelData
     public int version = 1;
     public int bridges = 0;
     public List<LevelObjectData> objects = new();
+    public List<LevelVoidData> voids = new();
 }
 
 [Serializable]
@@ -19,6 +20,21 @@ public class LevelObjectData
     public SerializableQuaternion rotation;
     public SerializableVector3 scale;
     public List<LevelObjectData> children = new();
+
+    [NonSerialized] public GameObject editorInstance;
+}
+
+[Serializable]
+public class LevelVoidData
+{
+    public string id;
+    public SerializableVector3 position;
+    public SerializableQuaternion rotation;
+    public SerializableVector3 scale;
+    public int maxCells;
+    public int cellsRemainingToMax;
+    public int cellsRemainingToMin;
+    public EditorBorderDragger.Type type;
 
     [NonSerialized] public GameObject editorInstance;
 }

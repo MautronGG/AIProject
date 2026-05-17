@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -235,6 +235,7 @@ public class EditorManager : MonoBehaviour
     public void InitializeEditorObjects()
     {
         currentLevel.objects.Clear();
+        currentLevel.voids.Clear();
 
         var items = editorRoot.GetComponentsInChildren<EditorItem>(true);
         var borders = editorRoot.GetComponentsInChildren<EditorBorderDragger>(true);
@@ -242,7 +243,7 @@ public class EditorManager : MonoBehaviour
         foreach (var border in borders)
         {
             if(border.data == null)
-                border.data = new LevelObjectData();
+                border.data = new LevelVoidData();
 
             var data = border.data;
 
@@ -251,9 +252,14 @@ public class EditorManager : MonoBehaviour
             data.rotation = SerializableQuaternion.From(border.transform.rotation);
             data.scale = SerializableVector3.From(border.transform.localScale);
 
+            data.maxCells = border.m_maxCells;
+            data.cellsRemainingToMax = border.m_cellsRemainingToMax;
+            data.cellsRemainingToMin = border.m_cellsRemainingToMin;
+            data.type = border.m_type;
+
             data.editorInstance = border.gameObject;
 
-            currentLevel.objects.Add(data);
+            currentLevel.voids.Add(data);
         }
 
         foreach (var item in items)
@@ -330,6 +336,18 @@ public class EditorManager : MonoBehaviour
                 ApplyChildData(paired.m_childA, data.children[0]);
                 ApplyChildData(paired.m_childB, data.children[1]);
             }
+        }
+
+        foreach (var data in currentLevel.voids)
+        {
+            var obj = Instantiate(
+                prefabLookup[data.id].playablePrefab,
+                data.position.ToVector3(),
+                data.rotation.ToQuaternion(),
+                playableRoot
+            );
+            
+            obj.transform.localScale = data.scale.ToVector3();
         }
 
         currentMode = EditorMode.Verify;
