@@ -1,4 +1,4 @@
-﻿//using System.Collections;
+//using System.Collections;
 //using System.Collections.Generic;
 //using System.IO;
 //using UnityEditor;
@@ -199,8 +199,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class RuntimeLevelLoader : MonoBehaviour
+public class LoadLevelInEditor : MonoBehaviour
 {
     public enum LoadTarget
     {
@@ -209,11 +210,11 @@ public class RuntimeLevelLoader : MonoBehaviour
     }
 
     [Header("Scene Names")]
-    [SerializeField] string editorSceneName = "Level_Editor";
+    [SerializeField] string editorSceneName = "Editor_Default";
     [SerializeField] string playableSceneName = "Level_Default";
 
     [Header("JSON")]
-    [SerializeField] string jsonFileNameWithoutExt = "level_saved";
+    [SerializeField] public string jsonFileNameWithoutExt = "";
 
     [Header("Prefabs (ID → Editor + Playable)")]
     [SerializeField] List<ObjectPrefabEntry> prefabEntries;
@@ -224,6 +225,20 @@ public class RuntimeLevelLoader : MonoBehaviour
     Transform levelParent;
 
     LoadTarget pendingTarget;
+
+    [Header("Button Settings")]
+    [SerializeField] LoadTarget defaultButtonTarget = LoadTarget.Editor;
+
+    void Start()
+    {
+        editorSceneName = "Editor_Default";
+
+        Button btn = GetComponent<Button>();
+        if (btn != null)
+        {
+            btn.onClick.AddListener(() => LoadLevel(defaultButtonTarget));
+        }
+    }
 
     // ─────────────────────────────────────────────
     // PUBLIC ENTRY
@@ -248,6 +263,17 @@ public class RuntimeLevelLoader : MonoBehaviour
 
         editorParent = GameObject.FindGameObjectWithTag("EditorParent")?.transform;
         levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager")?.transform;
+
+        GameObject editorManagerObj = GameObject.FindGameObjectWithTag("EditorManager");
+        if (editorManagerObj != null)
+        {
+            EditorManager em = editorManagerObj.GetComponent<EditorManager>();
+            if (em != null && em.objectPrefabs != null)
+            {
+                prefabEntries = em.objectPrefabs;
+                BuildPrefabLookup();
+            }
+        }
 
         LevelData levelData = LoadLevelDataFromJson();
         if (levelData == null)

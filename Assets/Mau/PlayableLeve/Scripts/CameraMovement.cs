@@ -46,12 +46,14 @@ public class CameraMovement : MonoBehaviour
         m_borders = FindFirstObjectByType<EditorBorderManager>();
         m_panSpeed = 0.5f;
         m_speed = m_defaultSpeed;
-        m_defaultPosition = transform.position;
         ChangeMinion();
         if (m_minion)
             desiredPosition = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
+        else
+            desiredPosition = new Vector3(13.1f, 6.13f, -104.5f);
 
         transform.position = desiredPosition;
+        m_defaultPosition = transform.position;
     }
     // Update is called once per frame
     void Update()
@@ -75,7 +77,7 @@ public class CameraMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D) && !m_restrictedRight)
             {
-                transform.position += new Vector3(1f, 0f, 0f) * Time.deltaTime * m_speed ;
+                transform.position += new Vector3(1f, 0f, 0f) * Time.deltaTime * m_speed;
 
             }
             if (Input.GetKey(KeyCode.A) && !m_restrictedLeft)
@@ -87,8 +89,8 @@ public class CameraMovement : MonoBehaviour
             {
                 transform.position += new Vector3(0f, 1f, 0f) * Time.deltaTime * m_speed;
 
-            }   
-            if (Input.GetKey(KeyCode.S) && !m_restrictedBottom)    
+            }
+            if (Input.GetKey(KeyCode.S) && !m_restrictedBottom)
             {
                 transform.position += new Vector3(0f, -1f, 0f) * Time.deltaTime * m_speed;
             }
@@ -151,7 +153,7 @@ public class CameraMovement : MonoBehaviour
                     m_panSpeed = 0.1f;
 
                 }
-            }   
+            }
         }
 
         if (m_autoMove)

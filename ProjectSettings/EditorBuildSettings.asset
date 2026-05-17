@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Mau/Scenes/Final/Level_Editor.unity
     guid: 7fd6ef6118223844587283193cce436b
   - enabled: 1
+    path: Assets/Mau/Scenes/Editor_Default.unity
+    guid: e6cc55adf31440d4182820a4e5f8dd74
+  - enabled: 1
     path: Assets/Mau/Scenes/Final/Level_0_Tutorial.unity
     guid: 9507ab21d7a2b99429938b78d77106cd
   - enabled: 1

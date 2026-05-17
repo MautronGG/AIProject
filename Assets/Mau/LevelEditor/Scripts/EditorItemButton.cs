@@ -34,6 +34,8 @@ public class EditorItemButton : MonoBehaviour
 
         data.editorInstance = editorObj;
 
+        editorObj.GetComponent<EditorSpriteFollow>().m_follow = true;
+
         // --- HANDLE PAIRED OBJECTS HERE ---
         if (editorObj.TryGetComponent(out EditorPairedObject paired))
         {

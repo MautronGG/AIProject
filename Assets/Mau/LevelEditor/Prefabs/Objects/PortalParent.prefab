@@ -50,11 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6368f48453385540acc09b66ae10a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_follow: 1
+  m_follow: 0
   m_isParent: 1
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
-  m_lastValidPosition: {x: 0, y: 0, z: 0}
+  m_lastValidWorldPosition: {x: 0, y: 0, z: 0}
+  m_lastValidLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!61 &8960539202679922699
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,6 +147,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 9
+  data:
+    id: 
+    position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+    children: []
+  m_isNewlyCreated: 1
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 0
@@ -284,7 +302,8 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
-  m_lastValidPosition: {x: 0, y: 0, z: 0}
+  m_lastValidWorldPosition: {x: 0, y: 0, z: 0}
+  m_lastValidLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8709430215308843667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +317,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 9.1
+  data:
+    id: 
+    position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+    children: []
+  m_isNewlyCreated: 1
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
@@ -422,7 +458,8 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
-  m_lastValidPosition: {x: 0, y: 0, z: 0}
+  m_lastValidWorldPosition: {x: 0, y: 0, z: 0}
+  m_lastValidLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4444278695222616070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +473,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 9.2
+  data:
+    id: 
+    position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+    children: []
+  m_isNewlyCreated: 1
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1

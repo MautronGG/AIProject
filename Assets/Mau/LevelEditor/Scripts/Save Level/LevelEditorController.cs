@@ -38,7 +38,6 @@ public class LevelEditorController : MonoBehaviour
         {
             CloseSaveInput();
         }
-
         //if (Input.GetKeyDown(KeyCode.L))
         //{
         //    SaveCurrentLevel("Kappa");
@@ -55,7 +54,7 @@ public class LevelEditorController : MonoBehaviour
 
     public void OpenSaveInput()
     {
-        Camera.main.GetComponent<CameraMovement>().m_canMove = false;
+        //Camera.main.GetComponent<CameraMovement>().m_canMove = false;
         m_editorManager.currentMode = EditorMode.Publishing;
 
         isWaitingForName = true;

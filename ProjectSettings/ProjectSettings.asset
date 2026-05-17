@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: OCTO
+  companyName: RGB Team
   productName: RGB Puzzle
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 1.32, y: 0.45}
@@ -273,7 +273,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: c615b62075c4d8c4bae72f18ae906f2d, type: 3}
+      m_Icon: {fileID: 2800000, guid: abe32f55fbb6884449cbc3a92e5d6298, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

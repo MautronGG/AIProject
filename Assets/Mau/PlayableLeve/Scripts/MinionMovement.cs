@@ -111,23 +111,34 @@ public class MinionMovement : MonoBehaviour
 
     public void Move()
     {
-        //Vector3 targetMovement = Vector3.zero;
-        //if (m_canMove)
-        //{
-        //    targetMovement = m_moveVector;
-        //}
-        //transform.position = transform.position + targetMovement.normalized * (m_speed * Time.deltaTime) + (new Vector3(0f, m_verticalVelocity) * Time.deltaTime);
         if (m_canMove)
         {
-            m_moveVector = AdvanceDirection;
+            m_moveVector = AdvanceDirection.normalized;
         }
         else
         {
             m_moveVector = Vector3.zero;
-            //m_verticalVelocity = 0f;
         }
-        transform.Translate((m_moveVector * m_speed * Time.deltaTime) + new Vector3(0f, m_verticalVelocity) * Time.deltaTime);
 
+        Vector2 velocity = m_rigidBody.velocity;
+
+        if (m_isGrounded && m_canMove)
+        {
+            // Move along the slope direction with constant speed
+            velocity.x = m_moveVector.x * m_speed;
+            velocity.y = m_moveVector.y * m_speed;
+        }
+        else
+        {
+            // Horizontal
+            float dirX = m_moveVector.x > 0 ? 1f : (m_moveVector.x < 0 ? -1f : 0f);
+            velocity.x = dirX * m_speed;
+            
+            // Vertical
+            velocity.y = m_verticalVelocity;
+        }
+
+        m_rigidBody.velocity = velocity;
     }
     //private void GroundedCheck()
     //{
@@ -386,6 +397,32 @@ public class MinionMovement : MonoBehaviour
             if (list.Count <= 0)
             {
                 m_isGrounded = false;
+            }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (m_isGrounded && list.Contains(collision.gameObject))
+        {
+            ContactPoint2D[] contactPoints = new ContactPoint2D[collision.contactCount];
+            collision.GetContacts(contactPoints);
+
+            foreach (ContactPoint2D contact in contactPoints)
+            {
+                if (contact.normal.y > 0.1f && Vector3.Angle(Vector3.up, contact.normal) <= 66)
+                {
+                    Vector2 forwardDirection = new Vector2(contact.normal.y, -contact.normal.x).normalized;
+                    if (AdvanceDirection.x > 0f)
+                    {
+                        AdvanceDirection = forwardDirection;
+                    }
+                    else if (AdvanceDirection.x < 0f)
+                    {
+                        AdvanceDirection = -forwardDirection;
+                    }
+                    break;
+                }
             }
         }
     }

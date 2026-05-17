@@ -1,11 +1,11 @@
 
 #if UNITY_EDITOR
+using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System.Collections.Generic;
 
 public class LevelSceneCreator : MonoBehaviour
 {
@@ -46,6 +46,32 @@ public class LevelSceneCreator : MonoBehaviour
         if (levelData == null)
             return;
 
+        // ---- GET PREFABS BEFORE SCENE LOAD ----
+        EditorManager tempEditorManager = FindObjectOfType<EditorManager>();
+        Dictionary<string, ObjectPrefabEntry> cachedPrefabLookup = null;
+
+        if (tempEditorManager != null)
+        {
+            if (tempEditorManager.prefabLookup != null)
+            {
+                cachedPrefabLookup = tempEditorManager.prefabLookup;
+            }
+            else if (tempEditorManager.objectPrefabs != null)
+            {
+                cachedPrefabLookup = new Dictionary<string, ObjectPrefabEntry>();
+                foreach (var entry in tempEditorManager.objectPrefabs)
+                {
+                    cachedPrefabLookup[entry.id] = entry;
+                }
+            }
+        }
+
+        if (cachedPrefabLookup == null)
+        {
+            Debug.LogError("Could not find EditorManager or its prefabs in the current scene. Please run this from a scene with an EditorManager.");
+            return;
+        }
+
         // Create output folder if needed
         if (!Directory.Exists(outputFolder))
             Directory.CreateDirectory(outputFolder);
@@ -63,7 +89,7 @@ public class LevelSceneCreator : MonoBehaviour
         EditorSceneManager.SetActiveScene(scene);
 
         // Instantiate level objects
-        BuildLevelFromData(scene, levelData);
+        BuildLevelFromData(scene, levelData, cachedPrefabLookup);
 
         // Save final scene
         EditorSceneManager.SaveScene(scene);
@@ -90,10 +116,9 @@ public class LevelSceneCreator : MonoBehaviour
     // =============================
     // BUILD LEVEL
     // =============================
-    void BuildLevelFromData(Scene scene, LevelData levelData)
+    void BuildLevelFromData(Scene scene, LevelData levelData, Dictionary<string, ObjectPrefabEntry> prefabLookup)
     {
         m_levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager");
-
         var bridgesButton = FindObjectOfType<ButtonScript>();
         if (bridgesButton != null)
         {
@@ -120,7 +145,7 @@ public class LevelSceneCreator : MonoBehaviour
             int prefabIndex = 0;
             if (!int.TryParse(data.id, out prefabIndex) ||
                 prefabIndex < 0 ||
-                prefabIndex >= m_editorManager.prefabLookup.Count)
+                prefabIndex >= prefabLookup.Count)
             {
                 Debug.LogWarning($"Invalid prefab ID: {data.id}");
                 continue;
@@ -128,7 +153,7 @@ public class LevelSceneCreator : MonoBehaviour
 
 
 
-            GameObject prefab = m_editorManager.prefabLookup[prefabIndex.ToString()].playablePrefab;
+            GameObject prefab = prefabLookup[prefabIndex.ToString()].playablePrefab;
             if (prefab == null)
                 continue;
 

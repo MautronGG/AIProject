@@ -23,6 +23,7 @@ TagManager:
   - KeyDoor
   - Carriable
   - Laser
+  - EditorParent
   layers:
   - Default
   - TransparentFX

@@ -33,6 +33,5 @@ public static class SaveLoadManager
             return null;
         var json = File.ReadAllText(path);
         return JsonUtility.FromJson<LevelData>(json);
-
     }
 }
