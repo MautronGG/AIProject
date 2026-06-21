@@ -262,6 +262,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &5749177
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +540,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &26244124
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +683,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &28355555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,6 +1430,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &53978133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,6 +2110,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &141093100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2253,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &146060666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,6 +2396,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &146928295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,6 +2685,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &166270081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2828,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &168611024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,6 +3106,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &183983283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,6 +3665,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1001 &199489614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4135,6 +4179,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &234189232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4409,6 +4457,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &236778445
 GameObject:
   m_ObjectHideFlags: 0
@@ -4683,6 +4735,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &246696130
 GameObject:
   m_ObjectHideFlags: 0
@@ -5091,6 +5147,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &269898726
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,6 +5406,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &297958835
 GameObject:
   m_ObjectHideFlags: 0
@@ -7372,6 +7436,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &390774860
 GameObject:
   m_ObjectHideFlags: 0
@@ -7511,6 +7579,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &400306373
 GameObject:
   m_ObjectHideFlags: 0
@@ -7766,6 +7838,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &405196064
 GameObject:
   m_ObjectHideFlags: 0
@@ -8450,6 +8526,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &452660656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8589,6 +8669,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &458149755
 GameObject:
   m_ObjectHideFlags: 0
@@ -10404,6 +10488,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &627438841
 GameObject:
   m_ObjectHideFlags: 0
@@ -10812,6 +10900,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &643720970
 GameObject:
   m_ObjectHideFlags: 0
@@ -10951,6 +11043,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &644541398
 GameObject:
   m_ObjectHideFlags: 0
@@ -12195,6 +12291,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &714988824
 GameObject:
   m_ObjectHideFlags: 0
@@ -12334,6 +12434,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &717676239
 GameObject:
   m_ObjectHideFlags: 0
@@ -12608,6 +12712,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &724400285
 GameObject:
   m_ObjectHideFlags: 0
@@ -13027,6 +13135,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &778239382
 GameObject:
   m_ObjectHideFlags: 0
@@ -13435,6 +13547,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &804993316
 GameObject:
   m_ObjectHideFlags: 0
@@ -13574,6 +13690,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &811166852
 GameObject:
   m_ObjectHideFlags: 0
@@ -14387,6 +14507,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &943199417
 GameObject:
   m_ObjectHideFlags: 0
@@ -14661,6 +14785,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &973444769
 GameObject:
   m_ObjectHideFlags: 0
@@ -15435,6 +15563,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1015720237
 GameObject:
   m_ObjectHideFlags: 0
@@ -15844,6 +15976,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1033237010
 GameObject:
   m_ObjectHideFlags: 0
@@ -15983,6 +16119,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1039215267
 GameObject:
   m_ObjectHideFlags: 0
@@ -16216,7 +16356,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &1047748168
 GameObject:
@@ -16491,6 +16631,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1050517695
 GameObject:
   m_ObjectHideFlags: 0
@@ -16630,6 +16774,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1050939770
 GameObject:
   m_ObjectHideFlags: 0
@@ -16904,6 +17052,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1058017971
 GameObject:
   m_ObjectHideFlags: 0
@@ -17360,6 +17512,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1090289902
 GameObject:
   m_ObjectHideFlags: 0
@@ -18652,6 +18808,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1156196551
 GameObject:
   m_ObjectHideFlags: 0
@@ -19619,6 +19779,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1219275482
 GameObject:
   m_ObjectHideFlags: 0
@@ -19758,6 +19922,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1220183156
 GameObject:
   m_ObjectHideFlags: 0
@@ -21148,6 +21316,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1298760809
 GameObject:
   m_ObjectHideFlags: 0
@@ -21825,6 +21997,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1340567937
 GameObject:
   m_ObjectHideFlags: 0
@@ -22671,6 +22847,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1362812323
 GameObject:
   m_ObjectHideFlags: 0
@@ -23883,6 +24063,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1433841573
 GameObject:
   m_ObjectHideFlags: 0
@@ -24531,6 +24715,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1452527024
 GameObject:
   m_ObjectHideFlags: 0
@@ -25344,6 +25532,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1545777539
 GameObject:
   m_ObjectHideFlags: 0
@@ -25763,6 +25955,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1558087983
 GameObject:
   m_ObjectHideFlags: 0
@@ -27315,6 +27511,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1627478387
 GameObject:
   m_ObjectHideFlags: 0
@@ -29095,6 +29295,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1723759841
 GameObject:
   m_ObjectHideFlags: 0
@@ -30734,6 +30938,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1818983795
 GameObject:
   m_ObjectHideFlags: 0
@@ -31008,6 +31216,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!114 &1834035290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31220,6 +31432,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1851848604
 GameObject:
   m_ObjectHideFlags: 0
@@ -32178,6 +32394,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1910971926
 GameObject:
   m_ObjectHideFlags: 0
@@ -32597,6 +32817,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1917876569
 GameObject:
   m_ObjectHideFlags: 0
@@ -33410,6 +33634,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1950197376
 GameObject:
   m_ObjectHideFlags: 0
@@ -33830,6 +34058,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1960666775
 GameObject:
   m_ObjectHideFlags: 0
@@ -34238,6 +34470,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &1975850163
 GameObject:
   m_ObjectHideFlags: 0
@@ -35607,6 +35843,10 @@ MonoBehaviour:
   playableSceneName: Level_Default
   jsonFileNameWithoutExt: level_saved
   prefabEntries: []
+  defaultButtonTarget: 0
+  editorManagerObj: {fileID: 0}
+  editorManager: {fileID: 0}
+  editorBorderManager: {fileID: 0}
 --- !u!1 &2105406229
 GameObject:
   m_ObjectHideFlags: 0

@@ -6669,22 +6669,22 @@ MonoBehaviour:
     editorPrefab: {fileID: 5086618579433838507, guid: 412741212852cd94b95dbcc685f959e4, type: 3}
     playablePrefab: {fileID: 2039897171836763631, guid: ccbba60750f2d1945aeb865dfeba4aaf, type: 3}
   - id: 1
-    editorPrefab: {fileID: 450756649770179690, guid: b63fe2320fcdb2e438a551597b48227c, type: 3}
+    editorPrefab: {fileID: 450756649770179690, guid: a950e4819c987424fb45143bed778709, type: 3}
     playablePrefab: {fileID: 4029010001505518036, guid: 24afb52edcb0599418a9c00564d86e98, type: 3}
   - id: 2
     editorPrefab: {fileID: 450756649770179690, guid: b63fe2320fcdb2e438a551597b48227c, type: 3}
     playablePrefab: {fileID: 2914092987719636194, guid: 2eea2fac22c9c4845b26774f34ca8cca, type: 3}
   - id: 3
-    editorPrefab: {fileID: 450756649770179690, guid: b63fe2320fcdb2e438a551597b48227c, type: 3}
+    editorPrefab: {fileID: 450756649770179690, guid: 33facfaa37380c94d97ac53a20823b94, type: 3}
     playablePrefab: {fileID: 8121111071185761011, guid: c5e042bc99fd37548a117f42bebfe4e3, type: 3}
   - id: 4
     editorPrefab: {fileID: 7124120061593444222, guid: 031fc0224a42bda4ea2aa10a8718566d, type: 3}
     playablePrefab: {fileID: 4888047040932387354, guid: 8b98b413c43d695488329a2d9e9170a8, type: 3}
   - id: 5
-    editorPrefab: {fileID: 7124120061593444222, guid: 031fc0224a42bda4ea2aa10a8718566d, type: 3}
+    editorPrefab: {fileID: 7124120061593444222, guid: 72df7f96d6b67c14db999284a810b14d, type: 3}
     playablePrefab: {fileID: 5410207541565942072, guid: cf6721930501f2740a8bcec37aaccd2b, type: 3}
   - id: 6
-    editorPrefab: {fileID: 7124120061593444222, guid: 031fc0224a42bda4ea2aa10a8718566d, type: 3}
+    editorPrefab: {fileID: 7124120061593444222, guid: 735b7ff1d77470640add0972518ce5fc, type: 3}
     playablePrefab: {fileID: 7113782267382199640, guid: 34d2a4b211e83624696a507333ea950c, type: 3}
   - id: 7
     editorPrefab: {fileID: 4188758579199619576, guid: 61f7b999f841d214a9de0465f6510696, type: 3}
@@ -18029,7 +18029,7 @@ MonoBehaviour:
   m_object: {fileID: 0}
   m_isClicked: 0
   m_levelManager: {fileID: 0}
-  m_numBridges: 0
+  m_numBridges: 4
   m_text: {fileID: 48949955}
 --- !u!1 &1525742653
 GameObject:
