@@ -7,10 +7,7 @@ public class EditorBorderDragger : MonoBehaviour
 {
     [Tooltip("Unique ID used to save this object. Must match an entry in PrefabDatabase.")]
     public string id;
-    [HideInInspector] public LevelVoidData data;
-
-    public enum Type { LeftBorder, RightBorder, TopBorder, BottomBorder }
-    public Type m_type;
+    [HideInInspector] public LevelObjectData data;
 
     public enum Axis { Horizontal, Vertical }
     public Axis m_movementAxis;
@@ -37,32 +34,30 @@ public class EditorBorderDragger : MonoBehaviour
 
     private void Start()
     {
+        //m_camera = Camera.main;
         m_gridManager = FindFirstObjectByType<EditorGridManager>();
         m_editorManager = FindFirstObjectByType<EditorManager>();
-
-        m_movementAxis = m_type == Type.TopBorder || m_type == Type.BottomBorder ? Axis.Vertical : Axis.Horizontal;
-        m_movementRestriction = m_type == Type.LeftBorder || m_type == Type.BottomBorder ? Restriction.Negative : Restriction.Positive;
+        m_minPosition = transform.position;
 
         float size = m_gridManager.m_cellSize;
-        Vector3 direction = Vector3.zero;
+        Vector3 offset = Vector3.zero;
 
         if (m_movementAxis == Axis.Vertical)
         {
             if (m_movementRestriction == Restriction.Positive)
-                direction = new Vector3(0f, 1f, 0f);
+                offset = new Vector3(0f, m_maxCells * size, 0f);
             else
-                direction = new Vector3(0f, -1f, 0f);
+                offset = new Vector3(0f, -m_maxCells * size, 0f);
         }
         else // Horizontal
         {
             if (m_movementRestriction == Restriction.Positive)
-                direction = new Vector3(1f, 0f, 0f);
+                offset = new Vector3(m_maxCells * size, 0f, 0f);
             else
-                direction = new Vector3(-1f, 0f, 0f);
+                offset = new Vector3(-m_maxCells * size, 0f, 0f);
         }
 
-        m_minPosition = transform.position - direction * (m_cellsRemainingToMin * size);
-        m_maxPosition = m_minPosition + direction * (m_maxCells * size);
+        m_maxPosition = m_minPosition + offset;
 
         if (m_cellsRemainingToMax == 0 && m_cellsRemainingToMin == 0)
         {
@@ -138,16 +133,17 @@ public class EditorBorderDragger : MonoBehaviour
 
     public void ForceSyncData()
     {
+        //if (data == null) return;
+        //
+        //data.position = SerializableVector3.From(transform.position);
+        //data.rotation = SerializableQuaternion.From(transform.rotation);
+        //data.scale = SerializableVector3.From(transform.localScale);
+
         if (data == null) return;
 
         data.position = SerializableVector3.From(transform.position);
         data.rotation = SerializableQuaternion.From(transform.rotation);
         data.scale = SerializableVector3.From(transform.localScale);
-
-        data.maxCells = m_maxCells;
-        data.cellsRemainingToMax = m_cellsRemainingToMax;
-        data.cellsRemainingToMin = m_cellsRemainingToMin;
-        data.type = m_type;
     }
 
     bool CanInteract()

@@ -4668,11 +4668,7 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-    maxCells: 0
-    cellsRemainingToMax: 0
-    cellsRemainingToMin: 0
-    type: 0
-  m_type: 3
+    children: []
   m_movementAxis: 1
   m_movementRestriction: 1
   m_gridManager: {fileID: 0}
@@ -6923,7 +6919,6 @@ MonoBehaviour:
     version: 1
     bridges: 0
     objects: []
-    voids: []
   currentMode: 0
   m_audioManager: {fileID: 0}
 --- !u!114 &564810060
@@ -12231,11 +12226,7 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-    maxCells: 0
-    cellsRemainingToMax: 0
-    cellsRemainingToMin: 0
-    type: 0
-  m_type: 1
+    children: []
   m_movementAxis: 0
   m_movementRestriction: 0
   m_gridManager: {fileID: 0}
@@ -12376,11 +12367,7 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-    maxCells: 0
-    cellsRemainingToMax: 0
-    cellsRemainingToMin: 0
-    type: 0
-  m_type: 2
+    children: []
   m_movementAxis: 1
   m_movementRestriction: 0
   m_gridManager: {fileID: 0}
@@ -12705,9 +12692,6 @@ MonoBehaviour:
   jsonFileNameWithoutExt: 
   prefabEntries: []
   defaultButtonTarget: 0
-  editorManagerObj: {fileID: 0}
-  editorManager: {fileID: 0}
-  editorBorderManager: {fileID: 0}
 --- !u!4 &1075485628
 Transform:
   m_ObjectHideFlags: 0
@@ -18815,7 +18799,7 @@ MonoBehaviour:
   m_object: {fileID: 0}
   m_isClicked: 0
   m_levelManager: {fileID: 0}
-  m_numBridges: 4
+  m_numBridges: 0
   m_text: {fileID: 48949955}
 --- !u!1 &1525742653
 GameObject:
@@ -29932,12 +29916,8 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6546095369798363722, guid: 412741212852cd94b95dbcc685f959e4, type: 3}
-      propertyPath: m_maxCells
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6546095369798363722, guid: 412741212852cd94b95dbcc685f959e4, type: 3}
       propertyPath: m_cellsRemainingToMax
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6546095369798363722, guid: 412741212852cd94b95dbcc685f959e4, type: 3}
       propertyPath: m_cellsRemainingToMin
