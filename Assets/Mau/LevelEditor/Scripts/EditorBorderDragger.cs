@@ -28,9 +28,6 @@ public class EditorBorderDragger : MonoBehaviour
     private Vector3 m_minPosition; // starting position (min limit)
     private Vector3 m_maxPosition; // computed from restriction
 
-    public int m_cellsRemainingToMax = 0;
-    public int m_cellsRemainingToMin = 0;
-
 
     private void Start()
     {
@@ -59,11 +56,6 @@ public class EditorBorderDragger : MonoBehaviour
 
         m_maxPosition = m_minPosition + offset;
 
-        if (m_cellsRemainingToMax == 0 && m_cellsRemainingToMin == 0)
-        {
-            m_cellsRemainingToMax = m_maxCells;
-            m_cellsRemainingToMin = 0;
-        }
     }
 
     private void OnMouseOver()
@@ -244,9 +236,6 @@ public class EditorBorderDragger : MonoBehaviour
             {
                 transform.position = newPos;
                 m_gridManager.UpdateGrid();
-
-                m_cellsRemainingToMax = Mathf.RoundToInt(Vector3.Distance(transform.position, m_maxPosition) / size);
-                m_cellsRemainingToMin = Mathf.RoundToInt(Vector3.Distance(transform.position, m_minPosition) / size);
             }
 
             // Release on click
