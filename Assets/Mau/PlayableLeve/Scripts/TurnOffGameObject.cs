@@ -39,7 +39,6 @@ public class TurnOffGameObject : MonoBehaviour
             m_currentState = true;
             //Debug.Log(this + "ON" + " , " + m_firstFrame + " , " + m_onEditorState);
         }
-        Debug.Log(this + m_currentState.ToString());
     }
 
     public void ResetState()
