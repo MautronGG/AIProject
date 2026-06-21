@@ -251,10 +251,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2481838365409504741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 768e8a855d29c1b40b404c284ff2e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 10.1
+  id: 
   data:
     id: 
     position:
@@ -418,10 +418,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2481838365840898302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 768e8a855d29c1b40b404c284ff2e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 10.2
+  id: 
   data:
     id: 
     position:
@@ -507,10 +507,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2481838366471613009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 768e8a855d29c1b40b404c284ff2e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 10
+  id: 
   data:
     id: 
     position:
@@ -530,9 +530,9 @@ MonoBehaviour:
   m_isNewlyCreated: 1
   m_editor: {fileID: 0}
   m_personalID: 0
-  m_canOpenOptions: 0
-  m_canDelete: 0
-  m_canClick: 0
+  m_canOpenOptions: 1
+  m_canDelete: 1
+  m_canClick: 1
 --- !u!114 &1001103388548292003
 MonoBehaviour:
   m_ObjectHideFlags: 0
