@@ -268,6 +268,11 @@ public class LoadLevelInEditor : MonoBehaviour
 
         editorParent = GameObject.FindGameObjectWithTag("EditorParent")?.transform;
         levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager")?.transform;
+        var sceneCreator = GameObject.FindGameObjectWithTag("SceneCreator")?.GetComponent<LevelSceneCreator>();
+        if (sceneCreator != null)
+        {
+            sceneCreator.jsonFileNameWithoutExt = jsonFileNameWithoutExt;
+        }
 
         editorManagerObj = GameObject.FindGameObjectWithTag("EditorManager");
         if (editorManagerObj != null)
@@ -289,6 +294,11 @@ public class LoadLevelInEditor : MonoBehaviour
         {
             CleanupEditorScene();
             BuildEditorLevel(levelData);
+
+            if (editorManager != null)
+            {
+                editorManager.loadedLevelName = jsonFileNameWithoutExt;
+            }
         }
         else
         {

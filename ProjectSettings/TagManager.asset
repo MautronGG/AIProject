@@ -24,6 +24,7 @@ TagManager:
   - Carriable
   - Laser
   - EditorParent
+  - SceneCreator
   layers:
   - Default
   - TransparentFX

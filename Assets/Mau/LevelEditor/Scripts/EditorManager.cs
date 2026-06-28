@@ -1,12 +1,12 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.Analytics;
-using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum EditorMode
 {
@@ -170,6 +170,7 @@ public class EditorManager : MonoBehaviour
     public List<ObjectPrefabEntry> objectPrefabs;
 
     public LevelData currentLevel = new();
+    public string loadedLevelName = "";
 
     public Dictionary<string, ObjectPrefabEntry> prefabLookup;
 
@@ -242,7 +243,7 @@ public class EditorManager : MonoBehaviour
 
         foreach (var border in borders)
         {
-            if(border.data == null)
+            if (border.data == null)
                 border.data = new LevelVoidData();
 
             var data = border.data;
@@ -264,6 +265,9 @@ public class EditorManager : MonoBehaviour
 
         foreach (var item in items)
         {
+            if (item.transform.parent != editorRoot)
+                continue;
+
             if (item.data == null)
                 item.data = new LevelObjectData();
 
@@ -300,11 +304,7 @@ public class EditorManager : MonoBehaviour
     // ---------------- VERIFICATION ----------------
     public void StartVerification()
     {
-        foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>())
-            item.ForceSyncData();
-
-        foreach (var border in editorRoot.GetComponentsInChildren<EditorBorderDragger>())
-            border.ForceSyncData();
+        SyncObjectsData();
 
         //DebugDumpLevelData();
 
@@ -320,7 +320,7 @@ public class EditorManager : MonoBehaviour
                 data.rotation.ToQuaternion(),
                 playableRoot
             );
-            
+
             obj.transform.localScale = data.scale.ToVector3();
 
             if (obj.TryGetComponent(out MinionMovement minion))
@@ -346,7 +346,7 @@ public class EditorManager : MonoBehaviour
                 data.rotation.ToQuaternion(),
                 playableRoot
             );
-            
+
             obj.transform.localScale = data.scale.ToVector3();
         }
 
@@ -442,6 +442,15 @@ public class EditorManager : MonoBehaviour
             Debug.Log($"[{i}] {ActionToString(action)}");
             i++;
         }
+    }
+
+    public void SyncObjectsData()
+    {
+        foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>(true))
+            item.ForceSyncData();
+
+        foreach (var border in editorRoot.GetComponentsInChildren<EditorBorderDragger>(true))
+            border.ForceSyncData();
     }
 
 }

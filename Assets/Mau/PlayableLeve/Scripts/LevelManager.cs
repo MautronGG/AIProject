@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.Analytics;
-using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -40,8 +40,9 @@ public class LevelManager : MonoBehaviour
     public Button m_autoMove_enabled;
     public Button m_autoMove_disabled;
     public TextMeshProUGUI m_points;
-
     public GameObject m_currentStateCanvas;
+    public GameObject m_globalCanvas;
+    public GameObject m_pauseButton;
 
     [Header("Lists")]
     [SerializeField] public Object_Parent[] m_objects;
@@ -235,7 +236,12 @@ public class LevelManager : MonoBehaviour
             {
                 _object.ResetDeafualts();
             }
-        }); 
+            if (m_onEditorState)
+            {
+                m_pauseButton.SetActive(true);
+                m_globalCanvas.SetActive(true);
+            }
+        });
         //m_cancelEditButton.onClick.AddListener(() =>
         //{
         //    m_currentStateCanvas.SetActive(true);
@@ -326,7 +332,7 @@ public class LevelManager : MonoBehaviour
                 m_doorsLocked = true;
                 break;
             }
-        }   
+        }
         if (m_doorsLocked == false)
         {
             foreach (Object_Bridge obj in m_bridges)
@@ -394,11 +400,11 @@ public class LevelManager : MonoBehaviour
                         break;
                     default:
                         newColor = Color.white;
-                        break;  
+                        break;
                 }
             }
             //m_sprayAnim.GetComponent<SpriteRenderer>().color = newColor;
-            SpriteRenderer [] child = m_sprayAnim.GetComponentsInChildren<SpriteRenderer>();
+            SpriteRenderer[] child = m_sprayAnim.GetComponentsInChildren<SpriteRenderer>();
             foreach (SpriteRenderer sprite in child)
             {
                 sprite.color = newColor;

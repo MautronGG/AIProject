@@ -13,11 +13,20 @@ EditorBuildSettings:
     guid: 7fd6ef6118223844587283193cce436b
   - enabled: 1
     path: Assets/Mau/Scenes/Final/Editor_Default.unity
-    guid: dd73cb4a395806c4cbfd5b88ce843077
+    guid: e36b4c486c416694fad8ce3c61966fb7
+  - enabled: 1
+    path: Assets/Mau/Scenes/Final/Level_Default.unity
+    guid: 1453430249ec913448b595bf4d30031b
   - enabled: 1
     path: Assets/Mau/Scenes/Final/Level_0_Tutorial.unity
     guid: 9507ab21d7a2b99429938b78d77106cd
   - enabled: 1
     path: Assets/Mau/Scenes/Final/Level_1_Portals.unity
     guid: 375a182952ee8ab4d9174ac8e87f1632
+  - enabled: 1
+    path: Assets/Mau/Scenes/Final/Level_2_Springs.unity
+    guid: eb47eead5aff44c40a432eab3651777a
+  - enabled: 1
+    path: Assets/Mau/Scenes/Final/Level_3_Keys.unity
+    guid: 0255760ce74e8fc4290f2c269902d6cf
   m_configObjects: {}
