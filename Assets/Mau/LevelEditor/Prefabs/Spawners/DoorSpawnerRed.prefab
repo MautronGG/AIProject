@@ -118,6 +118,8 @@ MonoBehaviour:
   m_isParent: 0
   m_gridManager: {fileID: 0}
   m_lastMouseWorld: {x: 0, y: 0, z: 0}
+  m_lastValidWorldPosition: {x: 0, y: 0, z: 0}
+  m_lastValidLocalPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &762542700113805632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,16 +129,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 7124120061593444222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715054ab5086d7e49adb335f935d4ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 768e8a855d29c1b40b404c284ff2e0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 4
+  data:
+    id: 
+    position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+    children: []
+  m_isNewlyCreated: 1
   m_editor: {fileID: 0}
   m_personalID: 0
   m_canOpenOptions: 1
-  m_canDelete: 0
-  m_defaultPosition: {x: 0, y: 0, z: 0}
-  m_defaultRotation: {x: 0, y: 0, z: 0, w: 0}
-  m_defaultScale: {x: 0, y: 0, z: 0}
+  m_canDelete: 1
   m_canClick: 1
 --- !u!61 &2354628504414288487
 BoxCollider2D:

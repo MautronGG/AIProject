@@ -72,6 +72,9 @@ public class Object_Bridge : Object_Parent
         m_levelManager.m_audioManager.PlaySFX(m_levelManager.m_audioManager.m_sfx_RemoveBridge);
         m_levelManager.m_fixColorManager.getSprite(7, m_object, actualColor);
         actualColor = m_levelManager.m_fixColorManager.getLastColor(m_object);
+        m_levelManager.m_bridgeButton.GetComponent<ButtonScript>().ChangeQuantity(true);
+        m_levelManager.m_bridges.Remove(this);
+        m_levelManager.CheckColors();
         Destroy(gameObject);
     }
     public void PickUp()
