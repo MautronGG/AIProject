@@ -1,16 +1,12 @@
-<<<<<<< HEAD
 ﻿using UnityEngine;
-=======
->>>>>>> MauGG
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public enum EditorMode
 {
@@ -150,7 +146,6 @@ public class EditorManager : MonoBehaviour
     public List<ObjectPrefabEntry> objectPrefabs;
 
     public LevelData currentLevel = new();
-    public string loadedLevelName = "";
 
     public Dictionary<string, ObjectPrefabEntry> prefabLookup;
 
@@ -222,13 +217,8 @@ public class EditorManager : MonoBehaviour
 
         foreach (var border in borders)
         {
-<<<<<<< HEAD
             if(border.data == null)
                 border.data = new LevelObjectData();
-=======
-            if (border.data == null)
-                border.data = new LevelVoidData();
->>>>>>> MauGG
 
             var data = border.data;
 
@@ -244,9 +234,6 @@ public class EditorManager : MonoBehaviour
 
         foreach (var item in items)
         {
-            if (item.transform.parent != editorRoot)
-                continue;
-
             if (item.data == null)
                 item.data = new LevelObjectData();
 
@@ -283,7 +270,11 @@ public class EditorManager : MonoBehaviour
     // ---------------- VERIFICATION ----------------
     public void StartVerification()
     {
-        SyncObjectsData();
+        foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>())
+            item.ForceSyncData();
+
+        foreach (var border in editorRoot.GetComponentsInChildren<EditorBorderDragger>())
+            border.ForceSyncData();
 
         //DebugDumpLevelData();
 
@@ -299,7 +290,7 @@ public class EditorManager : MonoBehaviour
                 data.rotation.ToQuaternion(),
                 playableRoot
             );
-
+            
             obj.transform.localScale = data.scale.ToVector3();
 
             if (obj.TryGetComponent(out MinionMovement minion))
@@ -317,21 +308,6 @@ public class EditorManager : MonoBehaviour
             }
         }
 
-<<<<<<< HEAD
-=======
-        foreach (var data in currentLevel.voids)
-        {
-            var obj = Instantiate(
-                prefabLookup[data.id].playablePrefab,
-                data.position.ToVector3(),
-                data.rotation.ToQuaternion(),
-                playableRoot
-            );
-
-            obj.transform.localScale = data.scale.ToVector3();
-        }
-
->>>>>>> MauGG
         currentMode = EditorMode.Verify;
 
         editorRoot.gameObject.SetActive(false);
@@ -424,15 +400,6 @@ public class EditorManager : MonoBehaviour
             Debug.Log($"[{i}] {ActionToString(action)}");
             i++;
         }
-    }
-
-    public void SyncObjectsData()
-    {
-        foreach (var item in editorRoot.GetComponentsInChildren<EditorItem>(true))
-            item.ForceSyncData();
-
-        foreach (var border in editorRoot.GetComponentsInChildren<EditorBorderDragger>(true))
-            border.ForceSyncData();
     }
 
 }
