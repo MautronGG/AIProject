@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EditorItem : MonoBehaviour
 {
@@ -18,7 +18,6 @@ public class EditorItem : MonoBehaviour
     public bool m_canClick = true;
 
     EditorSpriteFollow m_spriteFollow;
-
 
     private void Awake()
     {
@@ -81,8 +80,7 @@ public class EditorItem : MonoBehaviour
         m_spriteFollow.m_follow = true;
         m_editor.m_isEditing = true;
         m_canClick = false;
-        m_spriteFollow.m_lastValidWorldPosition = transform.position;
-        m_spriteFollow.m_lastValidLocalPosition = transform.localPosition;
+        m_spriteFollow.m_lastValidPosition = transform.position;
     }
 
     public void PlaceDown()
@@ -91,52 +89,20 @@ public class EditorItem : MonoBehaviour
         m_editor.m_isEditing = false;
         m_editor.m_HUDCanvas.SetActive(true);
 
+        Vector3 oldPos = m_spriteFollow.m_lastValidPosition;
+        Vector3 newPos = transform.position;
 
-        if (!m_isNewlyCreated)
+        if (oldPos != newPos && !m_isNewlyCreated)
         {
-
-            if (transform.parent.TryGetComponent(out EditorPairedObject parent))
-            {
-                int childIndex = parent.m_childA == gameObject ? 0 : 1;
-
-                var parentItem = parent.GetComponent<EditorItem>();
-                var childData = parentItem.data.children[childIndex];
-
-                Vector3 oldLocalPos = m_spriteFollow.m_lastValidLocalPosition;
-                Vector3 newLocalPos = transform.localPosition;
-
-                if (oldLocalPos != newLocalPos)
-                {
-                    m_editor.DoAction(
-                    new MoveAction(
-                        childData,
-                        transform,
-                        oldLocalPos,
-                        newLocalPos,
-                        true
-                    )
-                );
-                    return;
-                }
-            }
-
-            Vector3 oldPos = m_spriteFollow.m_lastValidWorldPosition;
-            Vector3 newPos = transform.position;
-
-            if (oldPos != newPos)
-            {
-                m_editor.DoAction(
-                    new MoveAction(
-                        data,
-                        transform,
-                        oldPos,
-                        newPos,
-                        false
-                    )
-                );
-            }
+            m_editor.DoAction(
+                new MoveAction(
+                    data,
+                    
+                    oldPos,
+                    newPos
+                )
+            );
         }
-
 
         if (m_isNewlyCreated)
         {

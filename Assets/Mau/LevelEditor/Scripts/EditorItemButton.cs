@@ -44,16 +44,14 @@ public class EditorItemButton : MonoBehaviour
                     id = objectId,
                     position = SerializableVector3.From(paired.m_childA.transform.localPosition),
                     rotation = SerializableQuaternion.From(paired.m_childA.transform.localRotation),
-                    scale = SerializableVector3.From(paired.m_childA.transform.localScale),
-                    editorInstance = paired.m_childA
+                    scale = SerializableVector3.From(paired.m_childA.transform.localScale)
                 },
                 new LevelObjectData
                 {
                     id = objectId,
                     position = SerializableVector3.From(paired.m_childB.transform.localPosition),
                     rotation = SerializableQuaternion.From(paired.m_childB.transform.localRotation),
-                    scale = SerializableVector3.From(paired.m_childB.transform.localScale),
-                    editorInstance = paired.m_childB
+                    scale = SerializableVector3.From(paired.m_childB.transform.localScale)
                 }
             };
         }
