@@ -248,11 +248,6 @@ public class RuntimeLevelLoader : MonoBehaviour
 
         editorParent = GameObject.FindGameObjectWithTag("EditorParent")?.transform;
         levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager")?.transform;
-        var sceneCreator = GameObject.FindGameObjectWithTag("SceneCreator")?.GetComponent<LevelSceneCreator>();
-        if (sceneCreator != null)
-        {
-            sceneCreator.jsonFileNameWithoutExt = jsonFileNameWithoutExt;
-        }
 
         LevelData levelData = LoadLevelDataFromJson();
         if (levelData == null)
@@ -262,11 +257,6 @@ public class RuntimeLevelLoader : MonoBehaviour
         {
             CleanupEditorScene();
             BuildEditorLevel(levelData);
-
-            if (editorManager != null)
-            {
-                editorManager.loadedLevelName = jsonFileNameWithoutExt;
-            }
         }
         else
         {
@@ -280,7 +270,7 @@ public class RuntimeLevelLoader : MonoBehaviour
     LevelData LoadLevelDataFromJson()
     {
         string path = Path.Combine(
-            SaveLoadManager.DefaultSavePath,
+            Application.persistentDataPath,
             jsonFileNameWithoutExt + ".json"
         );
 

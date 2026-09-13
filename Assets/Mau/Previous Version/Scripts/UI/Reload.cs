@@ -21,15 +21,6 @@ public class Reload : MonoBehaviour
         if (_manager)
             _manager.m_restartEvents.Invoke();
     }
-    public void NextLevel()
-    {
-        var nextlevel = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextlevel > SceneManager.sceneCount)
-        {
-            nextlevel = 0;
-        }
-        SceneManager.LoadScene(nextlevel);
-    }
     public void ReloadLevel()
     {
         var thisscene = SceneManager.GetActiveScene();

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public static class SaveLoadManager
 {
-    public static string DefaultSavePath => Path.Combine(Application.persistentDataPath, "Levels");
+    public static string DefaultSavePath => Application.persistentDataPath;
 
-    public static void SaveLevel(LevelData level, string filenameWithoutExt, bool overwrite = false)
+    public static void SaveLevel(LevelData level, string filenameWithoutExt)
     {
         string basePath = DefaultSavePath;
 
@@ -14,14 +14,11 @@ public static class SaveLoadManager
 
         var path = Path.Combine(DefaultSavePath, filenameWithoutExt + ".json");
 
-        if (!overwrite)
+        int index = 1;
+        while (File.Exists(path))
         {
-            int index = 1;
-            while (File.Exists(path))
-            {
-                path = Path.Combine(DefaultSavePath, $"{filenameWithoutExt}({index}).json");
-                index++;
-            }
+            path = Path.Combine(DefaultSavePath, $"{filenameWithoutExt}({index}).json");
+            index++;
         }
 
         var json = JsonUtility.ToJson(level, true);
@@ -37,40 +34,5 @@ public static class SaveLoadManager
         var json = File.ReadAllText(path);
         return JsonUtility.FromJson<LevelData>(json);
 
-    }
-
-    public static string StripPrefix(string filename)
-    {
-        if (string.IsNullOrEmpty(filename)) return filename;
-        int underscoreIndex = filename.IndexOf('_');
-        if (underscoreIndex >= 0)
-        {
-            if (int.TryParse(filename.Substring(0, underscoreIndex), out _))
-            {
-                return filename.Substring(underscoreIndex + 1);
-            }
-        }
-        return filename;
-    }
-
-    public static int GetPrefixNumber(string filename)
-    {
-        if (string.IsNullOrEmpty(filename)) return int.MaxValue;
-        int underscoreIndex = filename.IndexOf('_');
-        if (underscoreIndex >= 0)
-        {
-            if (int.TryParse(filename.Substring(0, underscoreIndex), out int num))
-                return num;
-        }
-        return int.MaxValue; // If no number, put it at the end
-    }
-
-    public static int GetNextLevelNumber()
-    {
-        string saveDirectory = DefaultSavePath;
-        if (!Directory.Exists(saveDirectory)) return 1;
-
-        string[] files = Directory.GetFiles(saveDirectory, "*.json");
-        return files.Length + 1;
     }
 }
