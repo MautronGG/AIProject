@@ -101,7 +101,7 @@ public class LevelSceneCreator : MonoBehaviour
     // =============================
     LevelData LoadLevelDataFromJson()
     {
-        string path = Path.Combine(Application.persistentDataPath, jsonFileNameWithoutExt + ".json");
+        string path = Path.Combine(SaveLoadManager.DefaultSavePath, jsonFileNameWithoutExt + ".json");
 
         if (!File.Exists(path))
         {

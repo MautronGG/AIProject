@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mau/Scenes/Final/Level_3_Keys.unity
     guid: 0255760ce74e8fc4290f2c269902d6cf
+  - enabled: 1
+    path: Assets/Mau/Scenes/Final/Level_4_Monster.unity
+    guid: ac505eac4fa37914cb23628fe9bbe118
   m_configObjects: {}

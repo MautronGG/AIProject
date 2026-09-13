@@ -68,7 +68,7 @@ public class SavedEditorLevels : MonoBehaviour
         savedLevelPaths.Clear();
 
         // 1. Get the path where levels are saved
-        string saveDirectory = Application.persistentDataPath;
+        string saveDirectory = SaveLoadManager.DefaultSavePath;
 
         // 2. Find all json files in that directory and add them to the list
         if (Directory.Exists(saveDirectory))
@@ -76,6 +76,15 @@ public class SavedEditorLevels : MonoBehaviour
             string[] files = Directory.GetFiles(saveDirectory, "*.json");
             savedLevelPaths.AddRange(files);
         }
+
+        // Sort by the numerical prefix (creation order)
+        savedLevelPaths.Sort((a, b) => {
+            string nameA = Path.GetFileNameWithoutExtension(a);
+            string nameB = Path.GetFileNameWithoutExtension(b);
+            int numA = SaveLoadManager.GetPrefixNumber(nameA);
+            int numB = SaveLoadManager.GetPrefixNumber(nameB);
+            return numA.CompareTo(numB);
+        });
 
         int totalLevels = savedLevelPaths.Count;
 
@@ -159,17 +168,19 @@ public class SavedEditorLevels : MonoBehaviour
                     TextMeshProUGUI tmpText = btnObj.GetComponentInChildren<TextMeshProUGUI>();
                     if (tmpText != null)
                     {
-                        tmpText.text = levelName;
+                        tmpText.text = SaveLoadManager.StripPrefix(levelName);
                     }
                     else
                     {
                         Text legacyText = btnObj.GetComponentInChildren<Text>();
                         if (legacyText != null)
                         {
-                            legacyText.text = levelName;
+                            legacyText.text = SaveLoadManager.StripPrefix(levelName);
                         }
                     }
-                    btnObj.GetComponent<LoadLevelInEditor>().jsonFileNameWithoutExt = levelName;
+                    
+                    // Assign the real filename (without extension) for loading
+                    btnObj.GetComponent<LoadLevelInEditor>().jsonFileNameWithoutExt = Path.GetFileNameWithoutExtension(savedLevelPaths[currentLevelIndex]);
                     currentLevelIndex++;
                 }
                 else

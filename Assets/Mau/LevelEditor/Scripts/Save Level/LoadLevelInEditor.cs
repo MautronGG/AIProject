@@ -312,7 +312,7 @@ public class LoadLevelInEditor : MonoBehaviour
     LevelData LoadLevelDataFromJson()
     {
         string path = Path.Combine(
-            Application.persistentDataPath,
+            SaveLoadManager.DefaultSavePath,
             jsonFileNameWithoutExt + ".json"
         );
 
