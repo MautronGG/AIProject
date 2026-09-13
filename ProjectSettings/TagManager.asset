@@ -23,6 +23,11 @@ TagManager:
   - KeyDoor
   - Carriable
   - Laser
+<<<<<<< HEAD
+=======
+  - EditorParent
+  - SceneCreator
+>>>>>>> MauGG
   layers:
   - Default
   - TransparentFX
