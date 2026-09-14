@@ -25,6 +25,7 @@ public enum ColorEnum
     Black,
     Null
 }
+[System.Serializable]
 public class spriteObjects
 {
 

@@ -10666,7 +10666,6 @@ GameObject:
   m_Component:
   - component: {fileID: 808003243}
   - component: {fileID: 808003242}
-  - component: {fileID: 808003241}
   m_Layer: 0
   m_Name: CreateScene
   m_TagString: SceneCreator
@@ -10674,20 +10673,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &808003241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 808003240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eba7f7b116849b40b28bf73c0dea213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultScenePath: Assets/Mau/Scenes/Final/Level_Default.unity
-  jsonFileNameWithoutExt: Level_2_Springs_F
 --- !u!114 &808003242
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -121,11 +121,13 @@ public class LevelEditorController : MonoBehaviour
             loader.jsonFileNameWithoutExt = finalFilename;
         }
 
+        #if UNITY_EDITOR
         var sceneCreator = FindFirstObjectByType<LevelSceneCreator>();
         if (sceneCreator != null)
         {
             sceneCreator.jsonFileNameWithoutExt = finalFilename;
         }
+        #endif
 
         CloseSaveInput();
     }

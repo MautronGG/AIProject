@@ -268,11 +268,14 @@ public class LoadLevelInEditor : MonoBehaviour
 
         editorParent = GameObject.FindGameObjectWithTag("EditorParent")?.transform;
         levelParent = GameObject.FindGameObjectWithTag("LevelEditorManager")?.transform;
+        
+        #if UNITY_EDITOR
         var sceneCreator = GameObject.FindGameObjectWithTag("SceneCreator")?.GetComponent<LevelSceneCreator>();
         if (sceneCreator != null)
         {
             sceneCreator.jsonFileNameWithoutExt = jsonFileNameWithoutExt;
         }
+        #endif
 
         editorManagerObj = GameObject.FindGameObjectWithTag("EditorManager");
         if (editorManagerObj != null)
