@@ -52,6 +52,12 @@ public class MinionMovement : MonoBehaviour
     Vector3 m_normal;
     [SerializeField] float m_stepHeight;
     [SerializeField] float m_maxStepHeight = .7f; // Maximum height difference the character can step
+    private void Awake()
+    {
+        if (!m_defaultPositionedInitialized)
+            m_defaultPosition = transform.position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,9 +65,6 @@ public class MinionMovement : MonoBehaviour
         m_collider = GetComponent<CircleCollider2D>();
         m_fallTimeoutDelta = m_fallTimeout;
         m_levelManager = FindObjectOfType<LevelManager>();
-
-        if (!m_defaultPositionedInitialized)
-            m_defaultPosition = transform.position;
     }
 
     // Update is called once per frame

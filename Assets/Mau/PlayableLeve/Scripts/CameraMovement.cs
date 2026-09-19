@@ -48,7 +48,13 @@ public class CameraMovement : MonoBehaviour
         m_speed = m_defaultSpeed;
         ChangeMinion();
         if (m_minion)
-            desiredPosition = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
+        {
+            MinionMovement minionMovement = m_minion.GetComponent<MinionMovement>();
+            if (minionMovement != null)
+                desiredPosition = new Vector3(minionMovement.m_defaultPosition.x + 3, minionMovement.m_defaultPosition.y + 3.240495f, -104.5f);
+            else
+                desiredPosition = new Vector3(m_minion.transform.position.x + 3, m_minion.transform.position.y + 3.240495f, -104.5f);
+        }
         else
             desiredPosition = new Vector3(13.1f, 6.13f, -104.5f);
 
