@@ -23,8 +23,11 @@ public class Reload : MonoBehaviour
     }
     public void NextLevel()
     {
+        Debug.Log("Scene Count: " + SceneManager.sceneCountInBuildSettings);
+        Debug.Log("Scene Index: " + SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Scene Name: " + SceneManager.GetActiveScene().name);
         var nextlevel = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextlevel > SceneManager.sceneCount)
+        if (nextlevel > SceneManager.sceneCountInBuildSettings)
         {
             nextlevel = 0;
         }
