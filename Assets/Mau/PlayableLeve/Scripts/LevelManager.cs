@@ -312,8 +312,8 @@ public class LevelManager : MonoBehaviour
         m_reachedGoals = 0;
         m_playerEnded = 0;
         m_canPlay = false;
-        if (m_onEditorState)
-            m_fixColorManager.ResetColors();
+        //if (m_onEditorState)
+          //  m_fixColorManager.ResetColors();
 
     }
 

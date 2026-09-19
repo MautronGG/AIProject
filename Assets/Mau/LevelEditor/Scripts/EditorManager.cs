@@ -389,6 +389,7 @@ public class EditorManager : MonoBehaviour
             canvas.ResetState();
         }
         m_levelManager.ResetDefaults();
+        m_levelManager.m_fixColorManager.ResetColors();
     }
 
     void ApplyChildData(GameObject child, LevelObjectData d)
